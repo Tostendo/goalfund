@@ -14,7 +14,7 @@ export default function Home() {
 
 
         <p className="description">
-          Coming soon...
+          Coming soon in 2021...
         </p>
       </main>
 
