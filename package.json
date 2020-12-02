@@ -1,5 +1,5 @@
 {
-  "name": "learn-starter",
+  "name": "goalfund",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,12 @@
   "dependencies": {
     "next": "^10.0.0",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "sass": "^1.29.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.10",
+    "@types/react": "^17.0.0",
+    "typescript": "^4.1.2"
   }
 }
