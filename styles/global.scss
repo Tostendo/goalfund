@@ -1,3 +1,5 @@
+@import "./vars.scss";
+
 html,
 body {
     padding: 0;
@@ -11,21 +13,28 @@ body {
 
 main {
     padding: 5rem 0;
-    flex: 1;
     display: flex;
+    min-height: calc(100vh - #{$navbar-height} - #{$footer-height});
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    img {
+        width: 100%;
+
+        @media (min-width: 544px) {
+            width: 50%;
+        }
+    }
 }
 
-footer {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.description {
+    text-align: center;
+    line-height: 1.5;
+    color: $primary-color;
+    font-size: 1.5rem;
 }
 
-footer img {
-    margin-left: 0.5rem;
+.logo {
+    height: 1em;
 }

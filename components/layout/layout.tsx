@@ -1,6 +1,16 @@
-import styles from './layout.module.scss'
+import styles from "./layout.module.scss";
 
+import React from "react";
 
-export default function Layout({ children }) {
-  return <div className={styles.container}>{children}</div>
-}
+import Navbar from "../navbar/navbar";
+import Footer from "../footer/footer";
+
+const Layout = ({ children }) => (
+  <div className={styles.container}>
+    <Navbar />
+    {children}
+    <Footer />
+  </div>
+);
+
+export default Layout;
