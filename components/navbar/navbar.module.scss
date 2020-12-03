@@ -44,10 +44,12 @@
             a {
                 cursor: pointer;
                 color: $primary-color;
+                opacity: 0.5;
+                font-weight: 600;
                 text-decoration: none !important;
 
                 &:hover {
-                    font-weight: 600;
+                    opacity: 1;
                 }
             }
         }
