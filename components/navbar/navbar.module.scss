@@ -1,29 +1,12 @@
 @import "../../styles/vars.scss";
 
 .navContent {
-    margin: 10px auto;
+    margin: 15px 0;
     padding-left: 15px;
     padding-right: 15px;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
-    @media (min-width: 544px) {
-        max-width: 576px;
-    }
-
-    @media (min-width: 768px) {
-        max-width: 720px;
-    }
-
-    @media (min-width: 992px) {
-        max-width: 940px;
-    }
-
-    @media (min-width: 1200px) {
-        max-width: 1140px;
-    }
 
     img {
         height: 1em;
@@ -46,7 +29,6 @@
                 cursor: pointer;
                 color: $primary-color;
                 opacity: 0.5;
-                font-weight: 600;
                 text-decoration: none !important;
 
                 &:hover {

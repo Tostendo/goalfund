@@ -1,6 +1,29 @@
+@import "../../styles/vars.scss";
+
 .container {
+    position: relative;
     margin: 0 auto;
     max-width: 1200px;
-    min-height: 100vh;
-    padding: 0 0.5rem;
+    min-height: calc(100vh - #{$footer-height});
+    padding: 0 2rem;
+
+    .content {
+        padding: $footer-height 0;
+    }
+
+    .center {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        padding: 0 2.5rem;
+        transform: translate(-50%, -50%);
+    }
+
+    @media screen and (min-width: 400px) {
+        padding: 0 0.5rem;
+
+        .center {
+            padding: 0;
+        }
+    }
 }

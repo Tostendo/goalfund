@@ -1,49 +1,54 @@
-import { Form, Input, Button, Checkbox } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
-const LoginForm = () => {
-  const onFinish = (values: any) => {
-    alert(`Received values of form: ${JSON.stringify(values)}`);
+type Props = {
+  register?: boolean;
+};
+
+const SignInSignUpForm = ({ register }: Props) => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = () => {
+    console.info(
+      "Data is: ",
+      JSON.stringify({ email: email, username: username, password: password })
+    );
   };
 
   return (
-    <Form
-      name="normal_login"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-    >
-      <Form.Item
-        name="username"
-        rules={[{ required: true, message: "Please input your Username!" }]}
-      >
-        <Input prefix={<UserOutlined />} placeholder="Username" />
-      </Form.Item>
-      <Form.Item
-        name="password"
-        rules={[{ required: true, message: "Please input your Password!" }]}
-      >
-        <Input
-          prefix={<LockOutlined />}
+    <form onSubmit={handleSubmit}>
+      {register && (
+        <div>
+          <label>Username</label>
+          <input
+            type="text"
+            className="u-full-width"
+            onChange={(e) => setUsername(e.target.value)}
+          ></input>
+        </div>
+      )}
+      <div>
+        <label>Email</label>
+        <input
+          type="email"
+          className="u-full-width"
+          onChange={(e) => setEmail(e.target.value)}
+        ></input>
+      </div>
+      <div>
+        <label>Password</label>
+        <input
+          className="u-full-width"
           type="password"
-          placeholder="Password"
-        />
-      </Form.Item>
-      <Form.Item>
-        <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <a href="">Forgot password</a>
-      </Form.Item>
-
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Log in
-        </Button>{" "}
-        or <a href="/signup">register now!</a>
-      </Form.Item>
-    </Form>
+          onChange={(e) => setPassword(e.target.value)}
+        ></input>
+      </div>
+      <button className="button-primary" type="submit">
+        Register
+      </button>
+    </form>
   );
 };
 
-export default LoginForm;
+export default SignInSignUpForm;

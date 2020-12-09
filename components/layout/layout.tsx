@@ -8,7 +8,9 @@ import Footer from "../footer/footer";
 const Layout = ({ children }) => (
   <div className={styles.container}>
     <Navbar />
-    {children}
+    <div className={styles.content + " " + styles.center + " u-full-width"}>
+      {children}
+    </div>
     <Footer />
   </div>
 );
