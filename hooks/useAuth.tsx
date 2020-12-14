@@ -95,7 +95,7 @@ const useAuthProvider = () => {
   const sendVerificationMail = async () => {
     auth.currentUser.sendEmailVerification({
       url:
-        process.env.VERIFICATION_REDIRECT_URL ||
+        process.env.NEXT_PUBLIC_VERIFICATION_REDIRECT_URL ||
         "http://localhost:3000/dashboard",
     });
   };
