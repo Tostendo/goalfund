@@ -5,10 +5,19 @@ import React from "react";
 import Navbar from "../navbar/navbar";
 import Footer from "../footer/footer";
 
-const Layout = ({ children }) => (
+type LayoutProps = {
+  children: any;
+  center?: boolean;
+};
+
+const Layout = ({ children, center }: LayoutProps) => (
   <div className={styles.container}>
     <Navbar />
-    <div className={styles.content + " " + styles.center + " u-full-width"}>
+    <div
+      className={
+        styles.content + " " + (center ? styles.center : "") + " u-full-width"
+      }
+    >
       {children}
     </div>
     <Footer />

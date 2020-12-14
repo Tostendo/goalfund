@@ -492,10 +492,6 @@ td:last-child {
 
 /* Spacing
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-button,
-.button {
-    margin-bottom: 1rem;
-}
 
 input,
 textarea,
@@ -536,19 +532,15 @@ form {
     float: left;
 }
 
+.u-text-right {
+    text-align: right;
+}
+
 hr {
     margin-top: 3rem;
     margin-bottom: 3.5rem;
     border-width: 0;
     border-top: 1px solid #E1E1E1;
-}
-
-/* Own stuff
-____________________________________________________ */
-
-.center {
-    display: flex;
-    align-items: center;
 }
 
 /* Clearing
