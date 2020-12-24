@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Router from "next/router";
 
-import Layout from "../components/layout/layout";
+import Layout from "../components/layout";
 import { useAuth } from "../hooks/useAuth";
 
 const ResetPassword = () => {
@@ -16,19 +16,22 @@ const ResetPassword = () => {
   };
 
   return (
-    <Layout center>
+    <Layout>
       <div>
-        <div className="row">
-          <div className="offset-by-one four columns">
-            <img src="/img/goalfund_full_logo.png" width="100%" />
+        <div className="grid grid-cols-2 gap-16 flex items-center mt-8 sm:mt-20">
+          <div className="col-span-2 sm:col-span-1">
+            <img
+              src="/img/goalfund_full_logo.png"
+              className="w-full sm:w-auto h-auto sm:h-64"
+            />
           </div>
-          <div className="offset-by-one five columns">
+          <div className="col-span-2 sm:col-span-1">
             <form onSubmit={handleSubmit}>
               <div>
                 <label>Email</label>
                 <input
                   type="email"
-                  className="u-full-width"
+                  className="w-full"
                   onChange={(e) => setEmail(e.target.value)}
                 ></input>
               </div>

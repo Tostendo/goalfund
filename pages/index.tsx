@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Layout from "../components/layout/layout";
+import Layout from "../components/layout";
 
 export default function Home() {
   return (
@@ -8,9 +8,8 @@ export default function Home() {
         <title>Goalfund</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className="py-20 h-screen flex items-center justify-center">
         <img src="/img/goalfund_full_logo.png" alt="Goalfund" />
-        <p className="description">Coming soon in 2021...</p>
       </main>
     </Layout>
   );
