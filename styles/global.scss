@@ -7,9 +7,11 @@ body {
     padding: 0;
     margin: 0;
 
-    @apply text-primary;
+    @apply text-primary font-body;
+}
 
-    @apply font-body;
+h2 {
+    @apply mt-4 text-2xl font-bold;
 }
 
 a {
