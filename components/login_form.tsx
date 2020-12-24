@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Router from "next/router";
-import Spinner from "../spinner/spinner";
+import Spinner from "./spinner";
 
 type Props = {
   register?: boolean;
@@ -33,7 +33,7 @@ const SignInSignUpForm = ({ register, onSubmit, label }: Props) => {
           <label>Username</label>
           <input
             type="text"
-            className="u-full-width"
+            className="w-full"
             onChange={(e) => setUsername(e.target.value)}
           ></input>
         </div>
@@ -42,20 +42,20 @@ const SignInSignUpForm = ({ register, onSubmit, label }: Props) => {
         <label>Email</label>
         <input
           type="email"
-          className="u-full-width"
+          className="w-full"
           onChange={(e) => setEmail(e.target.value)}
         ></input>
       </div>
       <div>
         <label>Password</label>
         <input
-          className="u-full-width"
+          className="w-full"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         ></input>
       </div>
-      <div className="row center">
-        <div className="six columns">
+      <div className="grid grid-cols-2 flex items-center">
+        <div className="col-span-1">
           {!isLoading ? (
             <button className="button-primary" onClick={handleSubmit}>
               {label}
@@ -65,13 +65,13 @@ const SignInSignUpForm = ({ register, onSubmit, label }: Props) => {
           )}
         </div>
         {!register && (
-          <div className="six columns u-text-right">
+          <div className="col-span-1 text-right">
             <a href="/reset-password">Forgot your password?</a>
           </div>
         )}
       </div>
       {error?.message && (
-        <div className="error">
+        <div className="pt-4 text-red-400">
           <span>{error.message}</span>
         </div>
       )}
