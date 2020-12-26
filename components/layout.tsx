@@ -8,7 +8,7 @@ type LayoutProps = {
 };
 
 const Layout = ({ children }: LayoutProps) => (
-  <div className="relative my-0 mx-auto max-w-screen-xl py-0 px-8 min-h-screen">
+  <div className="relative my-0 mx-auto max-w-screen-xl py-0 px-2 md:px-8 min-h-screen">
     <Navbar />
     <div className="py-12 px-0 w-full">{children}</div>
     <Footer />

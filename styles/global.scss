@@ -7,7 +7,7 @@ body {
     padding: 0;
     margin: 0;
 
-    @apply text-primary font-body;
+    @apply text-primary font-body bg-gray-100;
 }
 
 h2 {
@@ -24,4 +24,8 @@ input {
 
 .button-primary {
     @apply h-10 border border-solid rounded text-white bg-primary px-8 font-body hover:text-primary hover:bg-white hover:border-primary my-2;
+}
+
+.icon-edit {
+    background-image: url("/svg/pencil.svg");
 }
