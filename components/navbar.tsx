@@ -29,13 +29,13 @@ const Navbar = () => {
         {auth.user && (
           <li className="float-left uppercase">
             <Link href="/dashboard">
-              <a>{auth.user.username}</a>
+              <a>My account</a>
             </Link>
           </li>
         )}
         {auth.user && (
           <li className="float-left uppercase ml-4">
-            <a onClick={() => auth.signOut()}>Ausloggen</a>
+            <a onClick={() => auth.signOut()}>Logout</a>
           </li>
         )}
       </ul>
