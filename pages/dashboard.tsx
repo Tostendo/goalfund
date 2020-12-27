@@ -16,9 +16,10 @@ const DashboardPage = () => {
   const unselectedCss = "inline-block py-2 px-4";
   const selectedCss =
     "inline-block py-2 px-4 border-t border-l border-r rounded";
+  console.info("auth.user: ", auth.user);
   return (
     <Layout>
-      {!auth?.user?.emailVerified ? (
+      {auth.user && !auth.user.emailVerified ? (
         <div className="shadow-lg text-primary font-bold p-4 m-4 bg-warning">
           <div className="flex items-center justify-between">
             <div>Please verify your email</div>
@@ -30,54 +31,56 @@ const DashboardPage = () => {
           </div>
         </div>
       ) : null}
-      <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
-        <div className="flex flex-col items-center">
-          <div className="relative h-48 w-48">
-            <img
-              src="https://picsum.photos/200"
-              alt="placeholder"
-              className="rounded-full block"
-            ></img>
-            <a className="absolute w-48 h-48 rounded-full flex justify-center items-center bg-black text-center top-0 opacity-0 hover:opacity-25"></a>
+      {auth.user ? (
+        <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
+          <div className="flex flex-col items-center">
+            <div className="relative h-48 w-48">
+              <img
+                src="https://picsum.photos/200"
+                alt="placeholder"
+                className="rounded-full block"
+              ></img>
+              <a className="absolute w-48 h-48 rounded-full flex justify-center items-center bg-black text-center top-0 opacity-0 hover:opacity-25"></a>
+            </div>
+            <h2>{`Welcome, ${auth.user.username}!`}</h2>
           </div>
-          <h2>
-            {auth.user?.username ? (
-              `Welcome, ${auth.user.username}!`
-            ) : (
-              <Spinner />
-            )}
-          </h2>
+          <div className="profile-tab-navigation my-4">
+            <ul className="list-reset flex border-b">
+              <li className="-mb-px mr-1">
+                <a
+                  className={index == 0 ? selectedCss : unselectedCss}
+                  onClick={() => setIndex(0)}
+                >
+                  Basic Info
+                </a>
+              </li>
+              <li className="mr-1">
+                <a
+                  className={index == 1 ? selectedCss : unselectedCss}
+                  onClick={() => setIndex(1)}
+                >
+                  Donations
+                </a>
+              </li>
+              <li className="mr-1">
+                <a
+                  className={index == 2 ? selectedCss : unselectedCss}
+                  onClick={() => setIndex(2)}
+                >
+                  Player's Info
+                </a>
+              </li>
+            </ul>
+          </div>
+          {index == 0 && (
+            <BasicInfo
+              data={{ Username: auth.user.username, "E-Mail": auth.user.email }}
+            />
+          )}
         </div>
-        <div className="profile-tab-navigation my-4">
-          <ul className="list-reset flex border-b">
-            <li className="-mb-px mr-1">
-              <a
-                className={index == 0 ? selectedCss : unselectedCss}
-                onClick={() => setIndex(0)}
-              >
-                Basic Info
-              </a>
-            </li>
-            <li className="mr-1">
-              <a
-                className={index == 1 ? selectedCss : unselectedCss}
-                onClick={() => setIndex(1)}
-              >
-                Donations
-              </a>
-            </li>
-            <li className="mr-1">
-              <a
-                className={index == 2 ? selectedCss : unselectedCss}
-                onClick={() => setIndex(2)}
-              >
-                Player's Info
-              </a>
-            </li>
-          </ul>
-        </div>
-        {index == 0 && <BasicInfo data={testdata} />}
-      </div>
+      ) : (
+        <Spinner />
+      )}
     </Layout>
   );
 };

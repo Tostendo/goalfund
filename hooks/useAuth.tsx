@@ -6,6 +6,7 @@ import {
   useEffect,
 } from "react";
 import { auth, db } from "../config/firebase";
+import { createUser, getUser } from "../api/user";
 import firebase from "firebase";
 const authContext = createContext({ user: {} });
 const { Provider } = authContext;
@@ -26,31 +27,7 @@ export const useAuth: any = () => {
 // Provider hook that creates an auth object and handles it's state
 const useAuthProvider = () => {
   const [user, setUser] = useState(null);
-  const createUser = async (user: UserData) => {
-    return db
-      .collection("users")
-      .doc(user.uid)
-      .set(user)
-      .then(() => {
-        setUser(user);
-        return user;
-      })
-      .catch((error) => {
-        return { error };
-      });
-  };
 
-  const getUser = async (user: firebase.User) => {
-    return db
-      .collection("users")
-      .doc(user.uid)
-      .get()
-      .then((userData) => {
-        if (userData.data()) {
-          setUser({ ...userData.data(), emailVerified: user.emailVerified });
-        }
-      });
-  };
   const signUp = async ({ username, email, password }) => {
     return auth
       .createUserWithEmailAndPassword(email, password)
@@ -63,6 +40,10 @@ const useAuthProvider = () => {
           emailVerified: false,
         });
       })
+      .then((user) => {
+        setUser(user);
+        return user;
+      })
       .catch((error) => {
         return { error };
       });
@@ -72,9 +53,11 @@ const useAuthProvider = () => {
     return auth
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
-        setUser(response.user);
-        getUser(response.user);
-        return response.user;
+        return getUser(response.user);
+      })
+      .then((user) => {
+        setUser(user);
+        return user;
       })
       .catch((error) => {
         return { error };
@@ -100,10 +83,9 @@ const useAuthProvider = () => {
     });
   };
 
-  const handleAuthStateChanged = (user: firebase.User) => {
-    setUser(user);
+  const handleAuthStateChanged = async (user: firebase.User) => {
     if (user) {
-      getUser(user);
+      setUser(await getUser(user));
     }
   };
 
