@@ -44,7 +44,6 @@ const useAuthProvider = () => {
   };
 
   const update = async (updateData: any) => {
-    console.info("user is: ", user, updateData);
     return updateUser(user, updateData)
       .then(() => {
         return getUser(user);
