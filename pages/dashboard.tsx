@@ -4,19 +4,12 @@ import Layout from "../components/layout";
 import Spinner from "../components/spinner";
 import BasicInfo from "../components/basicInfo";
 
-const testdata = {
-  username: "Master",
-  fullName: "Peter Pan",
-  email: "test@test.de",
-};
-
 const DashboardPage = () => {
   const auth = useRequireAuth();
   const [index, setIndex] = useState(0);
   const unselectedCss = "inline-block py-2 px-4";
   const selectedCss =
     "inline-block py-2 px-4 border-t border-l border-r rounded";
-  console.info("auth.user: ", auth.user);
   return (
     <Layout>
       {auth.user && !auth.user.emailVerified ? (
@@ -74,7 +67,8 @@ const DashboardPage = () => {
           </div>
           {index == 0 && (
             <BasicInfo
-              data={{ Username: auth.user.username, "E-Mail": auth.user.email }}
+              data={{ username: auth.user.username, email: auth.user.email }}
+              onUpdate={auth.update}
             />
           )}
         </div>

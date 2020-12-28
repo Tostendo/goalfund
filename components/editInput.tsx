@@ -25,28 +25,28 @@ const EditInput = ({ type, value, onSave, editable }: EditInputProps) => {
   };
 
   return (
-    <div className="m-0 p-4">
+    <div className="m-0 p-2">
       {edit && editable && (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="flex items-center">
           <input
             type={type}
             value={newValue}
             onKeyDown={handleKeyPress}
-            className="rounded-l-lg m-0 border-t border-b border-l text-primary border-gray-200 bg-white"
+            className="rounded-l-lg m-0 border-t border-b border-l h-10 text-primary border-gray-200 bg-white outline-none focus:border-gray-300"
             onChange={(e) => {
               setNewValue(e.target.value);
             }}
           ></input>
           <button
             onClick={handleSubmit}
-            className="px-4 py-3 rounded-r-lg -ml-1 bg-primary text-white uppercase border-t border-b border-r"
+            className="h-10 px-4 rounded-r-lg -ml-1 bg-green-300 text-white uppercase border-t border-b border-r"
           >
-            save
+            <img src="/svg/checkmark.svg" className="h-4 w-4" />
           </button>
         </form>
       )}
       {!edit && (
-        <div className="flex justify-start items-center">
+        <div className="h-10 flex justify-start items-center">
           <div>{value}</div>
           {editable && (
             <a

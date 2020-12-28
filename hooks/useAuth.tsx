@@ -6,17 +6,11 @@ import {
   useEffect,
 } from "react";
 import { auth, db } from "../config/firebase";
-import { createUser, getUser } from "../api/user";
+import { createUser, updateUser, getUser } from "../api/user";
 import firebase from "firebase";
 const authContext = createContext({ user: {} });
 const { Provider } = authContext;
 
-type UserData = {
-  uid: string;
-  username: string;
-  email: string;
-  emailVerified: boolean;
-};
 export function AuthProvider(props: { children: ReactNode }): JSX.Element {
   const auth = useAuthProvider();
   return <Provider value={auth}>{props.children}</Provider>;
@@ -39,6 +33,21 @@ const useAuthProvider = () => {
           username,
           emailVerified: false,
         });
+      })
+      .then((user) => {
+        setUser(user);
+        return user;
+      })
+      .catch((error) => {
+        return { error };
+      });
+  };
+
+  const update = async (updateData: any) => {
+    console.info("user is: ", user, updateData);
+    return updateUser(user, updateData)
+      .then(() => {
+        return getUser(user);
       })
       .then((user) => {
         setUser(user);
@@ -108,6 +117,7 @@ const useAuthProvider = () => {
   }, []);
   return {
     user,
+    update,
     signIn,
     signUp,
     signOut,

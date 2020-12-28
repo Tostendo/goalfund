@@ -8,6 +8,10 @@ type UserData = {
   emailVerified: boolean;
 };
 
+type UpdateData = {
+  username?: string;
+};
+
 export const createUser = async (user: UserData) => {
   return db
     .collection("users")
@@ -16,6 +20,19 @@ export const createUser = async (user: UserData) => {
     .then(() => {
       return user;
     })
+    .catch((error) => {
+      return { error };
+    });
+};
+
+export const updateUser = async (
+  user: firebase.User,
+  updateData: UpdateData
+) => {
+  return db
+    .collection("users")
+    .doc(user.uid)
+    .update(updateData)
     .catch((error) => {
       return { error };
     });
