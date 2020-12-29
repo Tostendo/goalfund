@@ -28,6 +28,13 @@ const Navbar = () => {
         )}
         {auth.user && (
           <li className="float-left uppercase">
+            <Link href="/search">
+              <a>Players</a>
+            </Link>
+          </li>
+        )}
+        {auth.user && (
+          <li className="float-left uppercase ml-4">
             <Link href="/dashboard">
               <a>My account</a>
             </Link>
