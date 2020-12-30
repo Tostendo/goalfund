@@ -25,7 +25,7 @@ const EditInput = ({ type, value, onSave, editable }: EditInputProps) => {
   };
 
   return (
-    <div className="m-0 p-2">
+    <div className="m-0 py-2">
       {edit && editable && (
         <form onSubmit={handleSubmit} className="flex items-center">
           <input
