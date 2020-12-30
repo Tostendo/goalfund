@@ -1,14 +1,5 @@
 import * as React from "react";
-import { searchPlayers, getPlayer } from "../api/players";
-
-export type Player = {
-  firstName: string;
-  lastName: string;
-  imageUrl: string;
-  email: string;
-  id: number;
-  clubName: string;
-};
+import { searchPlayers, getPlayer, allPlayers, Player } from "../api/players";
 
 const playersContext = React.createContext({ players: [] });
 const { Provider } = playersContext;
@@ -29,20 +20,16 @@ export const usePlayers: any = () => {
 };
 
 function usePlayersProvider() {
-  const [players, setPlayers] = React.useState([]);
+  const [players, setPlayers] = React.useState(allPlayers.slice(0, 10));
   const search = async (searchTerm: string) => {
     return searchPlayers({ searchTerm: searchTerm }).then((data: Player[]) =>
       setPlayers(data)
     );
   };
 
-  const get = async (id: number) => {
-    return getPlayer(id);
-  };
   return {
     players,
     setPlayers,
     search,
-    get,
   };
 }

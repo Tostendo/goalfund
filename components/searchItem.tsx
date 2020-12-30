@@ -1,13 +1,13 @@
 import Link from "next/link";
 import React from "react";
-import { Player } from "../hooks/usePlayers";
+import { Player } from "../api/players";
 
 type SearchItemProps = {
   player: Player;
 };
 
 const SearchItem = ({ player }: SearchItemProps) => (
-  <Link href={`/player/${player.id}`}>
+  <Link href={`/playerProfile/${player.id}`}>
     <div className="flex items-center justify-between cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-gray-200">
       <div className="flex w-full items-center p-2">
         <div className="flex-col items-center">

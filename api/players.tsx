@@ -1,4 +1,13 @@
-const allPlayers = [
+export type Player = {
+  firstName: string;
+  lastName: string;
+  imageUrl: string;
+  email: string;
+  id: number;
+  clubName: string;
+};
+
+export const allPlayers: Player[] = [
   {
     id: 1,
     firstName: "Berkeley",
@@ -87,7 +96,7 @@ type SearchData = {
 
 export const searchPlayers = async ({ searchTerm }: SearchData) => {
   return allPlayers.filter((value) => {
-    if (!searchTerm) {
+    if (!searchTerm || searchTerm == "") {
       return true;
     }
     const insensitiveTerm = searchTerm.toLowerCase();
@@ -101,4 +110,8 @@ export const searchPlayers = async ({ searchTerm }: SearchData) => {
 
 export const getPlayer = async (id: number) => {
   return allPlayers.find((value) => value.id == id);
+};
+
+export const getAllPlayerIds = async () => {
+  return allPlayers.map((player) => player.id);
 };
