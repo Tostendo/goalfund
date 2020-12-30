@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { Player } from "../api/players";
+import CustomButton from "./primaryButton";
 
 type SearchItemProps = {
   player: Player;
@@ -25,9 +26,7 @@ const SearchItem = ({ player }: SearchItemProps) => (
         </div>
       </div>
       <div className="pr-2">
-        <button className="text-md border rounded-lg p-2 focus:outline-none appearance-none  hover:bg-primary hover:text-white">
-          Support
-        </button>
+        <CustomButton type="primary" label="Donate" />
       </div>
     </div>
   </Link>
