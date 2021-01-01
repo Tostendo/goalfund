@@ -18,7 +18,10 @@ const BasicInfo = ({ data, onUpdate }: BasicInfoData) => (
     {Array.from(new Map(Object.entries(data))).map(
       ([key, value]: [string, string]) => {
         return (
-          <div className="p-2 border-b hover:bg-gray-100 grid grid-cols-3 md:gap-2 items-center">
+          <div
+            key={key}
+            className="p-2 border-b hover:bg-gray-100 grid grid-cols-3 md:gap-2 items-center"
+          >
             <div className="col-span-3 md:col-span-1 text-xs md:text-base">
               {translations[key]}
             </div>

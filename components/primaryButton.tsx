@@ -21,6 +21,8 @@ function getButtonStyle(type: string) {
     return "text-md border rounded-lg p-2 focus:outline-none appearance-none bg-green-400  hover:bg-green-600 text-white";
   } else if (type == "primary") {
     return "text-md border rounded-lg p-2 focus:outline-none appearance-none bg-green-400  hover:bg-green-600 text-white";
+  } else if (type == "secondary") {
+    return "text-md border rounded-lg p-2 focus:outline-none appearance-none bg-yellow-400  hover:bg-yellow-600 text-black";
   }
 }
 

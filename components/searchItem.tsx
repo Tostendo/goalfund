@@ -5,9 +5,11 @@ import CustomButton from "./primaryButton";
 
 type SearchItemProps = {
   player: Player;
+  onConnect: Function;
+  onDonate: Function;
 };
 
-const SearchItem = ({ player }: SearchItemProps) => (
+const SearchItem = ({ player, onConnect, onDonate }: SearchItemProps) => (
   <Link href={`/playerProfile/${player.id}`}>
     <div className="flex items-center justify-between cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-gray-200">
       <div className="flex w-full items-center p-2">
@@ -25,8 +27,15 @@ const SearchItem = ({ player }: SearchItemProps) => (
           </div>
         </div>
       </div>
-      <div className="pr-2">
-        <CustomButton type="primary" label="Donate" />
+      <div className="pr-2 flex">
+        {onDonate && <CustomButton type="primary" label="Donate" />}
+        {onConnect && (
+          <CustomButton
+            type="secondary"
+            label="Connect"
+            handleClick={() => onConnect(player.id)}
+          />
+        )}
       </div>
     </div>
   </Link>

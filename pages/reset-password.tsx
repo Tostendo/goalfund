@@ -18,7 +18,7 @@ const ResetPassword = () => {
   return (
     <Layout>
       <div>
-        <div className="grid grid-cols-2 gap-16 flex items-center mt-8 sm:mt-20">
+        <div className="grid grid-cols-2 gap-16 items-center mt-8 sm:mt-20">
           <div className="col-span-2 sm:col-span-1">
             <img
               src="/img/goalfund_full_logo.png"

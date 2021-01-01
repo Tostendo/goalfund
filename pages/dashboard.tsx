@@ -3,15 +3,17 @@ import { useRequireAuth } from "../hooks/useRequireAuth";
 import Layout from "../components/layout";
 import Spinner from "../components/spinner";
 import BasicInfo from "../components/basicInfo";
+import PlayerInfo from "../components/playerInfo";
+import { PlayersProvider } from "../hooks/usePlayers";
 
-const DashboardPage = () => {
+const Dashboard = () => {
   const auth = useRequireAuth();
   const [index, setIndex] = useState(0);
   const unselectedCss = "inline-block py-2 px-4";
   const selectedCss =
     "inline-block py-2 px-4 border-t border-l border-r rounded";
   return (
-    <Layout>
+    <div>
       {auth.user && !auth.user.emailVerified ? (
         <div className="shadow-lg text-primary font-bold p-4 m-4 bg-warning">
           <div className="flex items-center justify-between">
@@ -71,12 +73,24 @@ const DashboardPage = () => {
               onUpdate={auth.update}
             />
           )}
+          {index == 2 && (
+            <PlayerInfo playerId={auth.user.playerId} onUpdate={auth.update} />
+          )}
         </div>
       ) : (
         <Spinner />
       )}
-    </Layout>
+    </div>
   );
 };
 
+const DashboardPage = () => {
+  return (
+    <PlayersProvider>
+      <Layout>
+        <Dashboard />
+      </Layout>
+    </PlayersProvider>
+  );
+};
 export default DashboardPage;
