@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Router from "next/router";
 import React from "react";
 import { Player } from "../api/players";
 import CustomButton from "./primaryButton";
@@ -28,7 +29,20 @@ const SearchItem = ({ player, onConnect, onDonate }: SearchItemProps) => (
         </div>
       </div>
       <div className="pr-2 flex">
-        {onDonate && <CustomButton type="primary" label="Donate" />}
+        {onDonate && (
+          <CustomButton
+            type="primary"
+            label="Donate"
+            handleClick={() =>
+              Router.push({
+                pathname: "/donation/add",
+                query: {
+                  donateFor: player.id.toString(),
+                },
+              })
+            }
+          />
+        )}
         {onConnect && (
           <CustomButton
             type="secondary"
