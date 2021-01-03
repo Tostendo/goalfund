@@ -54,7 +54,7 @@ const SignInSignUpForm = ({ register, onSubmit, label }: Props) => {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
       </div>
-      <div className="grid grid-cols-2 flex items-center">
+      <div className="grid grid-cols-2 items-center">
         <div className="col-span-1">
           {!isLoading ? (
             <button className="button-primary" onClick={handleSubmit}>
