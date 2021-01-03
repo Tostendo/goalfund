@@ -2,9 +2,37 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "../hooks/useAuth";
 
+const navItems = {
+  loggedIn: [
+    {
+      label: "Players",
+      link: "/playerSearch",
+    },
+    {
+      label: "My Account",
+      link: "/dashboard",
+    },
+    {
+      label: "Logout",
+      link: "/logout",
+    },
+  ],
+  anonym: [
+    {
+      label: "Login",
+      link: "/login",
+    },
+    {
+      label: "Register",
+      link: "/register",
+    },
+  ],
+};
+
 const Navbar = () => {
   const auth = useAuth();
   const [show, setShow] = useState(false);
+  const items = auth.user ? navItems.loggedIn : navItems.anonym;
   return (
     <nav className="bg-white lg:bg-transparent shadow-lg lg:shadow-none lg:my-4 -mx-2 lg:mx-0 lg:px-4 px-6 flex items-center justify-between flex-wrap">
       <Link href="/" as="/" passHref>
@@ -24,39 +52,19 @@ const Navbar = () => {
         }
       >
         <ul className="list-none mb-0">
-          {!auth.user && (
-            <li className="lg:float-left w-full lg:w-auto my-1 uppercase">
-              <Link href="/login">
-                <a>Login</a>
-              </Link>
-            </li>
-          )}
-          {!auth.user && (
-            <li className="lg:float-left w-full lg:w-auto my-1 uppercase ml-4">
-              <Link href="/register">
-                <a>Register</a>
-              </Link>
-            </li>
-          )}
-          {auth.user && (
-            <li className="lg:float-left w-full lg:w-auto my-1 lg:m-0 uppercase">
-              <Link href="/search">
-                <a>Players</a>
-              </Link>
-            </li>
-          )}
-          {auth.user && (
-            <li className="lg:float-left w-full lg:w-auto uppercase my-1 lg:m-0 lg:ml-4">
-              <Link href="/dashboard">
-                <a>My account</a>
-              </Link>
-            </li>
-          )}
-          {auth.user && (
-            <li className="lg:float-left w-full lg:w-auto uppercase my-1 lg:m-0 lg:ml-4">
-              <a onClick={() => auth.signOut()}>Logout</a>
-            </li>
-          )}
+          {items.map((item, index) => {
+            var classes = "lg:float-left w-full lg:w-auto my-1 uppercase";
+            if (index != 0) {
+              classes += " lg:ml-4";
+            }
+            return (
+              <li key={`${item.label}+${index}`} className={classes}>
+                <Link href={item.link}>
+                  <a>{item.label}</a>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </nav>
