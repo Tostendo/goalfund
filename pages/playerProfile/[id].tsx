@@ -1,6 +1,8 @@
+import Router from "next/router";
 import Layout from "../../components/layout";
 
 import { getPlayer, getAllPlayerIds, Player } from "../../api/players";
+import CustomButton from "../../components/primaryButton";
 
 type PlayerProfileProps = {
   player: Player;
@@ -57,6 +59,20 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
         <div className="my-8">
           <h2 className="my-4">My stats</h2>
           <p>coming soon...</p>
+        </div>
+        <div className="my-8">
+          <CustomButton
+            label="Donate"
+            type="primary"
+            handleClick={() =>
+              Router.push({
+                pathname: "/donation/add",
+                query: {
+                  donateFor: player.id.toString(),
+                },
+              })
+            }
+          />
         </div>
       </div>
     </Layout>

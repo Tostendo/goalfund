@@ -5,6 +5,7 @@ import Spinner from "../components/spinner";
 import BasicInfo from "../components/basicInfo";
 import PlayerInfo from "../components/playerInfo";
 import { PlayersProvider } from "../hooks/usePlayers";
+import DonationInfo from "../components/donationInfo";
 
 const Dashboard = () => {
   const auth = useRequireAuth();
@@ -73,6 +74,7 @@ const Dashboard = () => {
               onUpdate={auth.update}
             />
           )}
+          {index == 1 && <DonationInfo donorId={auth.user.uid} />}
           {index == 2 && (
             <PlayerInfo playerId={auth.user.playerId} onUpdate={auth.update} />
           )}
