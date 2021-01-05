@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchResults from "./searchResults";
 import { getPlayer } from "../api/players";
+import Spinner from "./spinner";
 
 type PlayerInfoData = {
   playerId: number;
@@ -34,12 +35,16 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
     }
   };
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="py-3 w-full md:w-1/2">
       <label className="flex items-center">
         <input
           type="checkbox"
-          className=" m-0 p-0 h-4 w-4 text-green-600"
+          className="m-0 p-0 h-4 w-4 text-green-600"
           checked={isPlayer}
           onChange={() => handleCheck(isPlayer)}
         />

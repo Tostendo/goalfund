@@ -74,7 +74,12 @@ const Dashboard = () => {
               onUpdate={auth.update}
             />
           )}
-          {index == 1 && <DonationInfo donorId={auth.user.uid} />}
+          {index == 1 && (
+            <DonationInfo
+              donorId={auth.user.uid}
+              playerId={auth.user.playerId?.toString()}
+            />
+          )}
           {index == 2 && (
             <PlayerInfo playerId={auth.user.playerId} onUpdate={auth.update} />
           )}

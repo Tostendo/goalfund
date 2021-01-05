@@ -36,6 +36,22 @@ export const getDonations = async (donorId: string) => {
   return donations;
 };
 
+export const getPlayerDonations = async (playerId: string) => {
+  const snapshot = await db
+    .collection("donations")
+    .where("playerId", "==", playerId)
+    .get();
+  if (snapshot.empty) {
+    console.log("No matching documents.");
+    return [];
+  }
+  var donations = [];
+  snapshot.forEach((doc) => {
+    donations.push({ id: doc.id, ...doc.data() });
+  });
+  return donations;
+};
+
 export const deleteDonation = async (id: string) => {
   return await db.collection("donations").doc(id).delete();
 };
