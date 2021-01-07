@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Icon from "./icon";
 
 type EditInputProps = {
   type: string;
@@ -41,7 +42,9 @@ const EditInput = ({ type, value, onSave, editable }: EditInputProps) => {
             onClick={handleSubmit}
             className="h-10 px-4 rounded-r-lg -ml-1 bg-green-300 text-white uppercase border-t border-b border-r"
           >
-            <img src="/svg/checkmark.svg" className="h-4 w-4" />
+            <div className="h-6 w-6 text-white">
+              <Icon type="checkmark" />
+            </div>
           </button>
         </form>
       )}
@@ -53,7 +56,9 @@ const EditInput = ({ type, value, onSave, editable }: EditInputProps) => {
               className="h-8 w-8 pl-4 inline-block"
               onClick={() => setEdit(true)}
             >
-              <img src="/svg/pencil.svg" className="h-8 w-8" />
+              <div className="h-6 w-6">
+                <Icon type="pencil" />
+              </div>
             </a>
           )}
         </div>

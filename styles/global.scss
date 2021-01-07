@@ -15,7 +15,7 @@ h2 {
 }
 
 a {
-    @apply text-primary opacity-50 cursor-pointer no-underline hover:opacity-100 hover:text-primary;
+    @apply text-primary cursor-pointer no-underline hover:text-primary hover:underline;
 }
 
 input {
@@ -25,4 +25,3 @@ input {
 .button-primary {
     @apply h-10 border border-solid rounded text-white bg-primary px-8 font-body hover:text-primary hover:bg-white hover:border-primary my-2;
 }
-
