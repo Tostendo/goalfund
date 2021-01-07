@@ -10,6 +10,7 @@ type UserData = {
 
 type UpdateData = {
   username?: string;
+  playerId?: string;
 };
 
 export const createUser = async (user: UserData) => {
@@ -48,4 +49,20 @@ export const getUser = async (user: firebase.User) => {
         return { ...userData.data(), emailVerified: user.emailVerified };
       }
     });
+};
+
+export const getUserForPlayer = async (playerId: string) => {
+  const snapshot = await db
+    .collection("users")
+    .where("playerId", "==", playerId)
+    .get();
+  if (snapshot.empty) {
+    console.log("No matching documents.");
+    return [];
+  }
+  var connnectedProfiles = [];
+  snapshot.forEach((doc) => {
+    connnectedProfiles.push({ id: doc.id, ...doc.data() });
+  });
+  return connnectedProfiles;
 };

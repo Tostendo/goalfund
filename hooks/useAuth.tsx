@@ -6,7 +6,7 @@ import {
   useEffect,
 } from "react";
 import { auth, db } from "../config/firebase";
-import { createUser, updateUser, getUser } from "../api/user";
+import { createUser, updateUser, getUser, getUserForPlayer } from "../api/user";
 import firebase from "firebase";
 const authContext = createContext({ user: {} });
 const { Provider } = authContext;
@@ -45,6 +45,24 @@ const useAuthProvider = () => {
 
   const update = async (updateData: any) => {
     return updateUser(user, updateData)
+      .then(() => {
+        return getUser(user);
+      })
+      .then((user) => {
+        setUser(user);
+        return user;
+      })
+      .catch((error) => {
+        return { error };
+      });
+  };
+
+  const connectPlayer = async (playerId: string) => {
+    const existingConnections = await getUserForPlayer(playerId);
+    if (playerId && existingConnections.length > 0) {
+      throw Error("player_already_connected");
+    }
+    return updateUser(user, { playerId })
       .then(() => {
         return getUser(user);
       })
@@ -117,6 +135,7 @@ const useAuthProvider = () => {
   return {
     user,
     update,
+    connectPlayer,
     signIn,
     signUp,
     signOut,

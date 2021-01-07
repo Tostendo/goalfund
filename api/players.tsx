@@ -3,13 +3,13 @@ export type Player = {
   lastName: string;
   imageUrl: string;
   email: string;
-  id: number;
+  id: string;
   clubName: string;
 };
 
 export const allPlayers: Player[] = [
   {
-    id: 1,
+    id: "1",
     firstName: "Berkeley",
     lastName: "Gabits",
     email: "bgabits0@accuweather.com",
@@ -17,7 +17,7 @@ export const allPlayers: Player[] = [
     clubName: "Hamburg Hurricanes",
   },
   {
-    id: 2,
+    id: "2",
     firstName: "Gavrielle",
     lastName: "McRamsey",
     email: "gmcramsey1@netscape.com",
@@ -25,7 +25,7 @@ export const allPlayers: Player[] = [
     clubName: "SC Eilbek",
   },
   {
-    id: 3,
+    id: "3",
     firstName: "Salvatore",
     lastName: "Altamirano",
     email: "saltamirano2@dot.gov",
@@ -33,7 +33,7 @@ export const allPlayers: Player[] = [
     clubName: "Kakao Team",
   },
   {
-    id: 4,
+    id: "4",
     firstName: "Dael",
     lastName: "Gianasi",
     email: "dgianasi3@hibu.com",
@@ -41,7 +41,7 @@ export const allPlayers: Player[] = [
     clubName: "Hamburg Hurricanes",
   },
   {
-    id: 5,
+    id: "5",
     firstName: "Maddy",
     lastName: "Jakovijevic",
     email: "mjakovijevic4@reuters.com",
@@ -49,7 +49,7 @@ export const allPlayers: Player[] = [
     clubName: "Condor",
   },
   {
-    id: 6,
+    id: "6",
     firstName: "Eleonora",
     lastName: "Mossdale",
     email: "emossdale5@netvibes.com",
@@ -57,7 +57,7 @@ export const allPlayers: Player[] = [
     clubName: "Hamburg Hurricanes",
   },
   {
-    id: 7,
+    id: "7",
     firstName: "Waylin",
     lastName: "Dusting",
     email: "wdusting6@bbb.org",
@@ -65,7 +65,7 @@ export const allPlayers: Player[] = [
     clubName: "Polonia Hamburg",
   },
   {
-    id: 8,
+    id: "8",
     firstName: "Alene",
     lastName: "Fazzioli",
     email: "afazzioli7@goo.gl",
@@ -73,7 +73,7 @@ export const allPlayers: Player[] = [
     clubName: "HSV 4",
   },
   {
-    id: 9,
+    id: "9",
     firstName: "Livvyy",
     lastName: "Llewhellin",
     email: "lllewhellin8@phpbb.com",
@@ -81,7 +81,7 @@ export const allPlayers: Player[] = [
     clubName: "HSV 3",
   },
   {
-    id: 10,
+    id: "10",
     firstName: "Gasper",
     lastName: "Filyashin",
     email: "gfilyashin9@hud.gov",
@@ -108,7 +108,7 @@ export const searchPlayers = async ({ searchTerm }: SearchData) => {
   });
 };
 
-export const getPlayer = async (id: number) => {
+export const getPlayer = async (id: string) => {
   return allPlayers.find((value) => value.id == id);
 };
 

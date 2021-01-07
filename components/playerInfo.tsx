@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import SearchResults from "./searchResults";
 import { getPlayer } from "../api/players";
 import Spinner from "./spinner";
+import ErrorModal from "./errorModal";
 
 type PlayerInfoData = {
-  playerId: number;
+  playerId: string;
   onUpdate: Function;
 };
 
@@ -13,6 +14,8 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
 
   const [playerInfo, setPlayerInfo] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
     if (playerId) {
@@ -31,8 +34,17 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
     setIsPlayer(!old);
     if (old) {
       setPlayerInfo(null);
-      onUpdate({ playerId: null });
+      onUpdate(null);
     }
+  };
+
+  const handleConnect = async (id: string) => {
+    return onUpdate(id)
+      .then(() => setError(null))
+      .catch((e: any) => {
+        setShowModal(true);
+        setError(e);
+      });
   };
 
   if (loading) {
@@ -50,9 +62,7 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
         />
         <span className="ml-2">I am a player</span>
       </label>
-      {isPlayer && !playerId && (
-        <SearchResults onConnect={(id: number) => onUpdate({ playerId: id })} />
-      )}
+      {isPlayer && !playerId && <SearchResults onConnect={handleConnect} />}
       {playerInfo && (
         <div className="py-3">
           <div>
@@ -68,6 +78,13 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
             <div>right</div>
           </div>
         </div>
+      )}
+      {error && (
+        <ErrorModal
+          show={showModal}
+          toggle={setShowModal}
+          message={error.message}
+        />
       )}
     </div>
   );

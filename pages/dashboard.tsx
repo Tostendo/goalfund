@@ -77,11 +77,14 @@ const Dashboard = () => {
           {index == 1 && (
             <DonationInfo
               donorId={auth.user.uid}
-              playerId={auth.user.playerId?.toString()}
+              playerId={auth.user.playerId}
             />
           )}
           {index == 2 && (
-            <PlayerInfo playerId={auth.user.playerId} onUpdate={auth.update} />
+            <PlayerInfo
+              playerId={auth.user.playerId}
+              onUpdate={auth.connectPlayer}
+            />
           )}
         </div>
       ) : (

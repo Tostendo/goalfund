@@ -9,7 +9,7 @@ const PlayerName = ({ playerId }) => {
     setLoading(true);
     const asyncFetchPlayer = async (id: string) => {
       if (id) {
-        const player = await getPlayer(parseInt(id));
+        const player = await getPlayer(id);
         setPlayer(player);
       }
       setLoading(false);
