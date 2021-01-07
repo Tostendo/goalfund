@@ -47,19 +47,19 @@ const Donations = ({ donorId }: DonationsProps) => {
           return (
             <div
               key={donation.id}
-              className="grid grid-cols-3 items-center md:gap-2 my-4"
+              className="grid grid-cols-3 lg:grid-cols-4 items-center md:gap-2 my-2 py-2 border-b"
             >
-              <div className="col-span-1">
+              <div className="col-span-1 lg:col-span-2">
                 <PlayerName playerId={donation.playerId} />
               </div>
-              <div className="col-span-1">
+              <div className="col-span-1 text-right">
                 <span>{`${donation.amountPerGoal}€`}</span>
                 <span className="hidden lg:inline-block lg:pl-2">{`per goal`}</span>
               </div>
-              <div className="col-span-1">
+              <div className="col-span-1 text-right">
                 <CustomButton
-                  label="Delete"
-                  type="secondary"
+                  icon="delete"
+                  type="error"
                   handleClick={() => handleDelete(donation.id)}
                 />
               </div>

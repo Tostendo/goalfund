@@ -20,7 +20,7 @@ const PlayerName = ({ playerId }) => {
     <div>
       {!loading && player && (
         <div>
-          <div>{`${player.firstName} ${player.lastName}`}</div>
+          <div className="font-bold">{`${player.firstName} ${player.lastName}`}</div>
           <div className="text-xs">{player.clubName}</div>
         </div>
       )}

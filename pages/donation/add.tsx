@@ -35,14 +35,22 @@ const AddDonationPage = () => {
             <PlayerName playerId={playerId} />
           </div>
           <div>
-            <label>Money per goal: </label>
-            <input
-              className="lg:mx-4 w-full lg:w-1/2"
-              type="number"
-              step="0.50"
-              value={amount}
-              onChange={(e) => setAmount(parseFloat(e.target.value))}
-            ></input>
+            <label>Donation per goal: </label>
+            <div className="mt-1 relative rounded-md">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center ">
+                <span className="text-primary">€</span>
+              </div>
+              <input
+                type="number"
+                step="0.25"
+                value={amount}
+                onChange={(e) => setAmount(parseFloat(e.target.value))}
+                name="price"
+                id="price"
+                className="w-full lg:w-1/3 focus:ring-indigo-500 focus:border-indigo-500 block pl-7 pr-12 border-gray-300 rounded-md"
+                placeholder="0,00"
+              />
+            </div>
           </div>
           {error?.message && (
             <div className="pt-4 text-red-400">
