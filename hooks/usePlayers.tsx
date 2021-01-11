@@ -1,5 +1,5 @@
 import * as React from "react";
-import { searchPlayers, getPlayer, allPlayers, Player } from "../api/players";
+import { searchPlayers, allPlayers, Player } from "../api/players";
 
 const playersContext = React.createContext({ players: [] });
 const { Provider } = playersContext;

@@ -1,94 +1,120 @@
-export type Player = {
+import { db } from "../config/firebase";
+
+export type PlayerBase = {
+  id: string;
   firstName: string;
   lastName: string;
-  imageUrl: string;
-  email: string;
-  id: string;
-  clubName: string;
+  clubId: string;
+  clubName?: string;
 };
 
-export const allPlayers: Player[] = [
+export type PlayerUpdate = {
+  imageUrl?: string;
+  position?: string;
+  strongLeg?: string;
+  aboutMe?: string;
+  career?: string[];
+};
+
+export type Player = PlayerBase & PlayerUpdate;
+
+export const CLUB_LOOKUP = {
+  "1": {
+    name: "Hamburg Hurricanes",
+  },
+  "2": {
+    name: "SC Eilbek",
+  },
+  "3": {
+    name: "Condor 2",
+  },
+  "4": {
+    name: "Polonia Hamburg",
+  },
+  "5": {
+    name: "HSV 5",
+  },
+};
+
+const _allPlayers: Player[] = [
   {
-    id: "1",
+    id: "uNhTFngbbpvUwigAq81f",
     firstName: "Berkeley",
     lastName: "Gabits",
-    email: "bgabits0@accuweather.com",
     imageUrl: "http://dummyimage.com/209x214.bmp/cc0000/ffffff",
-    clubName: "Hamburg Hurricanes",
+    clubId: "1",
   },
   {
     id: "2",
     firstName: "Gavrielle",
     lastName: "McRamsey",
-    email: "gmcramsey1@netscape.com",
     imageUrl: "http://dummyimage.com/197x239.bmp/dddddd/000000",
-    clubName: "SC Eilbek",
+    clubId: "2",
   },
   {
     id: "3",
     firstName: "Salvatore",
     lastName: "Altamirano",
-    email: "saltamirano2@dot.gov",
     imageUrl: "http://dummyimage.com/248x157.bmp/ff4444/ffffff",
-    clubName: "Kakao Team",
+    clubId: "3",
   },
   {
     id: "4",
     firstName: "Dael",
     lastName: "Gianasi",
-    email: "dgianasi3@hibu.com",
     imageUrl: "http://dummyimage.com/190x209.bmp/cc0000/ffffff",
-    clubName: "Hamburg Hurricanes",
+    clubId: "1",
   },
   {
     id: "5",
     firstName: "Maddy",
     lastName: "Jakovijevic",
-    email: "mjakovijevic4@reuters.com",
     imageUrl: "http://dummyimage.com/125x218.png/5fa2dd/ffffff",
-    clubName: "Condor",
+    clubId: "4",
   },
   {
     id: "6",
     firstName: "Eleonora",
     lastName: "Mossdale",
-    email: "emossdale5@netvibes.com",
     imageUrl: "http://dummyimage.com/188x214.bmp/5fa2dd/ffffff",
-    clubName: "Hamburg Hurricanes",
+    clubId: "1",
   },
   {
     id: "7",
     firstName: "Waylin",
     lastName: "Dusting",
-    email: "wdusting6@bbb.org",
     imageUrl: "http://dummyimage.com/219x154.bmp/dddddd/000000",
-    clubName: "Polonia Hamburg",
+    clubId: "5",
   },
   {
     id: "8",
     firstName: "Alene",
     lastName: "Fazzioli",
-    email: "afazzioli7@goo.gl",
     imageUrl: "http://dummyimage.com/196x103.png/cc0000/ffffff",
-    clubName: "HSV 4",
+    clubId: "5",
   },
   {
     id: "9",
     firstName: "Livvyy",
     lastName: "Llewhellin",
-    email: "lllewhellin8@phpbb.com",
     imageUrl: "http://dummyimage.com/116x249.bmp/dddddd/000000",
-    clubName: "HSV 3",
+    clubId: "5",
   },
   {
     id: "10",
     firstName: "Gasper",
     lastName: "Filyashin",
-    email: "gfilyashin9@hud.gov",
     imageUrl: "http://dummyimage.com/237x103.png/ff4444/ffffff",
-    clubName: "Hamburg Hurricanes",
+    clubId: "1",
   },
 ];
+
+export const allPlayers: Player[] = _allPlayers.map((player) => {
+  return {
+    ...player,
+    clubName: CLUB_LOOKUP[player.clubId].name,
+  };
+});
 
 type SearchData = {
   searchTerm: string;
@@ -108,8 +134,52 @@ export const searchPlayers = async ({ searchTerm }: SearchData) => {
   });
 };
 
+export const createPlayer = async (player: PlayerBase) => {
+  return db
+    .collection("players")
+    .doc()
+    .set(player)
+    .then(() => {
+      return player;
+    })
+    .catch((error) => {
+      return { error };
+    });
+};
+
+export const updatePlayer = async (
+  playerId: string,
+  updateData: PlayerUpdate
+) => {
+  return db
+    .collection("players")
+    .doc(playerId)
+    .update(updateData)
+    .catch((error) => {
+      return { error };
+    });
+};
+
+export const getPlayerById = async (id: string) => {
+  const inMemoryPlayer = await getPlayer(id);
+  const dbPlayer = await db
+    .collection("players")
+    .doc(id)
+    .get()
+    .then((playerData) => {
+      if (playerData.data()) {
+        return { ...playerData.data() };
+      }
+    });
+  const combined = Object.assign({}, inMemoryPlayer, dbPlayer);
+  console.info("combined: ", combined);
+  return combined;
+};
+
 export const getPlayer = async (id: string) => {
-  return allPlayers.find((value) => value.id == id);
+  const player = allPlayers.find((value) => value.id == id);
+  player.clubName = CLUB_LOOKUP[player.clubId].name;
+  return player;
 };
 
 export const getAllPlayerIds = async () => {

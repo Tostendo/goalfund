@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import SearchResults from "./searchResults";
-import { getPlayer } from "../api/players";
+import { getPlayerById } from "../api/players";
 import Spinner from "./spinner";
 import ErrorModal from "./errorModal";
 
@@ -20,7 +21,7 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
   useEffect(() => {
     if (playerId) {
       setLoading(true);
-      getPlayer(playerId)
+      getPlayerById(playerId)
         .then((player) => {
           setPlayerInfo(player);
         })
@@ -67,11 +68,15 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
         <div className="py-3">
           <div>
             <label className="text-xs">Player name</label>
-            <div>{`${playerInfo.firstName} ${playerInfo.lastName}`}</div>
+            <Link href={`/playerProfile/${playerInfo.id}`}>
+              <div>
+                <a>{`${playerInfo.firstName} ${playerInfo.lastName}`}</a>
+              </div>
+            </Link>
           </div>
           <div>
             <label className="text-xs">Position</label>
-            <div>Midfield</div>
+            <div>{playerInfo.position || "-"}</div>
           </div>
           <div>
             <label className="text-xs">Strong leg</label>

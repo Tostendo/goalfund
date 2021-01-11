@@ -1,14 +1,22 @@
 import Router from "next/router";
 import Layout from "../../components/layout";
+import { useAuth } from "../../hooks/useAuth";
 
-import { getPlayer, getAllPlayerIds, Player } from "../../api/players";
+import {
+  getPlayerById,
+  getAllPlayerIds,
+  Player,
+  updatePlayer,
+} from "../../api/players";
 import CustomButton from "../../components/primaryButton";
+import EditInput from "../../components/editInput";
 
 type PlayerProfileProps = {
   player: Player;
 };
 
 export default function PlayersProfilPage({ player }: PlayerProfileProps) {
+  const auth = useAuth();
   return (
     <Layout>
       <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
@@ -31,7 +39,14 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
             </div>
             <div className="p-2">
               <label className="text-xs">Position</label>
-              <div>Sixer</div>
+              <EditInput
+                type="text"
+                value={player.position || "-"}
+                editable={auth.user?.playerId == player.id}
+                onSave={(value: string) =>
+                  updatePlayer(player.id, { position: value })
+                }
+              ></EditInput>
             </div>
             <div className="p-2">
               <label className="text-xs">Strong leg</label>
@@ -80,7 +95,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
 }
 
 export async function getStaticProps({ params }) {
-  const player = await getPlayer(params.id);
+  const player = await getPlayerById(params.id);
   return {
     props: {
       player,
