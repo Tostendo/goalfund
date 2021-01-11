@@ -16,7 +16,7 @@ const AddDonationPage = () => {
 
   const handleSubmit = async () => {
     return await createDonation({
-      donorId: auth.user.uid,
+      donorId: "test",
       amountPerGoal: amount,
       playerId: playerId,
     }).then((response: any) => {

@@ -40,9 +40,9 @@ const Navbar = () => {
   const [show, setShow] = useState(false);
   const items = auth.user ? navItems.loggedIn : navItems.anonym;
   return (
-    <nav className="bg-white lg:bg-transparent shadow-lg lg:shadow-none lg:my-4 -mx-2 lg:mx-0 lg:px-4 px-6 flex items-center justify-between flex-wrap">
+    <nav className="py-2 lg:py-4 flex items-center justify-between flex-wrap">
       <Link href="/" as="/" passHref>
-        <a>
+        <a className="bg-white p-2 rounded-lg">
           <img src="/logo.png" alt="Goalfund" className="h-4" />
         </a>
       </Link>
@@ -50,7 +50,7 @@ const Navbar = () => {
         onClick={() => setShow(!show)}
         className="p-3 rounded lg:hidden ml-auto outline-none focus:outline-none"
       >
-        <div className="h-6 w-6 text-primary">
+        <div className="h-6 w-6 text-white">
           <Icon type="menu" />
         </div>
       </button>
@@ -69,9 +69,13 @@ const Navbar = () => {
               <li key={`${item.label}+${index}`} className={classes}>
                 <Link href={item.link}>
                   <span>
-                    {item.label && <a>{item.label}</a>}
+                    {item.label && (
+                      <span className="cursor-pointer text-white hover:underline">
+                        {item.label}
+                      </span>
+                    )}
                     {item.icon && (
-                      <div className="h-6 w-6 text-primary cursor-pointer">
+                      <div className="h-6 w-6 text-white cursor-pointer">
                         <Icon type="logout" />
                       </div>
                     )}

@@ -3,8 +3,8 @@ import Icon from "./icon";
 
 const Footer = () => {
   return (
-    <footer className="absolute w-full inset-x-0 bottom-0 h-12">
-      <div className="my-4 mx-auto h-12 px-4 text-primary flex items-center justify-between">
+    <footer className="absolute w-full inset-x-0 bottom-0 h-16">
+      <div className="mx-auto h-16 px-4 text-primary flex items-center justify-between">
         <img src="/logo.png" alt="Goalfund" className="h-3" />
         <div className="flex items-center justify-center gap-4">
           <div className="h-6 w-6">

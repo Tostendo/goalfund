@@ -69,6 +69,11 @@ const SignInSignUpForm = ({ register, onSubmit, label }: Props) => {
             <a href="/reset-password">Forgot your password?</a>
           </div>
         )}
+        {register && (
+          <div className="col-span-1 text-right">
+            <a href="/login">Already have an account?</a>
+          </div>
+        )}
       </div>
       {error?.message && (
         <div className="pt-4 text-red-400">
