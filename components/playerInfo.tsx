@@ -70,7 +70,7 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
             <label className="text-xs">Player name</label>
             <Link href={`/playerProfile/${playerInfo.id}`}>
               <div>
-                <a>{`${playerInfo.firstName} ${playerInfo.lastName}`}</a>
+                <a>{`${playerInfo.name}`}</a>
               </div>
             </Link>
           </div>
@@ -80,7 +80,7 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
           </div>
           <div>
             <label className="text-xs">Strong leg</label>
-            <div>right</div>
+            <div>{playerInfo.strongLeg || "-"}</div>
           </div>
         </div>
       )}

@@ -16,15 +16,21 @@ const SearchItem = ({ player, onConnect, onDonate }: SearchItemProps) => (
       <div className="flex w-full items-center p-2">
         <div className="flex-col items-center">
           <div className="flex bg-orange-500 justify-center items-center m-2 w-8 h-8 rounded-full">
-            <img className="rounded-full" alt="A" src={player.imageUrl} />
+            <img
+              className="rounded-full"
+              alt="A"
+              src={player.image.length ? player.image[0] : "/img/avatar.png"}
+            />
           </div>
         </div>
         <div className="w-full">
           <div className="mx-4">
-            {`${player.firstName} ${player.lastName}`}
-            <div className="text-xs truncate w-full normal-case font-body -mt-1 text-gray-500">
-              {player.clubName}
-            </div>
+            {`${player.name}`}
+            {player.team && (
+              <div className="text-xs truncate w-full normal-case font-body -mt-1 text-gray-500">
+                {player.team.name}
+              </div>
+            )}
           </div>
         </div>
       </div>

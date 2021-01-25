@@ -1,5 +1,5 @@
 import * as React from "react";
-import { searchPlayers, allPlayers, Player } from "../api/players";
+import { searchPlayers, Player } from "../api/players";
 
 const playersContext = React.createContext({ players: [] });
 const { Provider } = playersContext;
@@ -20,7 +20,7 @@ export const usePlayers: any = () => {
 };
 
 function usePlayersProvider() {
-  const [players, setPlayers] = React.useState(allPlayers.slice(0, 10));
+  const [players, setPlayers] = React.useState([]);
   const search = async (searchTerm: string) => {
     return searchPlayers({ searchTerm: searchTerm }).then((data: Player[]) =>
       setPlayers(data)

@@ -23,7 +23,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
         <div className="grid grid-cols-2 items-center justify-center">
           <div className="col-span-2 md:col-span-1 relative h-64 w-full md:w-64">
             <img
-              src={player.imageUrl}
+              src={player.image.length ? player.image[0] : "/img/avatar.png"}
               alt="placeholder"
               className="w-full h-full rounded-full block"
             ></img>
@@ -31,11 +31,11 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
           <div className="col-span-2 md:col-span-1 flex flex-col">
             <div className="p-2">
               <label className="text-xs">Name</label>
-              <div>{`${player.firstName} ${player.lastName}`}</div>
+              <div>{`${player.name}`}</div>
             </div>
             <div className="p-2">
               <label className="text-xs">Team</label>
-              <div>{`${player.clubName}`}</div>
+              <div>{player.team ? `${player.team.name}` : "-"}</div>
             </div>
             <div className="p-2">
               <label className="text-xs">Position</label>
@@ -50,7 +50,14 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
             </div>
             <div className="p-2">
               <label className="text-xs">Strong leg</label>
-              <div>right</div>
+              <EditInput
+                type="text"
+                value={player.strongLeg || "-"}
+                editable={auth.user?.playerId == player.id}
+                onSave={(value: string) =>
+                  updatePlayer(player.id, { strongLeg: value })
+                }
+              ></EditInput>
             </div>
           </div>
         </div>

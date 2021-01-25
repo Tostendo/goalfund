@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import SearchItem from "../components/searchItem";
 import SearchInput from "../components/searchInput";
 
@@ -10,6 +11,9 @@ type SearchResultProps = {
 
 const SearchResults = ({ onConnect, onDonate }: SearchResultProps) => {
   const players = usePlayers();
+  useEffect(() => {
+    players.search(null);
+  }, []);
 
   return (
     <div className="w-full flex flex-col items-center">

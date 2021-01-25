@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getPlayer } from "../api/players";
+import { getPlayerById } from "../api/players";
 
 const PlayerName = ({ playerId }) => {
   const [loading, setLoading] = useState(false);
@@ -9,7 +9,7 @@ const PlayerName = ({ playerId }) => {
     setLoading(true);
     const asyncFetchPlayer = async (id: string) => {
       if (id) {
-        const player = await getPlayer(id);
+        const player = await getPlayerById(id);
         setPlayer(player);
       }
       setLoading(false);
@@ -20,8 +20,8 @@ const PlayerName = ({ playerId }) => {
     <div>
       {!loading && player && (
         <div>
-          <div className="font-bold">{`${player.firstName} ${player.lastName}`}</div>
-          <div className="text-xs">{player.clubName}</div>
+          <div className="font-bold">{`${player.name}`}</div>
+          {player.team && <div className="text-xs">{player.team.name}</div>}
         </div>
       )}
     </div>
