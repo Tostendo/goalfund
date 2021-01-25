@@ -2,7 +2,9 @@ import Link from "next/link";
 import Router from "next/router";
 import React from "react";
 import { Player } from "../api/players";
+import Icon from "./icon";
 import CustomButton from "./primaryButton";
+import Stats from "./stats";
 
 type SearchItemProps = {
   player: Player;
@@ -26,8 +28,30 @@ const SearchItem = ({ player, onConnect, onDonate }: SearchItemProps) => (
         <div className="w-full">
           <div className="mx-4">
             {`${player.name}`}
+            {player.stats && (
+              <div className="mb-2 gap-2 flex items-center text-xs truncate w-full">
+                <div className="gap-1 flex items-center">
+                  <div className="h-4 w-4 text-yellow-500">
+                    <Icon type="goal" />
+                  </div>
+                  <div>{player.stats.goals || 0}</div>
+                </div>
+                <div className="gap-1 flex items-center">
+                  <div className="h-4 w-4 text-green-500">
+                    <Icon type="showUp" />
+                  </div>
+                  <div>{player.stats.show_ups || 0}</div>
+                </div>
+                <div className="gap-1 flex items-center">
+                  <div className="h-4 w-4">
+                    <Icon type="clock" />
+                  </div>
+                  <div>{player.stats.minutes_played || 0}</div>
+                </div>
+              </div>
+            )}
             {player.team && (
-              <div className="text-xs truncate w-full normal-case font-body -mt-1 text-gray-500">
+              <div className="text-xs truncate w-full -mt-1 text-gray-500">
                 {player.team.name}
               </div>
             )}
