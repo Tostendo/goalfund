@@ -4,7 +4,6 @@ import React from "react";
 import { Player } from "../api/players";
 import Icon from "./icon";
 import CustomButton from "./primaryButton";
-import Stats from "./stats";
 
 type SearchItemProps = {
   player: Player;
@@ -21,7 +20,9 @@ const SearchItem = ({ player, onConnect, onDonate }: SearchItemProps) => (
             <img
               className="rounded-full"
               alt="A"
-              src={player.image.length ? player.image[0] : "/img/avatar.png"}
+              src={
+                player.image.length ? player.image[0].url : "/img/avatar.png"
+              }
             />
           </div>
         </div>

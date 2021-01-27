@@ -26,9 +26,11 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
         <div className="grid grid-cols-2 items-center justify-center">
           <div className="col-span-2 md:col-span-1 relative h-64 w-full md:w-64">
             <img
-              src={update.image.length ? update.image[0] : "/img/avatar.png"}
+              src={
+                update.image.length ? update.image[0].url : "/img/avatar.png"
+              }
               alt="placeholder"
-              className="w-full h-full rounded-full block"
+              className="h-full rounded-full block"
             ></img>
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col">
