@@ -1,33 +1,87 @@
 import Head from "next/head";
 import Layout from "../components/layout";
 import Router from "next/router";
+import { Testimonial } from "../components/testimonial";
+import Icon from "../components/icon";
+
+const PROCESS = [
+  {
+    headline: "Sign up as a player",
+    description:
+      "Amateur league football players sign up with Goalfund and select a charity to support.",
+  },
+  {
+    headline: "Pledge as a supporter",
+    description:
+      "Goalfunders pledge donations per goal scored by their chosen players.",
+  },
+  {
+    headline: "Score goals and raise money",
+    description:
+      "When players score in official amateur league matches, the funds raised by each goal are transferred by Goalfund to the player’s charity.",
+  },
+  {
+    headline: "Compete against others",
+    description:
+      "Players compete to raise the most money in their teams, leagues, regions and countries.",
+  },
+];
+
+const TESTIMONIALS = [
+  {
+    headline: "Really cool project",
+    text:
+      "It feels good to score goals and do something good at the same time. Ilove the challenge and I am happy for everybody who supports a charity through me. It is so easy.",
+    authorName: "Thomas O.",
+    authorImageUrl:
+      "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
+  },
+  {
+    headline: "Competitive socializing",
+    text:
+      "I love the competition. This here feels like a competition except that we are actually all aiming for the same goal: Collect as much money as possible for something good ",
+    authorName: "Sholto W.",
+    authorImageUrl:
+      "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
+  },
+  {
+    headline: "Mexicans for the win",
+    text:
+      "Enabling others with scoring goals to have a better life makes me score just more and more. ",
+    authorName: "Oscar P.",
+    authorImageUrl:
+      "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
+  },
+];
 
 const ProcessIcon = ({ step, last }: any) => {
   return (
     <div className="flex flex-col justify-center items-center relative">
-      <div className="w-28 h-12 md:flex hidden justify-center">
+      <div className="w-20 h-8 md:flex hidden justify-center">
         <div className="h-full border-dashed"></div>
       </div>
-      <div className="rounded-full w-12 h-12 text-xl font-black flex justify-center items-center absolute top-0 right-0 mt-16 shadow-lg mr-2">
+      <div className="rounded-full w-24 h-24 text-xl text-white bg-primary font-black flex justify-center items-center mb-6 shadow-lg">
         {step}
       </div>
-      <img
-        alt="step2"
-        className="w-28 h-28 rounded-full shadow my-6 object-scale-down"
-        src="https://image.flaticon.com/icons/svg/1330/1330216.svg"
-      />
+    </div>
+  );
+};
 
-      <div className="w-56 h-12 md:flex hidden justify-center">
-        {!last && <div className="h-full border-r-4 border-dashed"></div>}
+const ProcessDescription = ({ headline, description }: any) => {
+  return (
+    <div className="px-8 flex flex-col justify-center max-w-xl rounded">
+      <div className="md:text-2xl text-xl font-bold text-primary">
+        {headline}
       </div>
+      <div className="mt-4 text-primary">{description}</div>
     </div>
   );
 };
 
 const Headline = ({ headline, subtext }: any) => {
   return (
-    <div className="lg:text-center">
-      <p className="mt-24 mb-16 text-4xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+    <div className="text-center">
+      <p className="mt-24 mb-16 text-4xl leading-8 font-extrabold tracking-tight text-primary sm:text-5xl">
         {headline}
       </p>
       {subtext && (
@@ -39,29 +93,14 @@ const Headline = ({ headline, subtext }: any) => {
   );
 };
 
-const Testimonial = () => {
+const CTA = ({ handleClick }: any) => {
   return (
-    <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-20">
-      <div className="flex justify-center md:justify-end -mt-16">
-        <img
-          className="w-20 h-20 object-cover rounded-full border-2 border-indigo-500"
-          src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-        />
-      </div>
-      <div>
-        <h2 className="text-gray-800 text-3xl font-semibold">Amazing</h2>
-        <p className="mt-2 text-gray-600">
-          it feels good to score goals and do something good at the same time. I
-          love the challenge and I am happy for everybody who supports a
-          chairity through me. It is so easy.
-        </p>
-      </div>
-      <div className="flex justify-end mt-4">
-        <a href="#" className="text-xl font-medium text-primary">
-          John Doe
-        </a>
-      </div>
-    </div>
+    <button
+      onClick={handleClick}
+      className="mt-6 shadow-lg text-lg font-bold p-4 border rounded-lg focus:outline-none appearance-none border-green-400 hover:border-green-600 bg-green-400  hover:bg-green-600 text-white"
+    >
+      Become a goalfunder
+    </button>
   );
 };
 
@@ -84,225 +123,79 @@ export default function Home() {
               <h1 className="text-white text-2xl font-semibold uppercase md:text-3xl">
                 Every goal matters
               </h1>
-              <button
-                onClick={handleClick}
-                className="mt-6 shadow-lg text-lg font-bold p-4 border rounded-lg focus:outline-none appearance-none border-green-400 hover:border-green-600 bg-green-400  hover:bg-green-600 text-white"
-              >
-                Become a goalfunder
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="py-16 bg-white">
-          <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Headline headline="Mission" />
-            <div className="mt-10">
-              <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-                <div className="flex">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary text-white">
-                      <svg
-                        className="h-6 w-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <dt className="text-lg leading-6 font-medium text-gray-900">
-                      Competitive exchange rates
-                    </dt>
-                    <dd className="mt-2 text-base text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Maiores impedit perferendis suscipit eaque, iste dolor
-                      cupiditate blanditiis ratione.
-                    </dd>
-                  </div>
-                </div>
-
-                <div className="flex">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary text-white">
-                      <svg
-                        className="h-6 w-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <dt className="text-lg leading-6 font-medium text-gray-900">
-                      No hidden fees
-                    </dt>
-                    <dd className="mt-2 text-base text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Maiores impedit perferendis suscipit eaque, iste dolor
-                      cupiditate blanditiis ratione.
-                    </dd>
-                  </div>
-                </div>
-
-                <div className="flex">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary text-white">
-                      <svg
-                        className="h-6 w-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M13 10V3L4 14h7v7l9-11h-7z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <dt className="text-lg leading-6 font-medium text-gray-900">
-                      Transfers are instant
-                    </dt>
-                    <dd className="mt-2 text-base text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Maiores impedit perferendis suscipit eaque, iste dolor
-                      cupiditate blanditiis ratione.
-                    </dd>
-                  </div>
-                </div>
-
-                <div className="flex">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary text-white">
-                      <svg
-                        className="h-6 w-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <dt className="text-lg leading-6 font-medium text-gray-900">
-                      Mobile notifications
-                    </dt>
-                    <dd className="mt-2 text-base text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Maiores impedit perferendis suscipit eaque, iste dolor
-                      cupiditate blanditiis ratione.
-                    </dd>
-                  </div>
-                </div>
-              </dl>
+              <CTA handleClick={handleClick} />
             </div>
           </div>
         </div>
         <div className="flex flex-col justify-center m-auto">
           <Headline headline="How it works" />
-          <div className="flex md:flex-row flex-col justify-center md:text-left text-center">
-            <ProcessIcon step={1} />
-            <div className="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-teal-200">
-              <div className="md:text-3xl text-xl font-bold text-teal-700">
-                Find your best idea
+          {PROCESS.map((step, index) => {
+            return (
+              <div className="flex md:flex-row flex-col justify-center md:text-left text-center md:my-4 my-8">
+                <ProcessIcon
+                  step={index + 1}
+                  last={index + 1 === PROCESS.length}
+                />
+                <ProcessDescription
+                  headline={step.headline}
+                  description={step.description}
+                />
               </div>
-              <div className="mt-4 text-teal-800">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-                facilis, voluptates error alias dolorem praesentium sit soluta
-                iure incidunt labore explicabo eaque, quia architecto veritatis
-                dolores, enim consequatur nihil ipsum.
-              </div>
-            </div>
-          </div>
-          <div className="flex md:flex-row flex-col justify-center md:text-left text-center">
-            <ProcessIcon step={2} />
-            <div className="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded bg-orange-200">
-              <div className="md:text-3xl text-xl font-bold text-orange-700">
-                Find your team and collaborate
-              </div>
-              <div className="mt-4 text-orange-800">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-                facilis, voluptates error alias dolorem praesentium sit soluta
-                iure incidunt labore explicabo eaque, quia architecto veritatis
-                dolores, enim consequatur nihil ipsum.
-              </div>
-            </div>
-          </div>
-          <div className="flex md:flex-row flex-col  justify-center md:text-left text-center">
-            <ProcessIcon step={3} />
-            <div className="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded ">
-              <div className="md:text-3xl text-xl font-bold ">
-                Make a good plan and prepare tasks
-              </div>
-              <div className="mt-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-                facilis, voluptates error alias dolorem praesentium sit soluta
-                iure incidunt labore explicabo eaque, quia architecto veritatis
-                dolores, enim consequatur nihil ipsum.
-              </div>
-            </div>
-          </div>
-          <div className="flex md:flex-row flex-col  justify-center md:text-left text-center">
-            <ProcessIcon step={4} last />
-            <div className="ml-5 p-10 flex flex-col justify-center max-w-2xl rounded ">
-              <div className="md:text-3xl text-xl font-bold ">
-                Execute, impletement your solution
-              </div>
-              <div className="mt-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-                facilis, voluptates error alias dolorem praesentium sit soluta
-                iure incidunt labore explicabo eaque, quia architecto veritatis
-                dolores, enim consequatur nihil ipsum.
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mt-32 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Headline headline="Our dream" />
+          <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary text-white">
+                  <div className="h-6 w-6">
+                    <Icon type="goal" />
+                  </div>
+                </div>
+              </div>
+              <div className="ml-4">
+                <dt className="text-lg leading-6 font-medium text-primary">
+                  Goalfund is an interactive crowdfunding tool which offers an
+                  easy and competitive way to raise funds for good causes.
+                </dt>
+              </div>
+            </div>
+
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary text-white">
+                  <div className="h-6 w-6">
+                    <Icon type="showUp" />
+                  </div>
+                </div>
+              </div>
+              <div className="ml-4">
+                <dt className="text-lg leading-6 font-medium text-primary">
+                  Our aim is to grow a global movement of amateur players and
+                  their supporters *goalfunders* that can create positive
+                  change, simply, by playing football.
+                </dt>
+              </div>
+            </div>
+          </dl>
+        </div>
+        <div className="mt-32 flex items-center flex-col max-w-screen-xl mx-auto px-4 sm:px-8">
           <Headline headline="What goalfunders say" />
-          <div className="grid grid-cols-3 gap-4">
-            <Testimonial />
-            <Testimonial />
-            <Testimonial />
+          <div className="grid md:grid-cols-3 gap-4">
+            {TESTIMONIALS.map((testimonial) => {
+              return (
+                <Testimonial
+                  key={testimonial.authorName}
+                  testimonial={testimonial}
+                />
+              );
+            })}
           </div>
         </div>
-        <div className="max-w-screen-xl mx-auto text-center">
-          <button
-            onClick={handleClick}
-            className="mt-6 shadow-lg text-lg font-bold p-4 border rounded-lg focus:outline-none appearance-none border-green-400 hover:border-green-600 bg-green-400  hover:bg-green-600 text-white"
-          >
-            Become a goalfunder
-          </button>
+        <div className="my-16 max-w-screen-xl mx-auto text-center">
+          <CTA handleClick={handleClick} />
         </div>
       </main>
     </Layout>
