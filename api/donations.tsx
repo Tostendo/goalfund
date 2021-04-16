@@ -2,6 +2,8 @@ import { db } from "../config/firebase";
 
 export type DonationData = {
   id?: string;
+  created: string;
+  deleted?: string;
   donorId: string;
   amountPerGoal: number;
   playerId: string;

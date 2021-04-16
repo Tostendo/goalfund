@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import { getDonations, DonationData, deleteDonation } from "../api/donations";
 import PlayerName from "./playerName";
 import CustomButton from "./primaryButton";
@@ -47,10 +48,13 @@ const Donations = ({ donorId }: DonationsProps) => {
           return (
             <div
               key={donation.id}
-              className="grid grid-cols-3 lg:grid-cols-4 items-center md:gap-2 my-2 py-2 border-b"
+              className="grid grid-cols-4 lg:grid-cols-5 items-center md:gap-2 my-2 py-2 border-b"
             >
               <div className="col-span-1 lg:col-span-2">
                 <PlayerName playerId={donation.playerId} />
+              </div>
+              <div className="col-span-1">
+                {moment(donation.created).format("DD.MM.YYYY")}
               </div>
               <div className="col-span-1 text-right">
                 <span>{`${donation.amountPerGoal}€`}</span>

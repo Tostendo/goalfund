@@ -9,7 +9,6 @@ type PlayerDonationsProps = {
 const PlayerDonations = ({ playerId }: PlayerDonationsProps) => {
   const [allDonations, setAllDonations] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.info("playerId: ", playerId);
 
   useEffect(() => {
     if (playerId) {

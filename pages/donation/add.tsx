@@ -1,4 +1,5 @@
 import { useState } from "react";
+import moment from "moment";
 import Router, { useRouter } from "next/router";
 import { useAuth } from "../../hooks/useAuth";
 import Layout from "../../components/layout";
@@ -16,9 +17,10 @@ const AddDonationPage = () => {
 
   const handleSubmit = async () => {
     return await createDonation({
-      donorId: "test",
+      donorId: auth?.user?.uid,
       amountPerGoal: amount,
       playerId: playerId,
+      created: moment.utc().toISOString(),
     }).then((response: any) => {
       if (response.error) {
         setError(response.error);
