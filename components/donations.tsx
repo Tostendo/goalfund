@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { getDonations, DonationData, deleteDonation } from "../api/donations";
 import PlayerName from "./playerName";
-import CustomButton from "./primaryButton";
+import CustomButton from "./customButton";
 import Spinner from "./spinner";
 
 type DonationsProps = {

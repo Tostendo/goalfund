@@ -1,5 +1,4 @@
-import { useState } from "react";
-import Router from "next/router";
+import React, { useState } from "react";
 import Layout from "../../components/layout";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -9,7 +8,7 @@ import {
   Player,
   updatePlayer,
 } from "../../api/players";
-import CustomButton from "../../components/primaryButton";
+import DonateButton from "../../components/donateButton";
 import EditInput from "../../components/editInput";
 import Stats from "../../components/stats";
 
@@ -88,18 +87,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
           <Stats stats={update.stats} type="big" />
         </div>
         <div className="my-8">
-          <CustomButton
-            label="Donate"
-            type="primary"
-            handleClick={() =>
-              Router.push({
-                pathname: "/donation/add",
-                query: {
-                  donateFor: update.id.toString(),
-                },
-              })
-            }
-          />
+          <DonateButton donateForId={update.id} />
         </div>
       </div>
     </Layout>
@@ -116,7 +104,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const paths = (await getAllPlayerIds()).map((id) => {
+  const paths = (await getAllPlayerIds()).map((id: string) => {
     return {
       params: {
         id: id.toString(),

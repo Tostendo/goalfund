@@ -1,7 +1,7 @@
 import { useAuth } from "../hooks/useAuth";
 
 import Layout from "../components/layout";
-import SignInSignUpForm from "../components/login_form";
+import SignInSignUpForm from "../components/loginForm";
 
 const LoginPage = () => {
   const auth = useAuth();

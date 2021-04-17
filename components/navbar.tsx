@@ -23,6 +23,11 @@ const navItems = {
   ],
   anonym: [
     {
+      label: "Players",
+      link: "/playerSearch",
+      icon: null,
+    },
+    {
       label: "Login",
       link: "/login",
       icon: null,

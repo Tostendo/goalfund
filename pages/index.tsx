@@ -131,7 +131,10 @@ export default function Home() {
           <Headline headline="How it works" />
           {PROCESS.map((step, index) => {
             return (
-              <div className="flex md:flex-row flex-col justify-center md:text-left text-center md:my-4 my-8">
+              <div
+                key={index}
+                className="flex md:flex-row flex-col justify-center md:text-left text-center md:my-4 my-8"
+              >
                 <ProcessIcon
                   step={index + 1}
                   last={index + 1 === PROCESS.length}

@@ -4,7 +4,7 @@ import Router, { useRouter } from "next/router";
 import { useAuth } from "../../hooks/useAuth";
 import Layout from "../../components/layout";
 import { createDonation } from "../../api/donations";
-import CustomButton from "../../components/primaryButton";
+import CustomButton from "../../components/customButton";
 import PlayerName from "../../components/playerName";
 
 const AddDonationPage = () => {
