@@ -84,7 +84,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
         </div>
         <div className="my-8">
           <h2 className="my-4">My season stats</h2>
-          <Stats stats={update.stats} type="big" />
+          <Stats player={update} />
         </div>
         <div className="my-8">
           <DonateButton donateForId={update.id} />

@@ -13,6 +13,9 @@ export type Player = {
   team?: any;
   charity?: any;
   stats?: any;
+  goals?: number;
+  minutesPlayed?: number;
+  appearances?: number;
 };
 
 type PlayerUpdate = {
@@ -25,17 +28,24 @@ type PlayerUpdate = {
 };
 
 type SearchData = {
-  searchTerm: string;
+  searchTerm?: string;
+  sortBy?: string;
+  limit?: number;
 };
 
-export const searchPlayers = async ({ searchTerm }: SearchData) => {
-  if (!searchTerm) {
-    const result = await fetch(`${API_BASE_URL}/players?_limit=10`);
-    return await result.json();
+export const searchPlayers = async ({
+  searchTerm,
+  sortBy,
+  limit,
+}: SearchData) => {
+  let query = `_limit=${limit ? limit : 10}`;
+  if (searchTerm) {
+    query += `&name_contains=${searchTerm}`;
   }
-  const result = await fetch(
-    `${API_BASE_URL}/players?name_contains=${searchTerm}`
-  );
+  if (sortBy) {
+    query += `&_sort=${sortBy}`;
+  }
+  const result = await fetch(`${API_BASE_URL}/players?${query}`);
   return await result.json();
 };
 

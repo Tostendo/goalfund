@@ -22,9 +22,9 @@ export const usePlayers: any = () => {
 function usePlayersProvider() {
   const [players, setPlayers] = React.useState([]);
   const search = async (searchTerm: string) => {
-    return searchPlayers({ searchTerm: searchTerm }).then((data: Player[]) =>
-      setPlayers(data)
-    );
+    return searchPlayers({
+      searchTerm: searchTerm,
+    }).then((data: Player[]) => setPlayers(data));
   };
 
   return {

@@ -1,7 +1,12 @@
 import React from "react";
+import { Player } from "../api/players";
 import Icon from "./icon";
 
-const Stats = ({ stats, type }) => {
+type StatsProps = {
+  player: Player;
+};
+
+const Stats = ({ player }: StatsProps) => {
   function getStat(data: number, label: string, icon: string) {
     return (
       <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white dark:bg-gray-800">
@@ -26,9 +31,9 @@ const Stats = ({ stats, type }) => {
 
   return (
     <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-5">
-      {getStat(stats.goals, "Scored goals", "goal")}
-      {getStat(stats.show_ups, "Appearances", "showUp")}
-      {getStat(stats.minutes_played, "Minutes played", "clock")}
+      {getStat(player.goals, "Scored goals", "goal")}
+      {getStat(player.appearances, "Appearances", "showUp")}
+      {getStat(player.minutesPlayed, "Minutes played", "clock")}
     </div>
   );
 };

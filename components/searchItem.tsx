@@ -36,19 +36,19 @@ const SearchItem = ({ player, onConnect, onDonate }: SearchItemProps) => {
                     <div className="h-4 w-4 text-yellow-500">
                       <Icon type="goal" />
                     </div>
-                    <div>{player.stats.goals || 0}</div>
+                    <div>{player.goals || 0}</div>
                   </div>
                   <div className="gap-1 flex items-center">
                     <div className="h-4 w-4 text-green-500">
                       <Icon type="showUp" />
                     </div>
-                    <div>{player.stats.show_ups || 0}</div>
+                    <div>{player.appearances || 0}</div>
                   </div>
                   <div className="gap-1 flex items-center">
                     <div className="h-4 w-4">
                       <Icon type="clock" />
                     </div>
-                    <div>{player.stats.minutes_played || 0}</div>
+                    <div>{player.minutesPlayed || 0}</div>
                   </div>
                 </div>
               )}

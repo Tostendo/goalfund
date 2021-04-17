@@ -6,6 +6,11 @@ import Icon from "./icon";
 const navItems = {
   loggedIn: [
     {
+      label: "Top Lists",
+      link: "/toplists",
+      icon: null,
+    },
+    {
       label: "Players",
       link: "/playerSearch",
       icon: null,
@@ -22,6 +27,11 @@ const navItems = {
     },
   ],
   anonym: [
+    {
+      label: "Top Lists",
+      link: "/toplists",
+      icon: null,
+    },
     {
       label: "Players",
       link: "/playerSearch",
