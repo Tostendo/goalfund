@@ -2,28 +2,22 @@ import Head from "next/head";
 import Layout from "../components/layout";
 import Router from "next/router";
 import { Testimonial } from "../components/testimonial";
-import Icon from "../components/icon";
 
 const PROCESS = [
   {
-    headline: "Sign up as a player",
+    headline: "Find supporters",
     description:
-      "Amateur league football players sign up with Goalfund and select a charity to support.",
+      "Players gather pledges from supporters on a per goal basis. They can link to their profile and update it to attract donors.",
   },
   {
-    headline: "Pledge as a supporter",
+    headline: "Score goals",
     description:
-      "Goalfunders pledge donations per goal scored by their chosen players.",
+      "Players score goals in official amatuer league matches and track through Goalfund how much money they raised.",
   },
   {
-    headline: "Score goals and raise money",
+    headline: "Help people",
     description:
-      "When players score in official amateur league matches, the funds raised by each goal are transferred by Goalfund to the player’s charity.",
-  },
-  {
-    headline: "Compete against others",
-    description:
-      "Players compete to raise the most money in their teams, leagues, regions and countries.",
+      "Goalfund collects pledges in behalf of the players and transfers them to Charity.",
   },
 ];
 
@@ -69,7 +63,7 @@ const ProcessIcon = ({ step, last }: any) => {
 
 const ProcessDescription = ({ headline, description }: any) => {
   return (
-    <div className="px-8 flex flex-col justify-center max-w-xl rounded">
+    <div className="px-8 flex flex-col justify-center rounded">
       <div className="md:text-2xl text-xl font-bold text-primary">
         {headline}
       </div>
@@ -131,62 +125,42 @@ export default function Home() {
           <Headline headline="How it works" />
           {PROCESS.map((step, index) => {
             return (
-              <div
-                key={index}
-                className="flex md:flex-row flex-col justify-center md:text-left text-center md:my-4 my-8"
-              >
-                <ProcessIcon
-                  step={index + 1}
-                  last={index + 1 === PROCESS.length}
-                />
-                <ProcessDescription
-                  headline={step.headline}
-                  description={step.description}
-                />
+              <div key={index} className="grid grid-cols-1 lg:grid-cols-4">
+                <div className="lg:col-start-2 col-span-2 flex lg:flex-row flex-col justify-start lg:text-left text-center md:my-4 my-8">
+                  <ProcessIcon
+                    step={index + 1}
+                    last={index + 1 === PROCESS.length}
+                  />
+                  <ProcessDescription
+                    headline={step.headline}
+                    description={step.description}
+                  />
+                </div>
               </div>
             );
           })}
         </div>
-        <div className="mt-32 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Headline headline="Our dream" />
-          <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-            <div className="flex">
-              <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary text-white">
-                  <div className="h-6 w-6">
-                    <Icon type="goal" />
+        <div className="w-full bg-dream bg-cover mt-16">
+          <div className="py-32 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-12">
+              <div className="col-start-3 col-span-8">
+                <div className="text-2xl p-12 text-center text-white bg-primary rounded-lg bg-opacity-90">
+                  <div className="text-white pb-16 text-4xl sm:text-5xl">
+                    Our dream
+                  </div>
+                  <div>
+                    Goalfund's aim is to grow a global movement of amateur
+                    players *goalfunders* that can create positive change,
+                    simply, by playing football.
                   </div>
                 </div>
               </div>
-              <div className="ml-4">
-                <dt className="text-lg leading-6 font-medium text-primary">
-                  Goalfund is an interactive crowdfunding tool which offers an
-                  easy and competitive way to raise funds for good causes.
-                </dt>
-              </div>
             </div>
-
-            <div className="flex">
-              <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary text-white">
-                  <div className="h-6 w-6">
-                    <Icon type="showUp" />
-                  </div>
-                </div>
-              </div>
-              <div className="ml-4">
-                <dt className="text-lg leading-6 font-medium text-primary">
-                  Our aim is to grow a global movement of amateur players and
-                  their supporters *goalfunders* that can create positive
-                  change, simply, by playing football.
-                </dt>
-              </div>
-            </div>
-          </dl>
+          </div>
         </div>
         <div className="mt-32 flex items-center flex-col max-w-screen-xl mx-auto px-4 sm:px-8">
           <Headline headline="What goalfunders say" />
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {TESTIMONIALS.map((testimonial) => {
               return (
                 <Testimonial
