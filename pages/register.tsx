@@ -1,9 +1,6 @@
-import { useAuth } from "../hooks/useAuth";
-
 import Layout from "../components/layout";
 import SignInSignUpForm from "../components/loginForm";
 const SignUpPage = () => {
-  const auth = useAuth();
   return (
     <Layout>
       <div>
@@ -15,11 +12,7 @@ const SignUpPage = () => {
             />
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <SignInSignUpForm
-              register
-              label="Register"
-              onSubmit={auth.signUp}
-            />
+            <SignInSignUpForm register />
           </div>
         </div>
       </div>

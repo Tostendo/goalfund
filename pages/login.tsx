@@ -1,10 +1,7 @@
-import { useAuth } from "../hooks/useAuth";
-
 import Layout from "../components/layout";
 import SignInSignUpForm from "../components/loginForm";
 
 const LoginPage = () => {
-  const auth = useAuth();
   return (
     <Layout>
       <div className="p-8 grid grid-cols-2 gap-16 mt-8 sm:mt-20">
@@ -15,7 +12,7 @@ const LoginPage = () => {
           />
         </div>
         <div className="col-span-2 sm:col-span-1">
-          <SignInSignUpForm label="Login" onSubmit={auth.signIn} />
+          <SignInSignUpForm />
         </div>
       </div>
     </Layout>
