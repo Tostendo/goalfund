@@ -79,7 +79,7 @@ const Headline = ({ headline, subtext }: any) => {
         {headline}
       </p>
       {subtext && (
-        <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+        <p className="mt-4 mb-8 max-w-2xl text-xl text-primary lg:mx-auto">
           {subtext}
         </p>
       )}
@@ -122,7 +122,11 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-col justify-center m-auto">
-          <Headline headline="How it works" />
+          <Headline
+            headline="How it works"
+            subtext="Goalfund is a crowdfunding tool empowering amateur football players to raise funds for good causes."
+          />
+          <p></p>
           {PROCESS.map((step, index) => {
             return (
               <div key={index} className="grid grid-cols-1 lg:grid-cols-4">
