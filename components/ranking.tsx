@@ -13,6 +13,8 @@ function getLabel(type: string) {
       return "Minutes played";
     case "mostAppearances":
       return "Appearances";
+    case "mostDonations":
+      return "Donors";
   }
 }
 
@@ -24,6 +26,8 @@ function getData(type: string, entry: any) {
       return entry.minutesPlayed;
     case "mostAppearances":
       return entry.appearances;
+    case "mostDonations":
+      return entry.numberOfDonations;
   }
 }
 

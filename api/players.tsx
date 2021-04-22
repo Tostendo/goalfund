@@ -68,6 +68,12 @@ export const getPlayerById = async (id: string) => {
   return await result.json();
 };
 
+export const getPlayersByIds = async (ids: string[]) => {
+  const query = ids.map((id) => `id_in=${id}`).join("&");
+  const result = await fetch(`${API_BASE_URL}/players?${query}`);
+  return result.json();
+};
+
 export const getAllPlayerIds = async () => {
   const result = await fetch(`${API_BASE_URL}/players`);
   const data = await result.json();

@@ -1,5 +1,4 @@
 import { db } from "../config/firebase";
-
 export type DonationData = {
   id?: string;
   created: string;
