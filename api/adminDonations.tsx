@@ -1,7 +1,9 @@
 import { adminDb } from "../config/firebaseAdmin";
 import _ from "lodash";
+import { getPlayerById } from "./players";
+import { calculateSumOfPledges } from "../helpers/calculate";
 
-export const getTopPlayersByDonation = async () => {
+export const getDonationsPerPlayer = async () => {
   const snapshot = await adminDb.collection("donations").get();
   if (snapshot.empty) {
     console.log("No matching documents.");
@@ -10,14 +12,34 @@ export const getTopPlayersByDonation = async () => {
   var donations = {};
   snapshot.forEach((doc) => {
     const donation = { id: doc.id, ...doc.data() };
-    donations[donation["playerId"]] = ++donations[donation["playerId"]] || 1;
+    donations[donation["playerId"]] =
+      donations[donation["playerId"]] && donations[donation["playerId"]].length
+        ? [...donations[donation["playerId"]], donation]
+        : [donation];
   });
-  const modified = Object.keys(donations).map((key) => {
+  const modified = Object.keys(donations).map(async (key) => {
+    const player = await getPlayerById(key);
     return {
-      playerId: key,
-      count: donations[key],
+      ...player,
+      count: donations[key].length,
+      money: calculateSumOfPledges(player.goals, donations[key]),
     };
   });
-  const sorted = _.orderBy(modified, "count", "desc");
-  return sorted.length < 5 ? sorted : sorted.slice(0, 5);
+  return Promise.all(modified);
+};
+
+export const getTopPlayersByPledges = async (numberOfEntries: number) => {
+  const donationsPerPlayer = await getDonationsPerPlayer();
+  const sorted = _.orderBy(donationsPerPlayer, "count", "desc");
+  return sorted.length < numberOfEntries
+    ? sorted
+    : sorted.slice(0, numberOfEntries);
+};
+
+export const getTopPlayersByMoneyRaised = async (numberOfEntries: number) => {
+  const donationsPerPlayer = await getDonationsPerPlayer();
+  const sorted = _.orderBy(donationsPerPlayer, "money", "desc");
+  return sorted.length < numberOfEntries
+    ? sorted
+    : sorted.slice(0, numberOfEntries);
 };

@@ -21,6 +21,7 @@ const AddDonationPage = () => {
       amountPerGoal: amount,
       playerId: playerId,
       created: moment.utc().toISOString(),
+      deleted: null,
     }).then((response: any) => {
       if (response.error) {
         setError(response.error);
