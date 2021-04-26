@@ -65,7 +65,7 @@ export const updatePlayer = async (
 
 export const getPlayerById = async (id: string) => {
   const result = await fetch(`${API_BASE_URL}/players/${id}`);
-  return await result.json();
+  return (await result.json()) as Player;
 };
 
 export const getPlayersByIds = async (ids: string[]) => {
