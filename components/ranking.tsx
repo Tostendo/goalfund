@@ -61,10 +61,10 @@ const Ranking = ({ type, entries }: RankingProps) => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Name
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:inline-flex">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
                   Team
                 </th>
-                <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
                   {getLabels(type).secondary}
                 </th>
                 <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -101,7 +101,7 @@ const Ranking = ({ type, entries }: RankingProps) => {
                         {entry.team && entry.team.name}
                       </div>
                     </td>
-                    <td className="px-4 py-4 whitespace-nowrap">
+                    <td className="px-4 py-4 whitespace-nowrap hidden sm:table-cell">
                       <div className="p-2 text-md font-semibold rounded-full text-grey-800 text-center">
                         {getData(type, entry).secondary}
                       </div>
