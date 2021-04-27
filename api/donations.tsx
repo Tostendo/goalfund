@@ -66,7 +66,6 @@ export const getPlayerDonations = async (playerId: string) => {
   const snapshot = await db
     .collection("donations")
     .where("playerId", "==", playerId)
-    .where("deleted", "==", null)
     .get();
   if (snapshot.empty) {
     console.log("No matching documents.");

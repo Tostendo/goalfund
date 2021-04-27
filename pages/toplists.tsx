@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../components/layout";
-import { Player, searchPlayers } from "../api/players";
+import { searchPlayers } from "../api/players";
+import { Player } from "../models/player";
 import {
   getTopPlayersByMoneyRaised,
   getTopPlayersByPledges,
