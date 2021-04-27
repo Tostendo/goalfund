@@ -22,11 +22,11 @@ const SearchInput = ({ onSearch }: SearchInputProps) => {
   };
   return (
     <div className="w-full">
-      <div className="my-4 p-4 bg-white flex border border-gray-200 rounded">
+      <div className="my-4 p-1 bg-secondary flex border border-none rounded">
         <input
           type="search"
           placeholder="Search by name"
-          className="my-1 p-2 border-gray-200 focus:border-gray-400 appearance-none outline-none w-full text-primary"
+          className="m-1 p-2 border-secondary focus:border-gray-500 appearance-none outline-none w-full text-primary"
           onChange={(e) => handleSearch(e.target.value)}
           onKeyDown={handleKeyPress}
         />

@@ -1,10 +1,7 @@
 import _ from "lodash";
-import { DonationData } from "../api/donations";
+import { Donation } from "../models/donation";
 
-export const calculatePledge = (
-  currentGoals: number,
-  donation: DonationData
-) => {
+export const calculatePledge = (currentGoals: number, donation: Donation) => {
   if (currentGoals == donation.goalsStart) {
     return 0;
   }
@@ -16,7 +13,7 @@ export const calculatePledge = (
 
 export const calculateSumOfPledges = (
   currentGoals: number,
-  donations: DonationData[]
+  donations: Donation[]
 ) => {
   const pledges = donations.map((donation) =>
     calculatePledge(currentGoals, donation)

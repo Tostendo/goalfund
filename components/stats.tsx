@@ -1,5 +1,6 @@
 import React from "react";
-import { Player } from "../api/players";
+import { Player } from "../models/player";
+import { MONEY_FORMAT } from "../helpers/formatter";
 import Icon from "./icon";
 
 type StatsProps = {
@@ -7,7 +8,7 @@ type StatsProps = {
 };
 
 const Stats = ({ player }: StatsProps) => {
-  function getStat(data: number, label: string, icon: string) {
+  function getStat(data: number | string, label: string, icon: string) {
     return (
       <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white dark:bg-gray-800">
         <div className="py-4 flex items-center">
@@ -31,6 +32,7 @@ const Stats = ({ player }: StatsProps) => {
 
   return (
     <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-5">
+      {getStat(MONEY_FORMAT.format(player.money), "Money raised", "euro")}
       {getStat(player.goals, "Scored goals", "goal")}
       {getStat(player.appearances, "Appearances", "showUp")}
       {getStat(player.minutesPlayed, "Minutes played", "clock")}

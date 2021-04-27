@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getPlayerDonations, DonationData } from "../api/donations";
+import { getPlayerDonations } from "../api/donations";
+import { Donation } from "../models/donation";
 import Spinner from "./spinner";
 
 type PlayerDonationsProps = {
@@ -14,8 +15,7 @@ const PlayerDonations = ({ playerId }: PlayerDonationsProps) => {
     if (playerId) {
       setLoading(true);
       getPlayerDonations(playerId)
-        .then((donations: DonationData[]) => {
-          console.info("donations: ", donations);
+        .then((donations: Donation[]) => {
           setAllDonations(donations);
         })
         .finally(() => {
@@ -34,7 +34,7 @@ const PlayerDonations = ({ playerId }: PlayerDonationsProps) => {
         <div className="py-3">No donations so far.</div>
       )}
       {allDonations.length > 0 &&
-        allDonations.map((donation: DonationData) => {
+        allDonations.map((donation: Donation) => {
           return (
             <div
               key={donation.id}

@@ -5,9 +5,9 @@ import { useAuth } from "../../hooks/useAuth";
 import {
   getPlayerById,
   getAllPlayerIds,
-  Player,
   updatePlayer,
 } from "../../api/players";
+import { Player } from "../../models/player";
 import DonateButton from "../../components/donateButton";
 import EditInput from "../../components/editInput";
 import Stats from "../../components/stats";

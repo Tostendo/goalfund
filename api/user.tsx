@@ -1,19 +1,8 @@
 import { db } from "../config/firebase";
 import firebase from "firebase";
+import { User, UpdateUser } from "../models/user";
 
-type UserData = {
-  uid: string;
-  username: string;
-  email: string;
-  emailVerified: boolean;
-};
-
-type UpdateData = {
-  username?: string;
-  playerId?: string;
-};
-
-export const createUser = async (user: UserData) => {
+export const createUser = async (user: User) => {
   return db
     .collection("users")
     .doc(user.uid)
@@ -28,7 +17,7 @@ export const createUser = async (user: UserData) => {
 
 export const updateUser = async (
   user: firebase.User,
-  updateData: UpdateData
+  updateData: UpdateUser
 ) => {
   return db
     .collection("users")

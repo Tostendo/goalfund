@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { getDonations, DonationData, deleteDonation } from "../api/donations";
+import { getDonations, deleteDonation } from "../api/donations";
+import { Donation } from "../models/donation";
 import PlayerName from "./playerName";
 import CustomButton from "./customButton";
 import Spinner from "./spinner";
@@ -16,7 +17,7 @@ const Donations = ({ donorId }: DonationsProps) => {
   useEffect(() => {
     setLoading(true);
     getDonations(donorId)
-      .then((donations: DonationData[]) => {
+      .then((donations: Donation[]) => {
         setAllDonations(donations);
       })
       .finally(() => {
@@ -29,7 +30,7 @@ const Donations = ({ donorId }: DonationsProps) => {
       .then(() => {
         return getDonations(donorId);
       })
-      .then((donations: DonationData[]) => {
+      .then((donations: Donation[]) => {
         setAllDonations(donations);
       });
   };
@@ -44,7 +45,7 @@ const Donations = ({ donorId }: DonationsProps) => {
         <div className="py-3">No donations so far.</div>
       )}
       {allDonations.length > 0 &&
-        allDonations.map((donation: DonationData) => {
+        allDonations.map((donation: Donation) => {
           return (
             <div
               key={donation.id}

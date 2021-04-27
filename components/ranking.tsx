@@ -1,14 +1,10 @@
 import React from "react";
+import { MONEY_FORMAT } from "../helpers/formatter";
 
 type RankingProps = {
   type: string;
   entries: any[];
 };
-
-const MONEY_FORMAT = new Intl.NumberFormat("de-DE", {
-  style: "currency",
-  currency: "EUR",
-});
 
 function getLabels(type: string) {
   switch (type) {
