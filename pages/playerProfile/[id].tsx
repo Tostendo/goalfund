@@ -25,7 +25,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
         setUpdate(player);
       });
     }
-  }, []);
+  }, [auth.user]);
   return (
     <Layout>
       <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
