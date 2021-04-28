@@ -4,6 +4,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 import {
   getPlayerById,
+  getPlayerByIdWithDonations,
   getAllPlayerIds,
   updatePlayer,
 } from "../../api/players";
@@ -22,7 +23,10 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
   useEffect(() => {
     if (auth.user?.playerId == update.id) {
       getPlayerById(player.id).then((player) => {
-        setUpdate(player);
+        setUpdate({
+          ...update,
+          ...player,
+        });
       });
     }
   }, [auth.user]);
@@ -111,7 +115,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
 }
 
 export async function getStaticProps({ params }) {
-  const player = await getPlayerById(params.id);
+  const player = await getPlayerByIdWithDonations(params.id);
   return {
     props: {
       player,

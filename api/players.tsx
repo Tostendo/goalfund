@@ -43,14 +43,19 @@ export const updatePlayer = async (
   return await update.json();
 };
 
-export const getPlayerById = async (id: string) => {
-  const result = await fetch(`${API_BASE_URL}/players/${id}`);
-  const player = await result.json();
+export const getPlayerByIdWithDonations = async (id: string) => {
+  const player = await getPlayerById(id);
   const donations = await getPlayerDonations(player.id);
   return {
     ...player,
     money: calculateSumOfPledges(player.goals, donations),
   } as Player;
+};
+
+export const getPlayerById = async (id: string) => {
+  const result = await fetch(`${API_BASE_URL}/players/${id}`);
+  const player = await result.json();
+  return player;
 };
 
 export const getPlayersByIds = async (ids: string[]) => {

@@ -1,17 +1,7 @@
 import { db } from "../config/firebase";
 import { getPlayerById } from "../api/players";
+import { Donation } from "../models/donation";
 import moment from "moment";
-export type DonationData = {
-  id?: string;
-  created: string;
-  paid?: string;
-  deleted: string | null;
-  donorId: string;
-  amountPerGoal: number;
-  playerId: string;
-  goalsStart?: number;
-  goalsEnd?: number;
-};
 
 export const getDonation = async (id: string) => {
   return db
@@ -20,12 +10,12 @@ export const getDonation = async (id: string) => {
     .get()
     .then((donationData) => {
       if (donationData.data()) {
-        return donationData.data() as DonationData;
+        return donationData.data() as Donation;
       }
     });
 };
 
-export const createDonation = async (data: DonationData) => {
+export const createDonation = async (data: Donation) => {
   const player = await getPlayerById(data.playerId);
   const withGoals = {
     ...data,
