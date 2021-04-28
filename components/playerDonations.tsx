@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getPlayerDonations } from "../api/donations";
 import { Donation } from "../models/donation";
 import Spinner from "./spinner";
+import { MONEY_FORMAT } from "../helpers/formatter";
 
 type PlayerDonationsProps = {
   playerId: string;
@@ -38,11 +39,11 @@ const PlayerDonations = ({ playerId }: PlayerDonationsProps) => {
           return (
             <div
               key={donation.id}
-              className="grid grid-cols-3 items-center md:gap-2 my-4"
+              className="grid grid-cols-2 items-center md:gap-2 my-4 border-b py-2"
             >
-              <div className="col-span-1">Anonym</div>
-              <div className="col-span-1">
-                <span>{`${donation.amountPerGoal}€`}</span>
+              <div className="col-span-1 font-bold">Anonym</div>
+              <div className="col-span-1 text-right font-bold">
+                <span>{MONEY_FORMAT.format(donation.amountPerGoal)}</span>
                 <span className="hidden lg:inline-block lg:pl-2">{`per goal`}</span>
               </div>
             </div>

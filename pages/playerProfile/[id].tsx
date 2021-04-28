@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../../components/layout";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -19,6 +19,13 @@ type PlayerProfileProps = {
 export default function PlayersProfilPage({ player }: PlayerProfileProps) {
   const auth = useAuth();
   const [update, setUpdate] = useState(player);
+  useEffect(() => {
+    if (auth.user?.playerId == update.id) {
+      getPlayerById(player.id).then((player) => {
+        setUpdate(player);
+      });
+    }
+  }, []);
   return (
     <Layout>
       <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
@@ -49,7 +56,10 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
                 editable={auth.user?.playerId == update.id}
                 onSave={(value: string) =>
                   updatePlayer(update.id, { position: value }).then((player) =>
-                    setUpdate(player)
+                    setUpdate({
+                      ...update,
+                      ...player,
+                    })
                   )
                 }
               ></EditInput>
@@ -62,7 +72,10 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
                 editable={auth.user?.playerId == update.id}
                 onSave={(value: string) =>
                   updatePlayer(update.id, { strongLeg: value }).then((player) =>
-                    setUpdate(player)
+                    setUpdate({
+                      ...update,
+                      ...player,
+                    })
                   )
                 }
               ></EditInput>
@@ -77,7 +90,10 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
             editable={auth.user?.playerId == update.id}
             onSave={(value: string) =>
               updatePlayer(update.id, { description: value }).then((player) =>
-                setUpdate(player)
+                setUpdate({
+                  ...update,
+                  ...player,
+                })
               )
             }
           ></EditInput>

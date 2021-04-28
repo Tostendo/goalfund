@@ -47,6 +47,7 @@ export const getPlayerById = async (id: string) => {
   const result = await fetch(`${API_BASE_URL}/players/${id}`);
   const player = await result.json();
   const donations = await getPlayerDonations(player.id);
+  console.info("donations: ", donations);
   return {
     ...player,
     money: calculateSumOfPledges(player.goals, donations),

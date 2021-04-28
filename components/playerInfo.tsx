@@ -4,6 +4,7 @@ import SearchResults from "./searchResults";
 import { getPlayerById } from "../api/players";
 import Spinner from "./spinner";
 import ErrorModal from "./errorModal";
+import PlayerDonations from "./playerDonations";
 
 type PlayerInfoData = {
   playerId: string;
@@ -53,7 +54,7 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
   }
 
   return (
-    <div className="py-3 w-full md:w-1/2">
+    <div className="py-3 w-full">
       <label className="flex items-center">
         <input
           type="checkbox"
@@ -65,22 +66,19 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
       </label>
       {isPlayer && !playerId && <SearchResults onConnect={handleConnect} />}
       {playerInfo && (
-        <div className="py-3">
-          <div>
-            <label className="text-xs">Player name</label>
-            <Link href={`/playerProfile/${playerInfo.id}`}>
-              <div>
-                <a>{`${playerInfo.name}`}</a>
-              </div>
-            </Link>
+        <div>
+          <div className="py-3">
+            <div>
+              <Link href={`/playerProfile/${playerInfo.id}`}>
+                <div>
+                  <a>{`${playerInfo.name}`}</a>
+                </div>
+              </Link>
+            </div>
           </div>
           <div>
-            <label className="text-xs">Position</label>
-            <div>{playerInfo.position || "-"}</div>
-          </div>
-          <div>
-            <label className="text-xs">Strong leg</label>
-            <div>{playerInfo.strongLeg || "-"}</div>
+            <h2>Donations from ...</h2>
+            <PlayerDonations playerId={playerId} />
           </div>
         </div>
       )}

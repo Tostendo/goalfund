@@ -5,7 +5,7 @@ import { Donation } from "../models/donation";
 import PlayerName from "./playerName";
 import CustomButton from "./customButton";
 import Spinner from "./spinner";
-
+import { MONEY_FORMAT } from "../helpers/formatter";
 type DonationsProps = {
   donorId: string;
 };
@@ -57,8 +57,8 @@ const Donations = ({ donorId }: DonationsProps) => {
               <div className="col-span-1">
                 {moment(donation.created).format("DD.MM.YYYY")}
               </div>
-              <div className="col-span-1 text-right">
-                <span>{`${donation.amountPerGoal}€`}</span>
+              <div className="col-span-1 text-right font-bold">
+                <span>{MONEY_FORMAT.format(donation.amountPerGoal)}</span>
                 <span className="hidden lg:inline-block lg:pl-2">{`per goal`}</span>
               </div>
               <div className="col-span-1 text-right">
