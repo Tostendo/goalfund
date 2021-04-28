@@ -4,6 +4,7 @@ const API_BASE_URL =
 import { getPlayerDonations } from "./donations";
 import { calculateSumOfPledges } from "../helpers/calculate";
 import { Player, PlayerSearchData, PlayerUpdate } from "../models/player";
+import _ from "lodash";
 
 export const searchPlayers = async ({
   searchTerm,
@@ -52,10 +53,31 @@ export const getPlayerByIdWithDonations = async (id: string) => {
   } as Player;
 };
 
+export const getPlayerBySlugWithDonations = async (slug: string) => {
+  const player = await getPlayerBySlug(slug);
+  const donations = await getPlayerDonations(player.id);
+  return {
+    ...player,
+    money: calculateSumOfPledges(player.goals, donations),
+  } as Player;
+};
+
 export const getPlayerById = async (id: string) => {
   const result = await fetch(`${API_BASE_URL}/players/${id}`);
   const player = await result.json();
   return player;
+};
+
+export const getPlayerBySlug = async (slug: string) => {
+  const result = await fetch(`${API_BASE_URL}/players?slug=${slug}`);
+  const player = await result.json();
+  if (player && player.length) {
+    return player[0];
+  }
+  if (player.length > 1) {
+    console.info(`More than one player for slug ${slug}`);
+  }
+  return null;
 };
 
 export const getPlayersByIds = async (ids: string[]) => {
@@ -72,8 +94,14 @@ export const getPlayersByIds = async (ids: string[]) => {
   return Promise.all(all);
 };
 
-export const getAllPlayerIds = async () => {
-  const result = await fetch(`${API_BASE_URL}/players`);
+export const getAllPlayerSlugs = async () => {
+  const result = await fetch(`${API_BASE_URL}/players?_limit=-1`);
   const data = await result.json();
-  return data.map((player: Player) => player.id);
+  const slugs = data.map((player: Player) => {
+    if (!player.slug) {
+      console.error(`player ${player.name} is missing slug.`);
+    }
+    return player.slug;
+  });
+  return _.filter(slugs, _.identity);
 };

@@ -14,7 +14,7 @@ type SearchItemProps = {
 
 const SearchItem = ({ player, onConnect, onDonate }: SearchItemProps) => {
   return (
-    <Link href={`/playerProfile/${player.id}`}>
+    <Link href={`/playerProfile/${player.slug}`}>
       <div className="flex items-center justify-between cursor-pointer w-full border-gray-300 rounded-t border-b hover:bg-gray-300">
         <div className="flex w-full items-center p-2">
           <div className="flex-col items-center">
@@ -31,7 +31,7 @@ const SearchItem = ({ player, onConnect, onDonate }: SearchItemProps) => {
           <div className="w-full">
             <div className="mx-4">
               <Link
-                href={`/playerProfile/${player.id}`}
+                href={`/playerProfile/${player.slug}`}
               >{`${player.name}`}</Link>
               {player.stats && (
                 <div className="mb-2 gap-2 flex items-center text-xs truncate w-full">

@@ -69,7 +69,7 @@ const PlayerInfo = ({ playerId, onUpdate }: PlayerInfoData) => {
         <div>
           <div className="py-3">
             <div>
-              <Link href={`/playerProfile/${playerInfo.id}`}>
+              <Link href={`/playerProfile/${playerInfo.slug}`}>
                 <div>
                   <a>{`${playerInfo.name}`}</a>
                 </div>

@@ -4,8 +4,8 @@ import { useAuth } from "../../hooks/useAuth";
 
 import {
   getPlayerById,
-  getPlayerByIdWithDonations,
-  getAllPlayerIds,
+  getPlayerBySlugWithDonations,
+  getAllPlayerSlugs,
   updatePlayer,
 } from "../../api/players";
 import { Player } from "../../models/player";
@@ -115,19 +115,27 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
 }
 
 export async function getStaticProps({ params }) {
-  const player = await getPlayerByIdWithDonations(params.id);
-  return {
-    props: {
-      player,
-    },
-  };
+  try {
+    const player = await getPlayerBySlugWithDonations(params.slug);
+    return {
+      props: {
+        player,
+      },
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      notFound: true,
+    };
+  }
 }
 
 export async function getStaticPaths() {
-  const paths = (await getAllPlayerIds()).map((id: string) => {
+  const allSlugs = await getAllPlayerSlugs();
+  const paths = allSlugs.map((slugData: string) => {
     return {
       params: {
-        id: id.toString(),
+        slug: slugData,
       },
     };
   });

@@ -1,6 +1,7 @@
 export type Player = {
   id: string;
   name: string;
+  slug: string;
   profileUrl: string;
   image?: any[];
   position?: string;
