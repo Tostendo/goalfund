@@ -1,12 +1,7 @@
-export type Testimonial = {
-  headline: string;
-  text: string;
-  authorName: string;
-  authorImageUrl: string;
-};
+import { ITestimonial } from "../models/frontpage";
 
 type Props = {
-  testimonial: Testimonial;
+  testimonial: ITestimonial;
 };
 
 export const Testimonial = ({ testimonial }: Props) => {
@@ -15,15 +10,15 @@ export const Testimonial = ({ testimonial }: Props) => {
       <div className="flex justify-center md:justify-end -mt-16">
         <img
           className="w-20 h-20 object-cover rounded-full border-2 border-secondary"
-          src={testimonial.authorImageUrl}
+          src={testimonial.image?.url || null}
         />
       </div>
       <div>
         <h2 className="text-primary text-2xl">{testimonial.headline}</h2>
-        <p className="my-4 text-primary">{testimonial.text}</p>
+        <p className="my-4 text-primary">{testimonial.copyText}</p>
       </div>
       <div className="flex justify-end mt-4 text-xl text-primary">
-        {testimonial.authorName}
+        {testimonial.name}
       </div>
     </div>
   );

@@ -2,53 +2,112 @@ import Head from "next/head";
 import Layout from "../components/layout";
 import Router from "next/router";
 import { Testimonial } from "../components/testimonial";
+import { fetchHomepage } from "../api/homepage";
+import {
+  IHeroTeaser,
+  IMissionStatement,
+  ISteps,
+  ITestimonials,
+  ISectionHeader,
+  IFrontpage,
+  ICTA,
+} from "../models/frontpage";
 
-const PROCESS = [
-  {
-    headline: "Find supporters",
-    description:
-      "Players gather pledges from supporters on a per goal basis. They can link to their profile and update it to attract donors.",
-  },
-  {
-    headline: "Score goals",
-    description:
-      "Players score goals in official amatuer league matches and track through Goalfund how much money they raised.",
-  },
-  {
-    headline: "Help people",
-    description:
-      "Goalfund collects pledges in behalf of the players and transfers them to Charity.",
-  },
-];
+const renderComponent = (component: any) => {
+  switch (component.__component) {
+    case "frontpage.hero-teaser":
+      return <Hero content={component} />;
+    case "frontpage.section-header":
+      return <SectionHeader content={component} />;
+    case "frontpage.mission-statement":
+      return <MissionStatement content={component} />;
+    case "frontpage.steps":
+      return <Steps content={component} />;
+    case "frontpage.testimonials":
+      return <Testimonials content={component} />;
+    case "frontpage.mission-statement":
+      return <MissionStatement content={component} />;
+    case "frontpage.cta":
+      return <CTA content={component} />;
+  }
+};
 
-const TESTIMONIALS = [
-  {
-    headline: "Really cool project",
-    text:
-      "It feels good to score goals and do something good at the same time. Ilove the challenge and I am happy for everybody who supports a charity through me. It is so easy.",
-    authorName: "Thomas O.",
-    authorImageUrl:
-      "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
-  },
-  {
-    headline: "Competitive socializing",
-    text:
-      "I love the competition. This here feels like a competition except that we are actually all aiming for the same goal: Collect as much money as possible for something good ",
-    authorName: "Sholto W.",
-    authorImageUrl:
-      "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
-  },
-  {
-    headline: "Mexicans for the win",
-    text:
-      "Enabling others with scoring goals to have a better life makes me score just more and more. ",
-    authorName: "Oscar P.",
-    authorImageUrl:
-      "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
-  },
-];
+const MissionStatement = ({ content }: { content: IMissionStatement }) => {
+  return (
+    <div
+      style={{ backgroundImage: `url(${content.backgroundImage.url})` }}
+      className="w-full bg-cover mt-16"
+    >
+      <div className="py-32 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-12">
+          <div className="col-start-3 col-span-8">
+            <div className="text-2xl p-12 text-center text-white bg-primary rounded-lg bg-opacity-90">
+              <div className="text-white pb-16 text-4xl sm:text-5xl">
+                {content.headline}
+              </div>
+              <div>{content.description}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-const ProcessIcon = ({ step, last }: any) => {
+const Testimonials = ({ content }: { content: ITestimonials }) => {
+  return (
+    <div className="mt-32 flex items-center flex-col max-w-screen-xl mx-auto px-4 sm:px-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {content.testimonials.map((testimonial) => {
+          return (
+            <Testimonial key={testimonial.name} testimonial={testimonial} />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+const Hero = ({ content }: { content: IHeroTeaser }) => {
+  return (
+    <div
+      style={{ backgroundImage: `url(${content.backgroundImage.url})` }}
+      className="w-full bg-cover bg-center h-screen-2/3"
+    >
+      <div className="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
+        <div className="text-center">
+          <h1 className="text-white text-2xl font-semibold uppercase md:text-3xl">
+            {content.headline}
+          </h1>
+          <CTA content={content.cta} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Steps = ({ content }: { content: ISteps }) => {
+  return (
+    <div>
+      {content.steps.map((step, index) => {
+        return (
+          <div key={index} className="grid grid-cols-1 lg:grid-cols-4">
+            <div className="lg:col-start-2 col-span-2 flex lg:flex-row flex-col justify-start lg:text-left text-center md:my-4 my-8">
+              <ProcessIcon step={index + 1} />
+              <ProcessDescription
+                headline={step.headline}
+                description={step.description}
+              />
+            </div>
+          </div>
+        );
+      })}
+      ;
+    </div>
+  );
+};
+
+const ProcessIcon = ({ step }: { step: number }) => {
   return (
     <div className="flex flex-col justify-center items-center relative">
       <div className="w-20 h-8 md:flex hidden justify-center">
@@ -72,113 +131,62 @@ const ProcessDescription = ({ headline, description }: any) => {
   );
 };
 
-const Headline = ({ headline, subtext }: any) => {
+const SectionHeader = ({ content }: { content: ISectionHeader }) => {
   return (
-    <div className="text-center">
+    <div className="max-w-screen-xl mx-auto text-center">
       <p className="mt-24 mb-16 text-4xl leading-8 font-extrabold tracking-tight text-primary sm:text-5xl">
-        {headline}
+        {content.headline}
       </p>
-      {subtext && (
+      {content.subheadline && (
         <p className="mt-4 mb-8 max-w-2xl text-xl text-primary lg:mx-auto">
-          {subtext}
+          {content.subheadline}
         </p>
       )}
     </div>
   );
 };
 
-const CTA = ({ handleClick }: any) => {
+const CTA = ({ content }: { content: ICTA }) => {
+  const handleClick = (e: any) => {
+    e.stopPropagation();
+    Router.push(content.linkUrl);
+  };
   return (
-    <button
-      onClick={handleClick}
-      className="mt-6 shadow-lg text-lg font-bold p-4 border rounded-lg focus:outline-none appearance-none border-green-400 hover:border-green-600 bg-green-400  hover:bg-green-600 text-white"
-    >
-      Become a goalfunder
-    </button>
+    <div className="my-16 max-w-screen-xl mx-auto text-center">
+      <button
+        onClick={handleClick}
+        className="mt-6 shadow-lg text-lg font-bold p-4 border rounded-lg focus:outline-none appearance-none border-green-400 hover:border-green-600 bg-green-400  hover:bg-green-600 text-white"
+      >
+        {content.label}
+      </button>
+    </div>
   );
 };
 
-export default function Home() {
-  const handleClick = (e: any) => {
-    e.stopPropagation();
-    Router.push("/register");
-  };
-
+export default function Home({ data }: { data: IFrontpage }) {
   return (
     <Layout inContainer={false}>
       <Head>
         <title>Goalfund</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <div className="w-full bg-cover bg-center bg-hero h-screen-2/3">
-          <div className="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
-            <div className="text-center">
-              <h1 className="text-white text-2xl font-semibold uppercase md:text-3xl">
-                Every goal matters
-              </h1>
-              <CTA handleClick={handleClick} />
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col justify-center m-auto">
-          <Headline
-            headline="How it works"
-            subtext="Goalfund is a crowdfunding tool empowering amateur football players to raise funds for good causes."
-          />
-          <p></p>
-          {PROCESS.map((step, index) => {
-            return (
-              <div key={index} className="grid grid-cols-1 lg:grid-cols-4">
-                <div className="lg:col-start-2 col-span-2 flex lg:flex-row flex-col justify-start lg:text-left text-center md:my-4 my-8">
-                  <ProcessIcon
-                    step={index + 1}
-                    last={index + 1 === PROCESS.length}
-                  />
-                  <ProcessDescription
-                    headline={step.headline}
-                    description={step.description}
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div className="w-full bg-dream bg-cover mt-16">
-          <div className="py-32 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-12">
-              <div className="col-start-3 col-span-8">
-                <div className="text-2xl p-12 text-center text-white bg-primary rounded-lg bg-opacity-90">
-                  <div className="text-white pb-16 text-4xl sm:text-5xl">
-                    Our dream
-                  </div>
-                  <div>
-                    Goalfund's aim is to grow a global movement of amateur
-                    players *goalfunders* that can create positive change,
-                    simply, by playing football.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="mt-32 flex items-center flex-col max-w-screen-xl mx-auto px-4 sm:px-8">
-          <Headline headline="What goalfunders say" />
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {TESTIMONIALS.map((testimonial) => {
-              return (
-                <Testimonial
-                  key={testimonial.authorName}
-                  testimonial={testimonial}
-                />
-              );
-            })}
-          </div>
-        </div>
-        <div className="my-16 max-w-screen-xl mx-auto text-center">
-          <CTA handleClick={handleClick} />
-        </div>
-      </main>
+      <main>{data.content.map((el) => renderComponent(el))}</main>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  try {
+    const data = await fetchHomepage();
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      notFound: true,
+    };
+  }
 }
