@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { GetStaticPropsContext } from "next";
 import Layout from "../components/layout";
 import Router from "next/router";
 import { Testimonial } from "../components/testimonial";
@@ -163,9 +164,15 @@ const CTA = ({ content }: { content: ICTA }) => {
   );
 };
 
-export default function Home({ data }: { data: IFrontpage }) {
+export default function Home({
+  data,
+  preview,
+}: {
+  data: IFrontpage;
+  preview: boolean | null;
+}) {
   return (
-    <Layout inContainer={false}>
+    <Layout inContainer={false} preview={preview}>
       <Head>
         <title>Goalfund</title>
         <link rel="icon" href="/favicon.ico" />
@@ -179,12 +186,13 @@ export default function Home({ data }: { data: IFrontpage }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const data = await fetchHomepage();
     return {
       props: {
         data,
+        preview: context.preview || null,
       },
     };
   } catch (e) {
