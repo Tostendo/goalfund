@@ -170,7 +170,11 @@ export default function Home({ data }: { data: IFrontpage }) {
         <title>Goalfund</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>{data.content.map((el) => renderComponent(el))}</main>
+      <main>
+        {data.content.map((el, idx) => (
+          <div key={idx}>{renderComponent(el)}</div>
+        ))}
+      </main>
     </Layout>
   );
 }
