@@ -1,10 +1,5 @@
 import { IStrapiComponent, IStrapiImage } from "./strapi";
 
-export interface IFrontpage {
-  id: string;
-  content: IStrapiComponent[];
-}
-
 export interface ICTA extends IStrapiComponent {
   label: string;
   linkUrl: string;

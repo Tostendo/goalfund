@@ -10,9 +10,15 @@ const navItems = {
       link: "/toplists",
       icon: null,
     },
+
     {
       label: "Players",
       link: "/playerSearch",
+      icon: null,
+    },
+    {
+      label: "Charities",
+      link: "/charities",
       icon: null,
     },
     {
@@ -35,6 +41,11 @@ const navItems = {
     {
       label: "Players",
       link: "/playerSearch",
+      icon: null,
+    },
+    {
+      label: "Charities",
+      link: "/charities",
       icon: null,
     },
     {
