@@ -31,10 +31,6 @@ module.exports = {
         primary: "#2A2A63",
         secondary: "#83C8B7",
       },
-      backgroundImage: {
-        hero: "url('/img/heroBanner.jpg')",
-        dream: "url('/img/dream.jpg')",
-      },
       height: {
         "screen-2/3": "calc(100vh / 3 * 2)",
       },

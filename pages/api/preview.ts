@@ -14,6 +14,8 @@ export default async function handler(
   const endpoint = (req.query.slug as string).split("/")[1];
   let to = "/";
   switch (endpoint) {
+    case "charity-overview-page":
+      to = "/charities";
     case "homepage":
     default:
   }
