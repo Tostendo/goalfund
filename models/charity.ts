@@ -1,8 +1,8 @@
 import { IStrapiImage } from "./strapi";
 
-export type Charity = {
+export interface ICharity {
   images: IStrapiImage[];
   name: string;
   description: string;
   link: string;
-};
+}

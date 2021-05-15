@@ -1,3 +1,5 @@
+import { ITeam } from "./team";
+
 export type Player = {
   id: string;
   name: string;
@@ -8,7 +10,7 @@ export type Player = {
   strongLeg?: string;
   description?: string;
   career?: string;
-  team?: any;
+  team?: ITeam;
   charity?: any;
   stats?: any;
   goals?: number;

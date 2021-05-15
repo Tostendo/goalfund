@@ -7,7 +7,7 @@ import { IStrapiComponent } from "../models/strapi";
 import { ITeaser } from "../models/common";
 import { Teaser } from "../components/common/teaser";
 import ReactMarkdown from "react-markdown";
-import { Charity } from "../models/charity";
+import { ICharity } from "../models/charity";
 import Link from "next/link";
 
 interface ICharityOverviewPage extends IStrapiComponent {
@@ -17,7 +17,7 @@ interface ICharityOverviewPage extends IStrapiComponent {
 }
 
 interface CharityTeaserProps {
-  charity: Charity;
+  charity: ICharity;
   reversed: boolean;
 }
 
@@ -62,6 +62,11 @@ export default function CharityOveview({
       <main>
         <div>
           <Teaser content={data.Teaser} />
+          {data.description && (
+            <div className="max-w-screen-xl mx-auto p-8">
+              <ReactMarkdown>{data.description}</ReactMarkdown>
+            </div>
+          )}
           <div className="max-w-screen-xl mx-auto">
             {data.charities.map((charity: any, idx: number) => {
               return (

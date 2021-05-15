@@ -12,6 +12,7 @@ import { Player } from "../../models/player";
 import DonateButton from "../../components/donateButton";
 import EditInput from "../../components/editInput";
 import Stats from "../../components/stats";
+import Link from "next/link";
 
 type PlayerProfileProps = {
   player: Player;
@@ -50,7 +51,11 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
             </div>
             <div className="p-2">
               <label className="text-xs">Team</label>
-              <div>{update.team ? `${update.team.name}` : "-"}</div>
+              <Link href={`/teams/${update.team.slug}`}>
+                <div>
+                  <a>{`${update.team.name}`}</a>
+                </div>
+              </Link>
             </div>
             <div className="p-2">
               <label className="text-xs">Position</label>
