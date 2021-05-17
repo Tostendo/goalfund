@@ -33,8 +33,8 @@ export const getTeamBySlug = async (slug: string) => {
         })
       );
       selected.players = all;
-      return selected;
     }
+    return selected;
   }
   if (team.length > 1) {
     console.info(`More than one team for slug ${slug}`);
