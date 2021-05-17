@@ -39,7 +39,6 @@ export const getDonations = async (donorId: string) => {
     .where("donorId", "==", donorId)
     .get();
   if (snapshot.empty) {
-    console.log("No matching documents.");
     return [];
   }
   var donations = [];
@@ -58,7 +57,6 @@ export const getPlayerDonations = async (playerId: string) => {
     .where("playerId", "==", playerId)
     .get();
   if (snapshot.empty) {
-    console.log("No matching documents.");
     return [];
   }
   var donations = [];

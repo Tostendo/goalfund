@@ -1,3 +1,4 @@
+import { IStrapiImage } from "./strapi";
 import { ITeam } from "./team";
 
 export type Player = {
@@ -5,7 +6,7 @@ export type Player = {
   name: string;
   slug: string;
   profileUrl: string;
-  image?: any[];
+  image?: IStrapiImage[];
   position?: string;
   strongLeg?: string;
   description?: string;

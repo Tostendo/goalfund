@@ -285,6 +285,47 @@ const Icon = ({ type }: IconProps) => {
           />
         </svg>
       );
+    case "arrowUp":
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-full w-full"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      );
+    case "arrowDown":
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-full w-full"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      );
+    case "dots":
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-full w-full"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+        </svg>
+      );
     default:
       return (
         <svg

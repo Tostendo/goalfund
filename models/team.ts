@@ -9,5 +9,7 @@ export interface ITeam {
   profileUrl: string;
   id: string;
   slug: string;
-  images: IStrapiImage[];
+  images?: IStrapiImage[];
+  logo?: IStrapiImage;
+  externalLogoUrl?: string;
 }

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { MONEY_FORMAT } from "../helpers/formatter";
 
@@ -87,14 +88,20 @@ const Ranking = ({ type, entries }: RankingProps) => {
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">
-                            {entry.name}
+                            <Link href={`/player/${entry.slug}`}>
+                              <a>{entry.name}</a>
+                            </Link>
                           </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
                       <div className="text-sm text-gray-900">
-                        {entry.team && entry.team.name}
+                        {entry.team && (
+                          <Link href={`/teams/${entry.team.slug}`}>
+                            <a>{entry.team.name}</a>
+                          </Link>
+                        )}
                       </div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap hidden sm:table-cell">
