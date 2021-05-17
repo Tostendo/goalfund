@@ -76,6 +76,9 @@ export const getPlayerBySlug = async (slug: string) => {
   if (player.length > 1) {
     console.info(`More than one player for slug ${slug}`);
   }
+  if (!player.length) {
+    console.info(`No player found for slug ${slug}`);
+  }
   return null;
 };
 

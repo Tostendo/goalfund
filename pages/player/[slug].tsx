@@ -51,11 +51,15 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
             </div>
             <div className="p-2">
               <label className="text-xs">Team</label>
-              <Link href={`/teams/${update.team.slug}`}>
-                <div>
-                  <a>{`${update.team.name}`}</a>
-                </div>
-              </Link>
+              {update.team ? (
+                <Link href={`/teams/${update.team.slug}`}>
+                  <div>
+                    <a>{`${update.team.name}`}</a>
+                  </div>
+                </Link>
+              ) : (
+                "-"
+              )}
             </div>
             <div className="p-2">
               <label className="text-xs">Position</label>
