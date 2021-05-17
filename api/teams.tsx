@@ -21,7 +21,7 @@ export const getTeamBySlug = async (slug: string) => {
   const team = await result.json();
   if (team && team.length) {
     const selected = team[0] as ITeam;
-    if (selected.players.length) {
+    if (selected.players && selected.players.length) {
       const all = await Promise.all(
         selected.players.map(async (player) => {
           const donations = await getPlayerDonations(player.id);
