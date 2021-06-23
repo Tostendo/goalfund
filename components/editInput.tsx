@@ -77,7 +77,7 @@ const EditInput = ({ type, value, onSave, editable }: EditInputProps) => {
       {edit && editable && getEditBlock(type)}
       {!edit && (
         <div className="h-10 flex justify-start items-center">
-          <div>{value}</div>
+          <div>{newValue}</div>
           {editable && (
             <a
               className="h-8 w-8 pl-4 inline-block"
