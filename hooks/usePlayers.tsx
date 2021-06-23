@@ -22,15 +22,23 @@ export const usePlayers: any = () => {
 
 function usePlayersProvider() {
   const [players, setPlayers] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(false);
+
   const search = async (searchTerm: string) => {
+    setLoading(true);
     return searchPlayers({
       searchTerm: searchTerm,
-    }).then((data: Player[]) => setPlayers(data));
+    })
+      .then((data: Player[]) => setPlayers(data))
+      .catch((e) => setError(e))
+      .finally(() => setLoading(false));
   };
 
   return {
     players,
-    setPlayers,
+    loading,
+    error,
     search,
   };
 }

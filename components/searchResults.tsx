@@ -3,6 +3,7 @@ import SearchItem from "../components/searchItem";
 import SearchInput from "../components/searchInput";
 
 import { usePlayers } from "../hooks/usePlayers";
+import Spinner from "./spinner";
 
 type SearchResultProps = {
   onConnect?: Function;
@@ -15,9 +16,17 @@ const SearchResults = ({ onConnect, onDonate }: SearchResultProps) => {
     players.search(null);
   }, []);
 
-  return (
-    <div className="w-full flex flex-col items-center">
-      <SearchInput onSearch={players.search} />
+  const renderContent = () => {
+    if (players.loading) {
+      return <Spinner />;
+    }
+    if (players.error) {
+      return <div> Something went wrong.</div>;
+    }
+    if (players.players.length === 0) {
+      return <div> No matching results found.</div>;
+    }
+    return (
       <div className="shadow bg-white w-full rounded overflow-y-auto">
         <div className="flex flex-col w-full">
           {players.players.map((player: any) => (
@@ -30,6 +39,13 @@ const SearchResults = ({ onConnect, onDonate }: SearchResultProps) => {
           ))}
         </div>
       </div>
+    );
+  };
+
+  return (
+    <div className="w-full flex flex-col items-center">
+      <SearchInput onSearch={players.search} />
+      {renderContent()}
     </div>
   );
 };
