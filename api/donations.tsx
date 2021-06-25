@@ -2,6 +2,7 @@ import { db } from "../config/firebase";
 import { getPlayerById } from "../api/players";
 import { Donation } from "../models/donation";
 import moment from "moment";
+import { calculatePledge } from "../helpers/calculate";
 
 export const getDonation = async (id: string) => {
   return db
@@ -42,12 +43,21 @@ export const getDonations = async (donorId: string) => {
     return [];
   }
   var donations = [];
-  snapshot.forEach((doc) => {
-    const data = doc.data();
-    if (!data.deleted) {
-      donations.push({ id: doc.id, ...data });
+  for (let i = 0; i < snapshot.size; i++) {
+    const data: Donation = snapshot.docs[i].data() as Donation;
+    if (
+      !data.deleted ||
+      (data.deleted && data.goalsEnd && data.goalsEnd > data.goalsStart)
+    ) {
+      const player = await getPlayerById(data.playerId);
+
+      donations.push({
+        id: snapshot.docs[i].id,
+        openAmount: calculatePledge(player.goals, data),
+        ...data,
+      });
     }
-  });
+  }
   return donations;
 };
 

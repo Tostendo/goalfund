@@ -35,12 +35,31 @@ const Donations = ({ donorId }: DonationsProps) => {
       });
   };
 
+  const renderHeadline = () => {
+    return (
+      <div className="grid grid-cols-5 lg:grid-cols-6 items-center md:gap-2 my-2 py-4 border-b">
+        <div className="col-span-1 lg:col-span-2 font-bold text-xl">
+          <div>Player Name</div>
+        </div>
+        <div className="col-span-1 text-center font-bold text-xl">
+          <div>Created at</div>
+        </div>
+        <div className="col-span-1 text-center font-bold text-xl">
+          <div>Pledge per goal</div>
+        </div>
+        <div className="col-span-1 text-center font-bold text-xl">
+          <div>Open pledge</div>
+        </div>
+      </div>
+    );
+  };
   if (loading) {
     return <Spinner />;
   }
 
   return (
     <div>
+      {renderHeadline()}
       {allDonations.length == 0 && (
         <div className="py-3">No donations so far.</div>
       )}
@@ -49,24 +68,30 @@ const Donations = ({ donorId }: DonationsProps) => {
           return (
             <div
               key={donation.id}
-              className="grid grid-cols-4 lg:grid-cols-5 items-center md:gap-2 my-2 py-2 border-b"
+              className="grid grid-cols-5 lg:grid-cols-6 items-center md:gap-2 my-2 py-2 border-b"
             >
               <div className="col-span-1 lg:col-span-2">
                 <PlayerName playerId={donation.playerId} />
               </div>
-              <div className="col-span-1">
+              <div className="col-span-1 text-center">
                 {moment(donation.created).format("DD.MM.YYYY")}
               </div>
-              <div className="col-span-1 text-right font-bold">
+              <div className="col-span-1 text-center font-bold">
                 <span>{MONEY_FORMAT.format(donation.amountPerGoal)}</span>
-                <span className="hidden lg:inline-block lg:pl-2">{`per goal`}</span>
+              </div>
+              <div className="col-span-1 text-center font-bold">
+                <span>{MONEY_FORMAT.format(donation.openAmount)}</span>
               </div>
               <div className="col-span-1 text-right">
-                <CustomButton
-                  icon="delete"
-                  type="error"
-                  handleClick={() => handleDelete(donation.id)}
-                />
+                {!donation.deleted ? (
+                  <CustomButton
+                    icon="delete"
+                    type="error"
+                    handleClick={() => handleDelete(donation.id)}
+                  />
+                ) : (
+                  "deleted"
+                )}
               </div>
             </div>
           );

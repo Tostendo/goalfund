@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { useAuth } from "../hooks/useAuth";
 import Icon from "./icon";
+import SearchInput from "./searchInput";
+import { usePlayers } from "../hooks/usePlayers";
 
 const navItems = {
   loggedIn: [
