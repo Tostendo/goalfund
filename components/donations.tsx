@@ -6,6 +6,7 @@ import PlayerName from "./playerName";
 import CustomButton from "./customButton";
 import Spinner from "./spinner";
 import { MONEY_FORMAT } from "../helpers/formatter";
+import PaymentButton from "./paymentButton";
 type DonationsProps = {
   donorId: string;
 };
@@ -14,7 +15,7 @@ const Donations = ({ donorId }: DonationsProps) => {
   const [allDonations, setAllDonations] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const fetchDonations = () => {
     setLoading(true);
     getDonations(donorId)
       .then((donations: Donation[]) => {
@@ -23,6 +24,10 @@ const Donations = ({ donorId }: DonationsProps) => {
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchDonations();
   }, [donorId]);
 
   const handleDelete = async (id: string) => {
@@ -53,6 +58,32 @@ const Donations = ({ donorId }: DonationsProps) => {
       </div>
     );
   };
+
+  const renderAction = (donation: Donation) => {
+    if (donation.openAmount && donation.openAmount > 0) {
+      return (
+        <PaymentButton
+          amount={donation.openAmount}
+          donationId={donation.id}
+          updateDonations={fetchDonations}
+        />
+      );
+    }
+    if (
+      !donation.deleted &&
+      (!donation.openAmount || donation.openAmount === 0)
+    ) {
+      return (
+        <CustomButton
+          icon="delete"
+          type="error"
+          handleClick={() => handleDelete(donation.id)}
+        />
+      );
+    }
+    return <div></div>;
+  };
+
   if (loading) {
     return <Spinner />;
   }
@@ -79,19 +110,11 @@ const Donations = ({ donorId }: DonationsProps) => {
               <div className="col-span-1 text-center font-bold">
                 <span>{MONEY_FORMAT.format(donation.amountPerGoal)}</span>
               </div>
-              <div className="col-span-1 text-center font-bold">
+              <div className="col-span-1 text-center font-bold flex items-center gap-2 justify-center">
                 <span>{MONEY_FORMAT.format(donation.openAmount)}</span>
               </div>
               <div className="col-span-1 text-right">
-                {!donation.deleted ? (
-                  <CustomButton
-                    icon="delete"
-                    type="error"
-                    handleClick={() => handleDelete(donation.id)}
-                  />
-                ) : (
-                  "deleted"
-                )}
+                {renderAction(donation)}
               </div>
             </div>
           );

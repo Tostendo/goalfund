@@ -9,6 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@paypal/react-paypal-js": "^7.0.0",
     "@types/lodash": "^4.14.168",
     "autoprefixer": "^10.1.0",
     "dotenv": "^8.2.0",

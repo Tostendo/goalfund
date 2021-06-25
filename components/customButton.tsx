@@ -37,12 +37,14 @@ const CustomButton = ({ handleClick, type, label, icon }: ButtonProps) => (
       type
     )}`}
   >
-    {label && <span>{label}</span>}
-    {icon && (
-      <div className="h-6 w-6">
-        <Icon type={icon} />
-      </div>
-    )}
+    <div className="flex gap-1">
+      {label && <span>{label}</span>}
+      {icon && (
+        <div className="h-6 w-6">
+          <Icon type={icon} />
+        </div>
+      )}
+    </div>
   </button>
 );
 
