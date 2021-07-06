@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 import SearchItem from "../components/searchItem";
 import SearchInput from "../components/searchInput";
 
@@ -12,9 +13,11 @@ type SearchResultProps = {
 
 const SearchResults = ({ onConnect, onDonate }: SearchResultProps) => {
   const players = usePlayers();
+  const router = useRouter();
   useEffect(() => {
-    players.search(null);
-  }, []);
+    const { s } = router.query;
+    players.search(s ?? null);
+  }, [router.query]);
 
   const renderContent = () => {
     if (players.loading) {
@@ -43,8 +46,7 @@ const SearchResults = ({ onConnect, onDonate }: SearchResultProps) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <SearchInput onSearch={players.search} />
+    <div className="my-4 w-full flex flex-col items-center">
       {renderContent()}
     </div>
   );

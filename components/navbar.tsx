@@ -13,19 +13,13 @@ const navItems = {
       link: "/toplists",
       icon: null,
     },
-
-    {
-      label: "Players",
-      link: "/playerSearch",
-      icon: null,
-    },
     {
       label: "Charities",
       link: "/charities",
       icon: null,
     },
     {
-      label: "My Account",
+      label: "Account",
       link: "/dashboard",
       icon: null,
     },
@@ -42,11 +36,6 @@ const navItems = {
       icon: null,
     },
     {
-      label: "Players",
-      link: "/playerSearch",
-      icon: null,
-    },
-    {
       label: "Charities",
       link: "/charities",
       icon: null,
@@ -56,28 +45,35 @@ const navItems = {
       link: "/login",
       icon: null,
     },
-    {
-      label: "Register",
-      link: "/register",
-      icon: null,
-    },
   ],
 };
 
 const Navbar = () => {
   const auth = useAuth();
+  const players = usePlayers();
+  const router = useRouter();
   const [show, setShow] = useState(false);
   const items = auth.user ? navItems.loggedIn : navItems.anonym;
   return (
-    <nav className="py-2 lg:py-4 flex items-center justify-between flex-wrap">
+    <nav className="py-2 flex items-center justify-between flex-wrap">
       <Link href="/" as="/" passHref>
-        <a className="bg-white p-2 rounded-lg">
-          <img src="/logo.png" alt="Goalfund" className="h-4" />
+        <a className="bg-secondary md:bg-white p-2 md:p-3 rounded-full">
+          <img
+            src="/logo.png"
+            alt="Goalfund"
+            className="h-4 hidden md:inline-block"
+          />
+          <img src="/img/logo_small.png" alt="GF" className="h-6 md:hidden" />
         </a>
       </Link>
+      <div className="w-auto md:w-2/4">
+        <SearchInput
+          onSearch={(value) => router.push(`/playerSearch?s=${value}`)}
+        />
+      </div>
       <button
         onClick={() => setShow(!show)}
-        className="p-3 rounded lg:hidden ml-auto outline-none focus:outline-none"
+        className="rounded lg:hidden outline-none focus:outline-none"
       >
         <div className="h-6 w-6 text-white">
           <Icon type="menu" />

@@ -25,7 +25,7 @@ const Layout = ({ children, inContainer = true, preview }: LayoutProps) => {
           </button>
         </div>
       )}
-      <div className="bg-primary px-8 shadow-lg lg:shadow-none">
+      <div className="bg-primary px-4 md:px-8 shadow-lg lg:shadow-none">
         <Navbar />
       </div>
       <div className={inContainer ? "mx-auto max-w-screen-xl" : "mx-auto"}>
