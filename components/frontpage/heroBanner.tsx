@@ -9,7 +9,7 @@ export const Hero = ({ content }: { content: IHeroTeaser }) => {
     >
       <div className="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
         <div className="text-center">
-          <h1 className="text-white text-5xl font-semibold uppercase md:text-6xl">
+          <h1 className="p-2 md:p-0 text-white text-4xl font-semibold uppercase md:text-5xl">
             {content.headline}
           </h1>
           <CTA content={content.cta} />

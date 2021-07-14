@@ -29,8 +29,25 @@ const PlayerDonations = ({ playerId }: PlayerDonationsProps) => {
     return <Spinner />;
   }
 
+  const renderHeadline = () => {
+    return (
+      <div className="grid grid-cols-3 items-end md:items-center md:gap-2 my-2 py-4 border-b">
+        <div className="col-span-1 font-bold md:text-xl">
+          <div>Donor Name</div>
+        </div>
+        <div className="col-span-1 font-bold md:text-xl">
+          <div>Message</div>
+        </div>
+        <div className="col-span-1 text-right font-bold md:text-xl">
+          <div>Pledge per goal</div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div>
+      {renderHeadline()}
       {allDonations.length == 0 && (
         <div className="py-3">No donations so far.</div>
       )}
@@ -39,9 +56,12 @@ const PlayerDonations = ({ playerId }: PlayerDonationsProps) => {
           return (
             <div
               key={donation.id}
-              className="grid grid-cols-2 items-center md:gap-2 my-4 border-b py-2"
+              className="grid grid-cols-3 items-center md:gap-2 my-4 border-b py-2"
             >
-              <div className="col-span-1 font-bold">Anonym</div>
+              <div className="col-span-1 font-bold truncate">
+                {donation.donorName || "Anonymous"}
+              </div>
+              <div className="col-span-1 truncate">{donation.message}</div>
               <div className="col-span-1 text-right font-bold">
                 <span>{MONEY_FORMAT.format(donation.amountPerGoal)}</span>
                 <span className="hidden lg:inline-block lg:pl-2">{`per goal`}</span>

@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import {
+  PayPalScriptProvider,
+  PayPalButtons,
+  FUNDING,
+} from "@paypal/react-paypal-js";
 import { PAYPAL_CLIENT_ID } from "../config/paypal";
 import { useAuth } from "../hooks/useAuth";
 import { createPayment } from "../api/payments";
@@ -73,16 +77,14 @@ const PaymentButton = (props: PaymentButtonProps) => {
         currency: PAYPAL_CLIENT_ID.currency,
       }}
     >
-      <PayPalButtons
-        style={{
-          color: "blue",
-          label: "pay",
-          tagline: false,
-          layout: "horizontal",
-        }}
-        createOrder={createOrder}
-        onApprove={onApprove}
-      />
+      <div style={{ maxWidth: "80px", float: "right" }}>
+        <PayPalButtons
+          fundingSource={FUNDING.PAYPAL}
+          style={{ height: 30 }}
+          createOrder={createOrder}
+          onApprove={onApprove}
+        />
+      </div>
       {paypalErrorMessage && <div>{paypalErrorMessage}</div>}
     </PayPalScriptProvider>
   );
