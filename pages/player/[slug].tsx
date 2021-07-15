@@ -18,6 +18,7 @@ import Link from "next/link";
 import Icon from "../../components/icon";
 import { trackPlayerShare } from "../../api/share";
 import { getMetaDescription } from "../../helpers/seo";
+import ConnectButton from "../../components/connectButton";
 
 type PlayerProfileProps = {
   player: Player;
@@ -58,7 +59,9 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
         />
       </Head>
       <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
-        <div className="flex justify-end">
+        <div className="flex justify-between md:justify-end gap-x-2">
+          <DonateButton donateForId={update.id} />
+          <ConnectButton playerId={update.id} />
           <RWebShare
             data={{
               text: `Donate to ${update.name}!`,
@@ -70,7 +73,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
               trackPlayerShare(update);
             }}
           >
-            <div className="p-2 cursor-pointer flex bg-secondary text-white font-bold rounded">
+            <div className="p-2 cursor-pointer flex bg-primary text-white font-bold rounded-lg">
               <div className="pr-2">Share</div>
               <div className="h-6 w-6">
                 <Icon type="share" />
@@ -143,7 +146,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
           <h2 className="my-4">My season stats</h2>
           <Stats player={update} />
         </div>
-        <div className="my-8">
+        <div className="my-8 md:hidden">
           <DonateButton donateForId={update.id} />
         </div>
       </div>

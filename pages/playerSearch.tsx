@@ -7,7 +7,7 @@ const SearchPage = () => {
   return (
     <PlayersProvider>
       <Layout>
-        <SearchResults onDonate={() => console.log("donate")} />
+        <SearchResults />
       </Layout>
     </PlayersProvider>
   );

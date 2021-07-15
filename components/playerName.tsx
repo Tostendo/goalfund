@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { getPlayerById } from "../api/players";
 
-const PlayerName = ({ playerId }) => {
+const PlayerName = ({ playerId, asLink = false }) => {
   const [loading, setLoading] = useState(false);
   const [player, setPlayer] = useState(null);
 
@@ -20,7 +21,10 @@ const PlayerName = ({ playerId }) => {
     <div>
       {!loading && player && (
         <div>
-          <div className="font-bold">{`${player.name}`}</div>
+          {asLink && (
+            <Link href={`/player/${player.slug}`}>{`${player.name}`}</Link>
+          )}
+          {!asLink && <div className="font-bold">{`${player.name}`}</div>}
           {player.team && <div className="text-xs">{player.team.name}</div>}
         </div>
       )}

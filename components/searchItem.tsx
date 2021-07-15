@@ -2,17 +2,16 @@ import Link from "next/link";
 import React from "react";
 import { Player } from "../models/player";
 import Icon from "./icon";
-import CustomButton from "./customButton";
 import DonateButton from "./donateButton";
 import { MONEY_FORMAT } from "../helpers/formatter";
+import ConnectButton from "./connectButton";
 
 type SearchItemProps = {
   player: Player;
   onConnect: Function;
-  onDonate: Function;
 };
 
-const SearchItem = ({ player, onConnect, onDonate }: SearchItemProps) => {
+const SearchItem = ({ player, onConnect }: SearchItemProps) => {
   return (
     <Link href={`/player/${player.slug}`}>
       <div className="flex items-center justify-between cursor-pointer w-full border-gray-300 rounded-t border-b hover:bg-gray-300">
@@ -67,15 +66,9 @@ const SearchItem = ({ player, onConnect, onDonate }: SearchItemProps) => {
             </div>
           </div>
         </div>
-        <div className="pr-2 flex">
-          {onDonate && <DonateButton donateForId={player.id} />}
-          {onConnect && (
-            <CustomButton
-              type="secondary"
-              label="Connect"
-              handleClick={() => onConnect(player.id)}
-            />
-          )}
+        <div className="p-2 flex flex-col md:flex-row">
+          <DonateButton donateForId={player.id} />
+          <ConnectButton playerId={player.id} />
         </div>
       </div>
     </Link>

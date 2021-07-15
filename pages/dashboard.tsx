@@ -58,14 +58,16 @@ const Dashboard = () => {
                   Donations
                 </a>
               </li>
-              <li className="mr-1">
-                <a
-                  className={index == 2 ? selectedCss : unselectedCss}
-                  onClick={() => setIndex(2)}
-                >
-                  Player's Info
-                </a>
-              </li>
+              {auth.user.playerId && (
+                <li className="mr-1">
+                  <a
+                    className={index == 2 ? selectedCss : unselectedCss}
+                    onClick={() => setIndex(2)}
+                  >
+                    Player's Info
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
           {index == 0 && (
@@ -75,7 +77,7 @@ const Dashboard = () => {
             />
           )}
           {index == 1 && <DonationInfo donorId={auth.user.uid} />}
-          {index == 2 && (
+          {index == 2 && auth.user.playerId && (
             <PlayerInfo
               playerId={auth.user.playerId}
               onUpdate={auth.connectPlayer}
