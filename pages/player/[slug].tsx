@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import Layout from "../../components/layout";
+import { RWebShare } from "react-web-share";
 import { useAuth } from "../../hooks/useAuth";
 
 import {
@@ -13,6 +15,9 @@ import DonateButton from "../../components/donateButton";
 import EditInput from "../../components/editInput";
 import Stats from "../../components/stats";
 import Link from "next/link";
+import Icon from "../../components/icon";
+import { trackPlayerShare } from "../../api/share";
+import { getMetaDescription } from "../../helpers/seo";
 
 type PlayerProfileProps = {
   player: Player;
@@ -31,17 +36,47 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
       });
     }
   }, [auth.user]);
+  const title = update.name + "|" + update.team?.name;
   return (
     <Layout>
+      <Head>
+        <title>{title}</title>
+        <meta property="og:title" content={title} key="ogtitle" />
+        <meta
+          property="og:description"
+          content={getMetaDescription(update.name)}
+          key="ogdesc"
+        />
+      </Head>
       <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
+        <div className="flex justify-end">
+          <RWebShare
+            data={{
+              text: `Donate to ${update.name}!`,
+              title: "Share player profile",
+              url: typeof window !== "undefined" ? window.location.href : "",
+            }}
+            onClick={(data) => {
+              console.info("shared data: ", data);
+              trackPlayerShare(update);
+            }}
+          >
+            <div className="p-2 cursor-pointer flex bg-secondary text-white font-bold rounded">
+              <div className="pr-2">Share</div>
+              <div className="h-6 w-6">
+                <Icon type="share" />
+              </div>
+            </div>
+          </RWebShare>
+        </div>
         <div className="grid grid-cols-2 items-center justify-center">
-          <div className="col-span-2 md:col-span-1 relative h-64 w-full md:w-64">
+          <div className="col-span-2 md:col-span-1 py-8 md:py-0 relative h-64 w-full md:w-64 flex justify-center md:justify-start">
             <img
               src={
                 update.image.length ? update.image[0].url : "/img/avatar.png"
               }
               alt="placeholder"
-              className="h-full rounded-full block"
+              className="h-full rounded-full inline-block"
             ></img>
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col">
@@ -94,22 +129,6 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
               ></EditInput>
             </div>
           </div>
-        </div>
-        <div className="my-8">
-          <h2 className="my-4">About me</h2>
-          <EditInput
-            type="textarea"
-            value={update.description || "-"}
-            editable={auth.user?.playerId == update.id}
-            onSave={(value: string) =>
-              updatePlayer(update.id, { description: value }).then((player) =>
-                setUpdate({
-                  ...update,
-                  ...player,
-                })
-              )
-            }
-          ></EditInput>
         </div>
         <div className="my-8">
           <h2 className="my-4">My season stats</h2>
