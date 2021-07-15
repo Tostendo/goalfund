@@ -36,7 +36,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
       });
     }
   }, [auth.user]);
-  const title = update.name + "|" + update.team?.name;
+  const title = `${update.name} | ${update.team?.name}`;
   return (
     <Layout>
       <Head>
@@ -46,6 +46,15 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
           property="og:description"
           content={getMetaDescription(update.name)}
           key="ogdesc"
+        />
+        <meta
+          property="og:image"
+          content={
+            update.image && update.image.length
+              ? update.image[0].url
+              : "/public/logo.png"
+          }
+          key="ogimage"
         />
       </Head>
       <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
