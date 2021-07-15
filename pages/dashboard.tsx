@@ -78,10 +78,7 @@ const Dashboard = () => {
           )}
           {index == 1 && <DonationInfo donorId={auth.user.uid} />}
           {index == 2 && auth.user.playerId && (
-            <PlayerInfo
-              playerId={auth.user.playerId}
-              onUpdate={auth.connectPlayer}
-            />
+            <PlayerInfo playerId={auth.user.playerId} />
           )}
         </div>
       ) : (
