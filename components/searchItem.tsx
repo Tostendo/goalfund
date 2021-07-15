@@ -8,10 +8,9 @@ import ConnectButton from "./connectButton";
 
 type SearchItemProps = {
   player: Player;
-  onConnect: Function;
 };
 
-const SearchItem = ({ player, onConnect }: SearchItemProps) => {
+const SearchItem = ({ player }: SearchItemProps) => {
   return (
     <Link href={`/player/${player.slug}`}>
       <div className="flex items-center justify-between cursor-pointer w-full border-gray-300 rounded-t border-b hover:bg-gray-300">

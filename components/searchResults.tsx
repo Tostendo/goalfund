@@ -32,7 +32,7 @@ const SearchResults = ({ onConnect }: SearchResultProps) => {
       <div className="shadow bg-white w-full rounded overflow-y-auto">
         <div className="flex flex-col w-full">
           {players.players.map((player: any) => (
-            <SearchItem key={player.id} player={player} onConnect={onConnect} />
+            <SearchItem key={player.id} player={player} />
           ))}
         </div>
       </div>

@@ -12,7 +12,7 @@ const ConnectButton = ({ playerId }: ConnectButtonProps) => {
   const [showModal, setShowModal] = useState(true);
   const [error, setError] = useState(null);
   const auth = useAuth();
-  if (auth.user && auth.user.playerId) {
+  if (!auth.user || (auth.user && auth.user.playerId)) {
     return null;
   }
 
