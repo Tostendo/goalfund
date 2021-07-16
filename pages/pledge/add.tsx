@@ -7,10 +7,10 @@ import { createDonation } from "../../api/donations";
 import CustomButton from "../../components/customButton";
 import PlayerName from "../../components/playerName";
 
-const AddDonationPage = () => {
+const AddPledgePage = () => {
   const router = useRouter();
   const auth = useAuth();
-  const playerId = router.query.donateFor as string;
+  const playerId = router.query.pledgeFor as string;
 
   const [amount, setAmount] = useState(1);
   const [isAnonymous, setIsAnonymous] = useState(false);
@@ -42,7 +42,7 @@ const AddDonationPage = () => {
             <PlayerName playerId={playerId} />
           </div>
           <div>
-            <label>Donation per goal: </label>
+            <label>Pledge per goal: </label>
             <div className="mt-1 relative rounded-md">
               <div className="absolute inset-y-0 left-0 pl-3 pt-1 flex items-center ">
                 <span className="text-primary font-bold">€</span>
@@ -97,4 +97,4 @@ const AddDonationPage = () => {
     </Layout>
   );
 };
-export default AddDonationPage;
+export default AddPledgePage;

@@ -5,7 +5,7 @@ import Spinner from "../components/spinner";
 import BasicInfo from "../components/basicInfo";
 import PlayerInfo from "../components/playerInfo";
 import { PlayersProvider } from "../hooks/usePlayers";
-import DonationInfo from "../components/donationInfo";
+import UserPledgesInfo from "../components/userPledgesInfo";
 
 const Dashboard = () => {
   const auth = useRequireAuth();
@@ -32,11 +32,10 @@ const Dashboard = () => {
           <div className="flex flex-col items-center">
             <div className="relative h-48 w-48">
               <img
-                src="https://picsum.photos/200"
+                src="/img/logo_small.png"
                 alt="placeholder"
                 className="rounded-full block"
               ></img>
-              <a className="absolute w-48 h-48 rounded-full flex justify-center items-center bg-black text-center top-0 opacity-0 hover:opacity-25"></a>
             </div>
             <h2>{`Welcome, ${auth.user.username}!`}</h2>
           </div>
@@ -55,7 +54,7 @@ const Dashboard = () => {
                   className={index == 1 ? selectedCss : unselectedCss}
                   onClick={() => setIndex(1)}
                 >
-                  Donations
+                  Pledges
                 </a>
               </li>
               {auth.user.playerId && (
@@ -64,7 +63,7 @@ const Dashboard = () => {
                     className={index == 2 ? selectedCss : unselectedCss}
                     onClick={() => setIndex(2)}
                   >
-                    Player's Info
+                    Player Info
                   </a>
                 </li>
               )}
@@ -76,7 +75,7 @@ const Dashboard = () => {
               onUpdate={auth.update}
             />
           )}
-          {index == 1 && <DonationInfo donorId={auth.user.uid} />}
+          {index == 1 && <UserPledgesInfo pledgerId={auth.user.uid} />}
           {index == 2 && auth.user.playerId && (
             <PlayerInfo playerId={auth.user.playerId} />
           )}

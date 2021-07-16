@@ -4,11 +4,11 @@ import { Donation } from "../models/donation";
 import Spinner from "./spinner";
 import { MONEY_FORMAT } from "../helpers/formatter";
 
-type PlayerDonationsProps = {
+type PlayerPledgesProps = {
   playerId: string;
 };
 
-const PlayerDonations = ({ playerId }: PlayerDonationsProps) => {
+const PlayerPledges = ({ playerId }: PlayerPledgesProps) => {
   const [allDonations, setAllDonations] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -73,4 +73,4 @@ const PlayerDonations = ({ playerId }: PlayerDonationsProps) => {
   );
 };
 
-export default PlayerDonations;
+export default PlayerPledges;

@@ -23,7 +23,7 @@ const SearchInput = ({ onSearch }: SearchInputProps) => {
   return (
     <input
       type="search"
-      placeholder="Search for players by name...  "
+      placeholder="Search for player...  "
       className="m-1 p-2 focus:border-gray-500 appearance-none outline-none w-full text-primary"
       onChange={(e) => handleSearch(e.target.value)}
       onKeyDown={handleKeyPress}

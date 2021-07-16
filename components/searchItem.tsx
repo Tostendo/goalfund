@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { Player } from "../models/player";
 import Icon from "./icon";
-import DonateButton from "./donateButton";
+import PledgeButton from "./pledgeButton";
 import { MONEY_FORMAT } from "../helpers/formatter";
 import ConnectButton from "./connectButton";
 
@@ -66,7 +66,7 @@ const SearchItem = ({ player }: SearchItemProps) => {
           </div>
         </div>
         <div className="p-2 flex flex-col md:flex-row">
-          <DonateButton donateForId={player.id} />
+          <PledgeButton pledgeForId={player.id} />
           <ConnectButton playerId={player.id} />
         </div>
       </div>

@@ -7,17 +7,17 @@ import CustomButton from "./customButton";
 import Spinner from "./spinner";
 import { MONEY_FORMAT } from "../helpers/formatter";
 import PaymentButton from "./paymentButton";
-type DonationsProps = {
-  donorId: string;
+type UserPledgesProps = {
+  pledgerId: string;
 };
 
-const Donations = ({ donorId }: DonationsProps) => {
+const UserPledges = ({ pledgerId }: UserPledgesProps) => {
   const [allDonations, setAllDonations] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const fetchDonations = () => {
     setLoading(true);
-    getDonations(donorId)
+    getDonations(pledgerId)
       .then((donations: Donation[]) => {
         setAllDonations(donations);
       })
@@ -28,12 +28,12 @@ const Donations = ({ donorId }: DonationsProps) => {
 
   useEffect(() => {
     fetchDonations();
-  }, [donorId]);
+  }, [pledgerId]);
 
   const handleDelete = async (id: string) => {
     await deleteDonation(id)
       .then(() => {
-        return getDonations(donorId);
+        return getDonations(pledgerId);
       })
       .then((donations: Donation[]) => {
         setAllDonations(donations);
@@ -123,4 +123,4 @@ const Donations = ({ donorId }: DonationsProps) => {
   );
 };
 
-export default Donations;
+export default UserPledges;

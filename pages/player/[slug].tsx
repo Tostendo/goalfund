@@ -11,7 +11,7 @@ import {
   updatePlayer,
 } from "../../api/players";
 import { Player } from "../../models/player";
-import DonateButton from "../../components/donateButton";
+import PledgeButton from "../../components/pledgeButton";
 import EditInput from "../../components/editInput";
 import Stats from "../../components/stats";
 import Link from "next/link";
@@ -60,7 +60,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
       </Head>
       <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
         <div className="flex justify-between md:justify-end gap-x-2">
-          <DonateButton donateForId={update.id} />
+          <PledgeButton pledgeForId={update.id} />
           <ConnectButton playerId={update.id} />
           <RWebShare
             data={{
@@ -147,7 +147,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
           <Stats player={update} />
         </div>
         <div className="my-8 md:hidden">
-          <DonateButton donateForId={update.id} />
+          <PledgeButton pledgeForId={update.id} />
         </div>
       </div>
     </Layout>

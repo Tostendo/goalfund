@@ -4,27 +4,27 @@ import Router from "next/router";
 import { useAuth } from "../hooks/useAuth";
 
 type Props = {
-  donateForId: string;
+  pledgeForId: string;
 };
 
-const DonateButton = ({ donateForId }: Props) => {
+const PledgeButton = ({ pledgeForId }: Props) => {
   const auth = useAuth();
   return (
     <CustomButton
       type="primary"
-      label="Donate"
+      label="Pledge"
       handleClick={() =>
         auth.user && auth.user.uid
           ? Router.push({
-              pathname: "/donation/add",
+              pathname: "/pledge/add",
               query: {
-                donateFor: donateForId,
+                pledgeFor: pledgeForId,
               },
             })
           : Router.push({
               pathname: "/login",
               query: {
-                redirectUrl: "/donation/add?donateFor=" + donateForId,
+                redirectUrl: "/pledge/add?pledgeFor=" + pledgeForId,
               },
             })
       }
@@ -32,4 +32,4 @@ const DonateButton = ({ donateForId }: Props) => {
   );
 };
 
-export default DonateButton;
+export default PledgeButton;
