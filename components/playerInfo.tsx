@@ -9,7 +9,7 @@ const PlayerInfo = ({ playerId }: PlayerInfoData) => {
   return (
     <div>
       <div>
-        <h2>Me</h2>
+        <h2>My player profile</h2>
         <div className="my-4">
           <PlayerName playerId={playerId} asLink />
         </div>

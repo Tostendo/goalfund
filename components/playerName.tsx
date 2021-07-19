@@ -22,7 +22,9 @@ const PlayerName = ({ playerId, asLink = false }) => {
       {!loading && player && (
         <div>
           {asLink && (
-            <Link href={`/player/${player.slug}`}>{`${player.name}`}</Link>
+            <div className="font-bold">
+              <Link href={`/player/${player.slug}`}>{`${player.name}`}</Link>
+            </div>
           )}
           {!asLink && <div className="font-bold">{`${player.name}`}</div>}
           {player.team && <div className="text-xs">{player.team.name}</div>}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import Link from "next/link";
 import { useAuth } from "../hooks/useAuth";
 import Icon from "./icon";
@@ -16,6 +16,11 @@ const navItems = {
     {
       label: "Charities",
       link: "/charities",
+      icon: null,
+    },
+    {
+      label: "Pledge",
+      link: "/playerSearch",
       icon: null,
     },
     {
@@ -41,6 +46,11 @@ const navItems = {
       icon: null,
     },
     {
+      label: "Pledge",
+      link: "/playerSearch",
+      icon: null,
+    },
+    {
       label: "Login",
       link: "/login",
       icon: null,
@@ -50,7 +60,6 @@ const navItems = {
 
 const Navbar = () => {
   const auth = useAuth();
-  const players = usePlayers();
   const router = useRouter();
   const [show, setShow] = useState(false);
   const items = auth.user ? navItems.loggedIn : navItems.anonym;
@@ -92,8 +101,13 @@ const Navbar = () => {
             }
             return (
               <li key={`${item.label}+${index}`} className={classes}>
-                <Link href={item.link}>
-                  <span>
+                <Link href={item.link} passHref={false}>
+                  <span
+                    onClick={() => {
+                      setShow(!show);
+                      Router.push(item.link);
+                    }}
+                  >
                     {item.label && (
                       <span className="cursor-pointer text-white hover:underline">
                         {item.label}

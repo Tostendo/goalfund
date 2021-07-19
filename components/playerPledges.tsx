@@ -31,7 +31,7 @@ const PlayerPledges = ({ playerId }: PlayerPledgesProps) => {
 
   const renderHeadline = () => {
     return (
-      <div className="grid grid-cols-3 items-end md:items-center md:gap-2 my-2 py-4 border-b">
+      <div className="hidden md:grid grid-cols-3 items-end md:items-center md:gap-2 my-2 py-4 border-b">
         <div className="col-span-1 font-bold md:text-xl">
           <div>Donor Name</div>
         </div>
@@ -56,15 +56,16 @@ const PlayerPledges = ({ playerId }: PlayerPledgesProps) => {
           return (
             <div
               key={donation.id}
-              className="grid grid-cols-3 items-center md:gap-2 my-4 border-b py-2"
+              className="grid grid-cols-2 md:grid-cols-3 items-center md:gap-2 my-4 border-b py-2"
             >
               <div className="col-span-1 font-bold truncate">
                 {donation.donorName || "Anonymous"}
               </div>
-              <div className="col-span-1 truncate">{donation.message}</div>
+              <div className="py-2 md:p-0 col-span-2 md:col-span-1 order-last md:order-none md:truncate">
+                {donation.message}
+              </div>
               <div className="col-span-1 text-right font-bold">
                 <span>{MONEY_FORMAT.format(donation.amountPerGoal)}</span>
-                <span className="hidden lg:inline-block lg:pl-2">{`per goal`}</span>
               </div>
             </div>
           );

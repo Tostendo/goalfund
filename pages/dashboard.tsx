@@ -12,7 +12,7 @@ const Dashboard = () => {
   const [index, setIndex] = useState(0);
   const unselectedCss = "inline-block py-2 px-4";
   const selectedCss =
-    "inline-block py-2 px-4 border-t border-l border-r rounded";
+    "inline-block font-bold py-2 px-4 border-b-4 border-primary";
   return (
     <div>
       {auth.user && !auth.user.emailVerified ? (
@@ -28,17 +28,7 @@ const Dashboard = () => {
         </div>
       ) : null}
       {auth.user ? (
-        <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
-          <div className="flex flex-col items-center">
-            <div className="relative h-48 w-48">
-              <img
-                src="/img/logo_small.png"
-                alt="placeholder"
-                className="rounded-full block"
-              ></img>
-            </div>
-            <h2>{`Welcome, ${auth.user.username}!`}</h2>
-          </div>
+        <div className="shadow-lg bg-white m-6 p-6">
           <div className="profile-tab-navigation my-4">
             <ul className="list-reset flex border-b">
               <li className="-mb-px mr-1">
@@ -46,7 +36,7 @@ const Dashboard = () => {
                   className={index == 0 ? selectedCss : unselectedCss}
                   onClick={() => setIndex(0)}
                 >
-                  Basic Info
+                  General
                 </a>
               </li>
               <li className="mr-1">
@@ -63,7 +53,7 @@ const Dashboard = () => {
                     className={index == 2 ? selectedCss : unselectedCss}
                     onClick={() => setIndex(2)}
                   >
-                    Player Info
+                    Player
                   </a>
                 </li>
               )}

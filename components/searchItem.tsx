@@ -67,7 +67,6 @@ const SearchItem = ({ player }: SearchItemProps) => {
         </div>
         <div className="p-2 flex flex-col md:flex-row">
           <PledgeButton pledgeForId={player.id} />
-          <ConnectButton playerId={player.id} />
         </div>
       </div>
     </Link>
