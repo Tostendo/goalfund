@@ -5,15 +5,15 @@ import VisibilitySensor from "react-visibility-sensor";
 
 const CountUpNumber = ({ content }: { content: ICountUpNumber }) => {
   return (
-    <div
-      style={{
-        backgroundColor: `${
-          content.backgroundColor ? content.backgroundColor : "transparent"
-        }`,
-        opacity: 0.85,
-      }}
-    >
-      <div className="flex flex-col p-12 gap-6 items-center">
+    <div>
+      <div
+        style={{
+          backgroundColor: `${
+            content.backgroundColor ? content.backgroundColor : "transparent"
+          }`,
+        }}
+        className="flex flex-col p-12 gap-6 items-center rounded-lg"
+      >
         <div
           style={{
             color: `${content.color}`,
