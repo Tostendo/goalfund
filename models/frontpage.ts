@@ -1,3 +1,4 @@
+import { ICountUpNumber } from "./common";
 import { IStrapiComponent, IStrapiImage } from "./strapi";
 
 export interface ICTA extends IStrapiComponent {
@@ -42,4 +43,11 @@ export interface ITestimonial extends IStrapiComponent {
   name: string;
   headline: string;
   copyText: string;
+}
+
+export interface ICountUps extends IStrapiComponent {
+  headline: string;
+  backgroundColor: string;
+  backgroundImage: IStrapiImage;
+  stats: ICountUpNumber[];
 }

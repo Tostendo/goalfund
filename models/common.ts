@@ -7,3 +7,11 @@ export interface ITeaser extends IStrapiComponent {
   buttonLink: string;
   buttonLabel: string;
 }
+
+export interface ICountUpNumber extends IStrapiComponent {
+  name: string;
+  number: number;
+  description: string;
+  color: string;
+  backgroundColor: string;
+}

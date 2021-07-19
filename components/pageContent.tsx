@@ -1,5 +1,7 @@
 import React from "react";
 import { IStrapiComponent } from "../models/strapi";
+import CountUpNumber from "./common/countUpNumber";
+import CountUps from "./frontpage/countUps";
 import { CTA } from "./frontpage/cta";
 import { Hero } from "./frontpage/heroBanner";
 import { MissionStatement } from "./frontpage/missionStatement";
@@ -27,14 +29,18 @@ export const renderComponent = (component: any) => {
       return <MissionStatement content={component} />;
     case "frontpage.cta":
       return <CTA content={component} />;
+    case "frontpage.count-ups":
+      return <CountUps content={component} />;
+    case "common.count-up-number":
+      return <CountUpNumber content={component} />;
   }
 };
 
 export const PageContent = (props: PageProps) => {
   return (
     <div>
-      {props.content.map((block) => {
-        return renderComponent(block);
+      {props.content.map((block, index) => {
+        return <div key={index}>{renderComponent(block)}</div>;
       })}
     </div>
   );

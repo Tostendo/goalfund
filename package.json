@@ -20,8 +20,10 @@
     "next": "^10.0.0",
     "postcss": "^8.2.1",
     "react": "16.13.1",
+    "react-countup": "^4.4.0",
     "react-dom": "16.13.1",
     "react-markdown": "^6.0.2",
+    "react-visibility-sensor": "^5.1.1",
     "react-web-share": "^1.1.0",
     "sass": "^1.29.0",
     "tailwindcss": "^2.0.2"
