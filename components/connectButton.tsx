@@ -2,14 +2,15 @@ import { useState } from "react";
 import Router from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import CustomButton from "./customButton";
-import ErrorModal from "./errorModal";
+import Modal from "./modal";
 
 type ConnectButtonProps = {
   playerId: string;
 };
 
 const ConnectButton = ({ playerId }: ConnectButtonProps) => {
-  const [showModal, setShowModal] = useState(true);
+  const [showErrorModal, setShowErrorModal] = useState(true);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [error, setError] = useState(null);
   const auth = useAuth();
   if (!auth.user || (auth.user && auth.user.playerId)) {
@@ -31,13 +32,25 @@ const ConnectButton = ({ playerId }: ConnectButtonProps) => {
       <CustomButton
         type="secondary"
         label="Connect"
-        handleClick={() => handleConnect(playerId)}
+        handleClick={() => setShowConfirmModal(!showConfirmModal)}
       />
+      {showConfirmModal && (
+        <Modal
+          headline={"Are you sure?"}
+          show={showConfirmModal}
+          toggle={setShowConfirmModal}
+          message={
+            "You are about to connect to a player profile. This cannot be easily undone."
+          }
+          confirm={() => handleConnect(playerId)}
+        />
+      )}
       {error && (
-        <ErrorModal
-          show={showModal}
-          toggle={setShowModal}
-          message={error.message}
+        <Modal
+          headline={"An error occured."}
+          show={showErrorModal}
+          toggle={setShowErrorModal}
+          errorMessage={error.message}
         />
       )}
     </>
