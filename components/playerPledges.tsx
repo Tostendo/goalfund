@@ -61,7 +61,7 @@ const PlayerPledges = ({ playerId }: PlayerPledgesProps) => {
               <div className="col-span-1 font-bold truncate">
                 {donation.donorName || "Anonymous"}
               </div>
-              <div className="py-2 md:p-0 col-span-2 md:col-span-1 order-last md:order-none md:truncate">
+              <div className="py-2 md:p-0 col-span-2 md:col-span-1 order-last md:order-none">
                 {donation.message}
               </div>
               <div className="col-span-1 text-right font-bold">
