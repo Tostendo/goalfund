@@ -17,7 +17,6 @@ const Dashboard = () => {
     "inline-block font-bold py-2 px-4 border-b-4 border-primary";
 
   useEffect(() => {
-    console.info(auth.user);
     const profileTab = router.query.profile_tab as string;
     if (profileTab) {
       setTab(profileTab);
