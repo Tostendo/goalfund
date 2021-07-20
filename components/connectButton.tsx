@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { useAuth } from "../hooks/useAuth";
 import CustomButton from "./customButton";
 import Modal from "./modal";
@@ -13,7 +13,9 @@ const ConnectButton = ({ playerId }: ConnectButtonProps) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [error, setError] = useState(null);
   const auth = useAuth();
-  if (!auth.user || (auth.user && auth.user.playerId)) {
+  const router = useRouter();
+
+  if (auth.user && auth.user.playerId) {
     return null;
   }
 
@@ -21,7 +23,7 @@ const ConnectButton = ({ playerId }: ConnectButtonProps) => {
     auth
       .connectPlayer(playerId)
       .then(() => {
-        Router.push("/dashboard");
+        Router.push("/dashboard?profile_tab=player");
       })
       .catch((e) => {
         setError(e);
@@ -32,7 +34,18 @@ const ConnectButton = ({ playerId }: ConnectButtonProps) => {
       <CustomButton
         type="secondary"
         label="Connect"
-        handleClick={() => setShowConfirmModal(!showConfirmModal)}
+        handleClick={() => {
+          if (!auth.user) {
+            Router.push({
+              pathname: "/login",
+              query: {
+                redirectUrl: router.asPath,
+              },
+            });
+          } else {
+            setShowConfirmModal(!showConfirmModal);
+          }
+        }}
       />
       {showConfirmModal && (
         <Modal

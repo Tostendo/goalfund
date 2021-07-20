@@ -30,7 +30,7 @@ const AddPledgePage = () => {
       if (response.error) {
         setError(response.error);
       } else {
-        Router.push("/dashboard");
+        Router.push("/dashboard?profile_tab=pledges");
       }
     });
   };

@@ -53,7 +53,7 @@ const UserPledges = ({ pledgerId }: UserPledgesProps) => {
           <div>Pledge per goal</div>
         </div>
         <div className="col-span-1 text-center font-bold md:text-xl">
-          <div>Open pledge</div>
+          <div>Payable pledge</div>
         </div>
       </div>
     );

@@ -75,7 +75,15 @@ const SignInSignUpForm = ({ register }: Props) => {
               />
               {!register && (
                 <span className="pl-2">
-                  <Link href="/register">Register</Link>
+                  <Link
+                    href={
+                      redirectUrl
+                        ? `/register?redirectUrl=${redirectUrl}`
+                        : "/register"
+                    }
+                  >
+                    Register
+                  </Link>
                 </span>
               )}
             </div>

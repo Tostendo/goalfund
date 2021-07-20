@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRequireAuth } from "../hooks/useRequireAuth";
+import Router, { useRouter } from "next/router";
 import Layout from "../components/layout";
 import Spinner from "../components/spinner";
 import BasicInfo from "../components/basicInfo";
@@ -8,11 +9,74 @@ import { PlayersProvider } from "../hooks/usePlayers";
 import UserPledgesInfo from "../components/userPledgesInfo";
 
 const Dashboard = () => {
+  const router = useRouter();
   const auth = useRequireAuth();
-  const [index, setIndex] = useState(0);
+  const [tab, setTab] = useState("general");
   const unselectedCss = "inline-block py-2 px-4";
   const selectedCss =
     "inline-block font-bold py-2 px-4 border-b-4 border-primary";
+
+  useEffect(() => {
+    console.info(auth.user);
+    const profileTab = router.query.profile_tab as string;
+    if (profileTab) {
+      setTab(profileTab);
+    }
+  });
+
+  const handleSelect = (tab: string) => {
+    setTab(tab);
+    Router.push({
+      query: {
+        profile_tab: tab,
+      },
+    });
+  };
+
+  const renderTabContent = () => {
+    switch (tab) {
+      case "general":
+        return (
+          <BasicInfo
+            data={{ username: auth.user.username, email: auth.user.email }}
+            onUpdate={auth.update}
+          />
+        );
+      case "pledges":
+        return <UserPledgesInfo pledgerId={auth.user.uid} />;
+      case "player":
+        return <PlayerInfo playerId={auth.user.playerId} />;
+    }
+  };
+
+  const renderTab = (tabName: string, tabValue: string) => {
+    return (
+      <li className="mr-1">
+        <a
+          className={tab === tabValue ? selectedCss : unselectedCss}
+          onClick={() => handleSelect(tabValue)}
+        >
+          {tabName}
+        </a>
+      </li>
+    );
+  };
+
+  const renderVerifyMailBanner = () => {
+    return (
+      <div className="shadow-lg text-primary font-bold p-4 m-4 bg-warning">
+        <div className="flex items-center justify-between">
+          <div>Please verify your email</div>
+          <div>
+            <button onClick={() => auth.sendVerificationMail()}>
+              Send mail again
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div>
       {auth.user && !auth.user.emailVerified ? (
@@ -31,44 +95,12 @@ const Dashboard = () => {
         <div className="shadow-lg bg-white m-6 p-6">
           <div className="profile-tab-navigation my-4">
             <ul className="list-reset flex border-b">
-              <li className="-mb-px mr-1">
-                <a
-                  className={index == 0 ? selectedCss : unselectedCss}
-                  onClick={() => setIndex(0)}
-                >
-                  General
-                </a>
-              </li>
-              <li className="mr-1">
-                <a
-                  className={index == 1 ? selectedCss : unselectedCss}
-                  onClick={() => setIndex(1)}
-                >
-                  Pledges
-                </a>
-              </li>
-              {auth.user.playerId && (
-                <li className="mr-1">
-                  <a
-                    className={index == 2 ? selectedCss : unselectedCss}
-                    onClick={() => setIndex(2)}
-                  >
-                    Player
-                  </a>
-                </li>
-              )}
+              {renderTab("General", "general")}
+              {renderTab("Pledges", "pledges")}
+              {auth.user.playerId && renderTab("Player", "player")}
             </ul>
           </div>
-          {index == 0 && (
-            <BasicInfo
-              data={{ username: auth.user.username, email: auth.user.email }}
-              onUpdate={auth.update}
-            />
-          )}
-          {index == 1 && <UserPledgesInfo pledgerId={auth.user.uid} />}
-          {index == 2 && auth.user.playerId && (
-            <PlayerInfo playerId={auth.user.playerId} />
-          )}
+          {renderTabContent()}
         </div>
       ) : (
         <Spinner />
