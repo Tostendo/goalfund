@@ -31,7 +31,6 @@ const useAuthProvider = () => {
           uid: response.user.uid,
           email,
           username,
-          emailVerified: false,
         });
       })
       .then((user) => {
