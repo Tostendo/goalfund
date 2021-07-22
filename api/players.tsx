@@ -19,6 +19,9 @@ export const searchPlayers = async ({
   }
   const result = await fetch(`${API_BASE_URL}/players?${query}`);
   const data = (await result.json()) as Player[];
+  if (!data) {
+    return [];
+  }
   const all = data.map(async (player) => {
     const donations = await getPlayerDonations(player.id);
     return {
@@ -86,6 +89,9 @@ export const getPlayersByIds = async (ids: string[]) => {
   const query = ids.map((id) => `id_in=${id}`).join("&");
   const result = await fetch(`${API_BASE_URL}/players?${query}`);
   const data = (await result.json()) as Player[];
+  if (!data) {
+    return [];
+  }
   const all = data.map(async (player) => {
     const donations = await getPlayerDonations(player.id);
     return {
@@ -99,6 +105,9 @@ export const getPlayersByIds = async (ids: string[]) => {
 export const getAllPlayerSlugs = async () => {
   const result = await fetch(`${API_BASE_URL}/players?_limit=-1`);
   const data = await result.json();
+  if (!data) {
+    return [];
+  }
   const slugs = data.map((player: Player) => {
     if (!player.slug) {
       console.error(`player ${player.name} is missing slug.`);

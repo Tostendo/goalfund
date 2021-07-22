@@ -7,6 +7,9 @@ import { calculateSumOfPledges } from "../helpers/calculate";
 export const getAllTeamSlugs = async () => {
   const result = await fetch(`${API_BASE_URL}/teams?_limit=-1`);
   const data = await result.json();
+  if (!data) {
+    return [];
+  }
   const slugs = data.map((team: ITeam) => {
     if (!team.slug) {
       console.error(`team ${team.name} is missing slug.`);
