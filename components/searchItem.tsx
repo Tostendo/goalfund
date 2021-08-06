@@ -29,37 +29,29 @@ const SearchItem = ({ player }: SearchItemProps) => {
           <div className="w-full">
             <div className="mx-4">
               <Link href={`/player/${player.slug}`}>{`${player.name}`}</Link>
-              {player.stats && (
-                <div className="mb-2 gap-2 flex items-center text-xs truncate w-full">
-                  <div className="gap-1 flex items-center">
-                    <div className="h-4 w-4">
-                      <Icon type="euro" />
-                    </div>
-                    <div>{MONEY_FORMAT.format(player.money || 0)}</div>
+              <div className="mb-2 gap-2 flex items-center text-xs truncate w-full">
+                <div className="gap-1 flex items-center">
+                  <div className="h-4 w-4 text-yellow-500">
+                    <Icon type="goal" />
                   </div>
-                  <div className="gap-1 flex items-center">
-                    <div className="h-4 w-4 text-yellow-500">
-                      <Icon type="goal" />
-                    </div>
-                    <div>{player.goals || 0}</div>
-                  </div>
-                  <div className="gap-1 items-center hidden sm:inline-flex">
-                    <div className="h-4 w-4 text-green-500">
-                      <Icon type="showUp" />
-                    </div>
-                    <div>{player.appearances || 0}</div>
-                  </div>
-                  <div className="gap-1 items-center hidden sm:inline-flex">
-                    <div className="h-4 w-4">
-                      <Icon type="clock" />
-                    </div>
-                    <div>{player.minutesPlayed || 0}</div>
-                  </div>
+                  <div>{player.goals || 0}</div>
                 </div>
-              )}
-              {player.team && (
+                <div className="gap-1 items-center hidden sm:inline-flex">
+                  <div className="h-4 w-4 text-green-500">
+                    <Icon type="showUp" />
+                  </div>
+                  <div>{player.appearances || 0}</div>
+                </div>
+                <div className="gap-1 items-center hidden sm:inline-flex">
+                  <div className="h-4 w-4">
+                    <Icon type="clock" />
+                  </div>
+                  <div>{player.minutesPlayed || 0}</div>
+                </div>
+              </div>
+              {player.teamName && (
                 <div className="text-xs truncate w-full -mt-1 text-gray-500">
-                  {player.team.name}
+                  {player.teamName}
                 </div>
               )}
             </div>
