@@ -12,6 +12,7 @@ export type Player = {
   description?: string;
   career?: string;
   team?: ITeam;
+  teamName?: string;
   charity?: any;
   stats?: any;
   goals?: number;
