@@ -87,7 +87,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
                 update.image.length ? update.image[0].url : "/img/avatar.png"
               }
               alt="placeholder"
-              className="inline-block h-auto w-full md:h-64 md:w-auto"
+              className="inline-block h-64 w-auto rounded-3xl md:rounded-none"
             ></img>
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col">
@@ -145,7 +145,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
           <h2 className="my-4">My season stats</h2>
           <Stats player={update} />
         </div>
-        <div className="my-8 md:hidden">
+        <div className="my-8 md:hidden text-center">
           <PledgeButton pledgeForId={update.id} />
         </div>
       </div>
