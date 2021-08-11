@@ -31,7 +31,7 @@ const Stats = ({ player }: StatsProps) => {
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-5">
+    <div className="grid gap-4 md:grid-cols-4">
       {getStat(MONEY_FORMAT.format(player.money), "Money raised", "euro")}
       {getStat(player.goals, "Scored goals", "goal")}
       {getStat(player.appearances, "Appearances", "showUp")}
