@@ -14,6 +14,7 @@ const EditInput = ({ type, value, onSave, editable }: EditInputProps) => {
 
   const handleSubmit = (e: React.SyntheticEvent<EventTarget>) => {
     e.stopPropagation();
+    e.preventDefault();
     onSave(newValue);
     setEdit(false);
   };
