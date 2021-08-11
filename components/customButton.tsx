@@ -26,14 +26,14 @@ function getButtonStyle(type: string) {
   } else if (type == "secondary") {
     return "bg-yellow-400  hover:bg-yellow-600 text-black";
   } else if (type == "error") {
-    return "border-red-400 hover:border-red-600 bg-red-400 hover:bg-red-600 text-white";
+    return "border-none text-red-400 hover:text-red-600";
   }
 }
 
 const CustomButton = ({ handleClick, type, label, icon }: ButtonProps) => (
   <button
     onClick={(e) => clickHandler(e, handleClick)}
-    className={`text-md border rounded-lg py-2 px-4 focus:outline-none appearance-none ${getButtonStyle(
+    className={`text-md border rounded-lg py-2 px-2 focus:outline-none appearance-none ${getButtonStyle(
       type
     )}`}
   >
