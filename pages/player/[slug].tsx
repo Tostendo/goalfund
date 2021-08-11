@@ -69,7 +69,6 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
               url: typeof window !== "undefined" ? window.location.href : "",
             }}
             onClick={(data) => {
-              console.info("shared data: ", data);
               trackPlayerShare(update);
             }}
           >
@@ -81,14 +80,14 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
             </div>
           </RWebShare>
         </div>
-        <div className="grid grid-cols-2 items-center justify-center">
-          <div className="col-span-2 md:col-span-1 py-8 md:py-0 relative h-64 w-full md:w-64 flex justify-center md:justify-start">
+        <div className="grid grid-cols-2 gap-8 items-center justify-center">
+          <div className="col-span-2 md:col-span-1 py-8 md:py-0 relative justify-center md:justify-end flex">
             <img
               src={
                 update.image.length ? update.image[0].url : "/img/avatar.png"
               }
               alt="placeholder"
-              className="h-full rounded-full inline-block"
+              className="inline-block h-auto w-full md:h-64 md:w-auto"
             ></img>
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col">
@@ -142,7 +141,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
             </div>
           </div>
         </div>
-        <div className="my-8">
+        <div className="my-8 flex flex-col items-center">
           <h2 className="my-4">My season stats</h2>
           <Stats player={update} />
         </div>
