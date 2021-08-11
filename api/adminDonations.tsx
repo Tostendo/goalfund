@@ -4,7 +4,10 @@ import { getPlayerById } from "./players";
 import { calculateSumOfPledges } from "../helpers/calculate";
 
 export const getDonationsPerPlayer = async () => {
-  const snapshot = await adminDb.collection("donations").get();
+  const snapshot = await adminDb
+    .collection("donations")
+    .where("playerId", "!=", "")
+    .get();
   if (snapshot.empty) {
     console.log("No matching documents.");
     return [];
