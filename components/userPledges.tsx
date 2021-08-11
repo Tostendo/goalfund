@@ -7,6 +7,8 @@ import CustomButton from "./customButton";
 import Spinner from "./spinner";
 import { MONEY_FORMAT } from "../helpers/formatter";
 import PaymentButton from "./paymentButton";
+import Icon from "./icon";
+import InfoPopoverButton from "./infoPopoverButton";
 type UserPledgesProps = {
   pledgerId: string;
 };
@@ -60,14 +62,20 @@ const UserPledges = ({ pledgerId }: UserPledgesProps) => {
   };
 
   const renderAction = (donation: Donation) => {
-    if (donation.openAmount && donation.openAmount > 0) {
-      return (
-        <PaymentButton
-          amount={donation.openAmount}
-          donationId={donation.id}
-          updateDonations={fetchDonations}
-        />
-      );
+    if (donation.openAmount) {
+      if (donation.openAmount > 5) {
+        return (
+          <PaymentButton
+            amount={donation.openAmount}
+            donationId={donation.id}
+            updateDonations={fetchDonations}
+          />
+        );
+      } else {
+        return (
+          <InfoPopoverButton message="We'll prepare the payment. Once that is ready, a PayPal button will appear here." />
+        );
+      }
     }
     if (
       !donation.deleted &&

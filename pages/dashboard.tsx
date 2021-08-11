@@ -61,21 +61,6 @@ const Dashboard = () => {
     );
   };
 
-  const renderVerifyMailBanner = () => {
-    return (
-      <div className="shadow-lg text-primary font-bold p-4 m-4 bg-warning">
-        <div className="flex items-center justify-between">
-          <div>Please verify your email</div>
-          <div>
-            <button onClick={() => auth.sendVerificationMail()}>
-              Send mail again
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div>
       {auth.user && !auth.user.emailVerified ? (
