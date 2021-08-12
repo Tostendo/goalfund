@@ -6,6 +6,7 @@ type ErrorModalProps = {
   show: boolean;
   toggle: Function;
   confirm?: Function;
+  buttonConfirmText?: string;
 };
 
 const ErrorModal = ({
@@ -15,6 +16,7 @@ const ErrorModal = ({
   show,
   toggle,
   headline,
+  buttonConfirmText,
 }: ErrorModalProps) => {
   return (
     <>
@@ -51,7 +53,7 @@ const ErrorModal = ({
                     style={{ transition: "all .15s ease" }}
                     onClick={confirm ? () => confirm() : () => toggle(!show)}
                   >
-                    Ok
+                    {buttonConfirmText || "Ok"}
                   </button>
                 </div>
               </div>

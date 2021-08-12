@@ -9,6 +9,7 @@ import { MONEY_FORMAT } from "../helpers/formatter";
 import PaymentButton from "./paymentButton";
 import Icon from "./icon";
 import InfoPopoverButton from "./infoPopoverButton";
+import Confirm from "./confirm";
 type UserPledgesProps = {
   pledgerId: string;
 };
@@ -82,10 +83,13 @@ const UserPledges = ({ pledgerId }: UserPledgesProps) => {
       (!donation.openAmount || donation.openAmount === 0)
     ) {
       return (
-        <CustomButton
-          icon="delete"
-          type="error"
-          handleClick={() => handleDelete(donation.id)}
+        <Confirm
+          buttonIcon="delete"
+          buttonType="error"
+          handleConfirm={() => handleDelete(donation.id)}
+          modalHeadline="Are you sure?"
+          modalText="This deletes the pledge. If you want to pledge again, you can create a new pledge at any time."
+          modalButtonConfirmText="Delete"
         />
       );
     }

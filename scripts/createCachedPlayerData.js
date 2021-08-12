@@ -24,6 +24,7 @@ function writeJson(fname, data) {
   const rawPlayers = playersRes.json();
   for (const p of rawPlayers) {
     const preparedPlayer = {
+      id: p.id,
       name: p.name,
       teamName: p.team ? p.team.name : null,
       appearances: p.appearances,
