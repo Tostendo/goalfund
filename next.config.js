@@ -4,7 +4,7 @@ module.exports = {
     if (!isServer) {
       config.node = { fs: "empty", module: "empty" };
       require("./scripts/initCms.js");
-      require("./scripts/createCachedProductData.js");
+      require("./scripts/createCachedPlayerData.js");
     }
 
     return config;

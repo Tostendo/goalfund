@@ -16,10 +16,14 @@ type TopListsProps = {
 
 type HeadlineProps = {
   headline: string;
+  subheadline?: string;
 };
 
-const Headline = ({ headline }: HeadlineProps) => (
-  <div className="text-2xl text-center text-primary mb-8 mt-16">{headline}</div>
+const Headline = ({ headline, subheadline }: HeadlineProps) => (
+  <div className="text-primary text-center mb-8 mt-16">
+    <div className="text-3xl font-bold">{headline}</div>
+    {subheadline && <div className="text-md">{subheadline}</div>}
+  </div>
 );
 
 const TopLists = ({
@@ -29,9 +33,12 @@ const TopLists = ({
 }: TopListsProps) => {
   return (
     <Layout>
-      <Headline headline="Most money raised" />
+      <Headline
+        headline="Most money raised"
+        subheadline="Sum of payable and already paid pledges"
+      />
       <Ranking type="mostMoneyRaised" entries={topPlayersByMoneyRaised} />
-      <Headline headline="Most pledges" />
+      <Headline headline="Most open pledges" />
       <Ranking type="mostPledges" entries={topPlayersByPledges} />
       <Headline headline="Most goals" />
       <Ranking type="mostGoals" entries={topGoals} />

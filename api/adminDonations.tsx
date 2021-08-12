@@ -24,7 +24,7 @@ export const getDonationsPerPlayer = async () => {
     const player = await getPlayerById(key);
     return {
       ...player,
-      count: donations[key].length,
+      count: _.filter(donations[key], (tmp) => !tmp["deleted"]).length,
       money: calculateSumOfPledges(player.goals, donations[key]),
     };
   });
