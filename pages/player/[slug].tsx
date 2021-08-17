@@ -19,6 +19,7 @@ import Icon from "../../components/icon";
 import { trackPlayerShare } from "../../api/share";
 import { getMetaDescription } from "../../helpers/seo";
 import ConnectButton from "../../components/connectButton";
+import FileUpload from "../../components/fileUpload";
 
 type PlayerProfileProps = {
   player: Player;
@@ -81,14 +82,22 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
           </RWebShare>
         </div>
         <div className="grid grid-cols-2 gap-8 items-center justify-center">
-          <div className="col-span-2 md:col-span-1 py-8 md:py-0 relative justify-center md:justify-end flex">
-            <img
-              src={
+          <div className="col-span-2 md:col-span-1 py-8 md:py-0 flex justify-center md:justify-end">
+            <FileUpload
+              editable={auth.user?.playerId == update.id}
+              imageUrl={
                 update.image.length ? update.image[0].url : "/img/avatar.png"
               }
-              alt="placeholder"
-              className="inline-block h-64 w-auto rounded-3xl md:rounded-none"
-            ></img>
+              onSuccess={(value: string) =>
+                updatePlayer(update.id, { image: value }).then((player) =>
+                  setUpdate({
+                    ...update,
+                    ...player,
+                  })
+                )
+              }
+              imageClassName="h-64 w-auto inline-block rounded-3xl md:rounded-none"
+            />
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col">
             <div className="p-2">

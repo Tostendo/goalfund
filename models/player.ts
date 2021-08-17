@@ -22,7 +22,7 @@ export type Player = {
 };
 
 export type PlayerUpdate = {
-  image?: any;
+  image?: string;
   position?: string;
   strongLeg?: string;
   description?: string;
