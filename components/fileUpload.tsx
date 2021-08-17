@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { uploadImage } from "../api/assets";
 import Icon from "./icon";
 import Modal from "./modal";
+import Spinner from "./spinner";
 
 type FileUploadProps = {
   editable: boolean;
@@ -13,11 +14,13 @@ type FileUploadProps = {
 const FileUpload = (props: FileUploadProps) => {
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (image) {
+      setLoading(true);
       const data = new FormData();
       data.append("files", image);
       uploadImage(data)
@@ -26,10 +29,14 @@ const FileUpload = (props: FileUploadProps) => {
             return props.onSuccess(res[0].id);
           }
         })
-        .then(() => setImage(null))
+        .then(() => {
+          setImage(null);
+          setLoading(false);
+        })
         .catch((e) => {
           console.error(e);
           setImage(null);
+          setLoading(false);
           setError(e);
           setShowModal(true);
         });
@@ -49,23 +56,30 @@ const FileUpload = (props: FileUploadProps) => {
           alt="placeholder"
           className={props.imageClassName}
         ></img>
-        {props.editable && (
+        {loading && (
+          <div className="absolute bottom-0">
+            <Spinner />
+          </div>
+        )}
+        {props.editable && !loading && (
           <a className="absolute w-full h-full flex flex-col justify-center items-center bg-black text-center top-0 opacity-0 hover:opacity-50 rounded-3xl md:rounded-none">
-            <label className="mb-4">
-              <span className="opacity-100 text-white cursor-pointer">
-                <div className="h-20 w-20">
-                  <Icon type="upload" />
-                </div>
-              </span>
-              <input onChange={handleChange} type="file" className="hidden" />
-            </label>
+            {
+              <label className="mb-4">
+                <span className="opacity-100 text-white cursor-pointer">
+                  <div className="h-20 w-20">
+                    <Icon type="upload" />
+                  </div>
+                </span>
+                <input onChange={handleChange} type="file" className="hidden" />
+              </label>
+            }
           </a>
         )}
       </div>
       {image && (
         <div className="absolute">
           <button
-            className="bg-red-500 text-white p-2"
+            className="bg-red-500 text-white mx-2 p-4 md:m-0 md:p-2"
             onClick={() => setImage(null)}
           >
             <div className="h-6 w-6">
@@ -73,7 +87,7 @@ const FileUpload = (props: FileUploadProps) => {
             </div>
           </button>
           <button
-            className="bg-green-500 text-white p-2"
+            className="bg-green-500 text-white mx-2 p-4 md:m-0 md:p-2"
             onClick={handleSubmit}
           >
             <div className="h-6 w-6">
