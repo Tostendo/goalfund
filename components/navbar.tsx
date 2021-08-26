@@ -19,17 +19,12 @@ const navItems = {
       icon: null,
     },
     {
-      label: "Pledge",
-      link: "/playerSearch",
-      icon: null,
-    },
-    {
       label: "About",
       link: "/about-us",
       icon: null,
     },
     {
-      label: "Account",
+      label: "Profile",
       link: "/dashboard",
       icon: null,
     },
@@ -48,11 +43,6 @@ const navItems = {
     {
       label: "Charities",
       link: "/charities",
-      icon: null,
-    },
-    {
-      label: "Pledge",
-      link: "/playerSearch",
       icon: null,
     },
     {

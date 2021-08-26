@@ -13,6 +13,7 @@ const SignInSignUpForm = ({ register }: Props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -25,14 +26,19 @@ const SignInSignUpForm = ({ register }: Props) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
+    if (register && password !== confirm) {
+      setIsLoading(false);
+      setError({ message: "Passwords must be equal." });
+      return;
+    }
     const data = { email: email, username: username, password: password };
     return onSubmit(data).then((response: any) => {
       if (response.error) {
         setError(response.error);
+        setIsLoading(false);
       } else {
         Router.push(redirectUrl ? redirectUrl : "/dashboard");
       }
-      setIsLoading(false);
     });
   };
 
@@ -64,6 +70,16 @@ const SignInSignUpForm = ({ register }: Props) => {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
       </div>
+      {register && (
+        <div>
+          <label>Confirm password</label>
+          <input
+            className="w-full"
+            type="password"
+            onChange={(e) => setConfirm(e.target.value)}
+          ></input>
+        </div>
+      )}
       <div className="grid grid-cols-2 items-center">
         <div className="col-span-1">
           {!isLoading ? (
