@@ -82,7 +82,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
           </RWebShare>
         </div>
         <div className="grid grid-cols-2 gap-8 items-center justify-center">
-          <div className="col-span-2 md:col-span-1 py-8 md:py-0 flex justify-center md:justify-end">
+          <div className="col-span-2 md:col-span-1 pt-16 md:py-0 flex justify-center md:justify-end">
             <FileUpload
               editable={auth.user?.playerId == update.id}
               imageUrl={
@@ -96,7 +96,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
                   })
                 )
               }
-              imageClassName="h-64 w-auto inline-block rounded-3xl md:rounded-none"
+              imageClassName="h-64 w-auto inline-block rounded-full md:rounded-none"
             />
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col">
@@ -150,7 +150,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
             </div>
           </div>
         </div>
-        <div className="my-8 flex flex-col items-center">
+        <div className="my-8 flex flex-col">
           <h2 className="my-4">My season stats</h2>
           <Stats player={update} />
         </div>

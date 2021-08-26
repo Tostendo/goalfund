@@ -81,7 +81,7 @@ const EditInput = ({ type, value, onSave, editable }: EditInputProps) => {
           <div>{newValue}</div>
           {editable && (
             <a
-              className="h-8 w-8 pl-4 inline-block"
+              className="m-2 p-2 text-primary border-primary border-2 bg-white rounded-full cursor-pointer hover:bg-primary hover:text-white"
               onClick={() => setEdit(true)}
             >
               <div className="h-6 w-6">

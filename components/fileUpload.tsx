@@ -48,6 +48,19 @@ const FileUpload = (props: FileUploadProps) => {
       setImage(e.target.files[0]);
     }
   };
+
+  const renderUpload = () => {
+    return (
+      <a className="absolute -top-4 -right-4 p-2 text-primary border-primary border-2 bg-white rounded-full cursor-pointer hover:bg-primary hover:text-white">
+        <label>
+          <div className="h-6 w-6 cursor-pointer">
+            <Icon type="camera" />
+          </div>
+          <input onChange={handleChange} type="file" className="hidden" />
+        </label>
+      </a>
+    );
+  };
   return (
     <>
       <div className="inline-block relative">
@@ -57,45 +70,32 @@ const FileUpload = (props: FileUploadProps) => {
           className={props.imageClassName}
         ></img>
         {loading && (
-          <div className="absolute bottom-0">
+          <div className="absolute left-1/2 -ml-8 top-1/2 mt-8">
             <Spinner />
           </div>
         )}
-        {props.editable && !loading && (
-          <a className="absolute w-full h-full flex flex-col justify-center items-center bg-black text-center top-0 opacity-0 hover:opacity-50 rounded-3xl md:rounded-none">
-            {
-              <label className="mb-4">
-                <span className="opacity-100 text-white cursor-pointer">
-                  <div className="h-20 w-20">
-                    <Icon type="upload" />
-                  </div>
-                </span>
-                <input onChange={handleChange} type="file" className="hidden" />
-              </label>
-            }
-          </a>
+        {props.editable && !loading && !image && renderUpload()}
+        {image && (
+          <>
+            <a
+              className="absolute -top-5 -right-5 p-2 border-2 border-green-500 text-white bg-green-500 rounded-full cursor-pointer hover:border-green-500 hover:bg-white hover:text-green-500"
+              onClick={handleSubmit}
+            >
+              <div className="h-6 w-6 cursor-pointer">
+                <Icon type="save" />
+              </div>
+            </a>
+            <a
+              className="absolute -top-5 -left-3 p-2 border-2 border-red-500 text-white bg-red-500 hover:border-red-500 hover:bg-white hover:text-red-500 rounded-full cursor-pointer"
+              onClick={() => setImage(null)}
+            >
+              <div className="h-6 w-6 cursor-pointer">
+                <Icon type="delete" />
+              </div>
+            </a>
+          </>
         )}
       </div>
-      {image && (
-        <div className="absolute">
-          <button
-            className="bg-red-500 text-white mx-2 p-4 md:m-0 md:p-2"
-            onClick={() => setImage(null)}
-          >
-            <div className="h-6 w-6">
-              <Icon type="delete" />
-            </div>
-          </button>
-          <button
-            className="bg-green-500 text-white mx-2 p-4 md:m-0 md:p-2"
-            onClick={handleSubmit}
-          >
-            <div className="h-6 w-6">
-              <Icon type="save" />
-            </div>
-          </button>
-        </div>
-      )}
       {error && (
         <Modal
           headline="Error occcured"
