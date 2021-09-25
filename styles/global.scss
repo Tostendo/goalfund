@@ -2,6 +2,20 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    src: local("Lato"), url(/fonts/Lato-Regular.ttf) format("ttf");
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-style: bold;
+    font-weight: 700;
+    src: local("Lato"), url(/fonts/Lato-Bold.ttf) format("ttf");
+}
+
 html,
 body {
     padding: 0;
@@ -19,9 +33,9 @@ a {
 }
 
 input {
-    @apply mt-2 mb-4 border border-solid rounded border-primary h-12 py-1 px-3 bg-white font-body focus:border-primary;
+    @apply mt-2 mb-4 border border-solid rounded border-primary h-12 py-1 px-3 bg-white focus:border-primary;
 }
 
 .button-primary {
-    @apply h-10 border border-solid rounded text-white bg-primary px-8 font-body hover:text-primary hover:bg-white hover:border-primary my-2;
+    @apply h-10 border border-solid rounded text-white bg-primary px-8 hover:text-primary hover:bg-white hover:border-primary my-2;
 }

@@ -1,5 +1,6 @@
 import { API_BASE_URL } from "../config/cms";
-
+// eslint-disable-next-line import/no-unresolved
+import playersById from "../static_data/playersById.json";
 import { getPlayerDonations } from "./donations";
 import { calculateSumOfPledges } from "../helpers/calculate";
 import { Player, PlayerSearchData, PlayerUpdate } from "../models/player";
@@ -68,6 +69,10 @@ export const getPlayerById = async (id: string) => {
   const result = await fetch(`${API_BASE_URL}/players/${id}`);
   const player = await result.json();
   return player;
+};
+
+export const getCachedPlayerById = async (id: string) => {
+  return playersById[id];
 };
 
 export const getPlayerBySlug = async (slug: string) => {

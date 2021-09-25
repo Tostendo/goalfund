@@ -21,6 +21,7 @@ function writeJson(fname, data) {
     throw Error(playersRes.statusText);
   }
   const players = [];
+  const playersMap = {};
   const rawPlayers = playersRes.json();
   for (const p of rawPlayers) {
     const preparedPlayer = {
@@ -35,8 +36,10 @@ function writeJson(fname, data) {
     };
 
     players.push(preparedPlayer);
+    playersMap[preparedPlayer.id] = preparedPlayer;
   }
   writeJson("searchIndex.json", { players });
+  writeJson("playersById.json", playersMap);
 
   console.log(`Player data written for ${players.length} players.`);
 })();
