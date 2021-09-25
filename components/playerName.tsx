@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { getPlayerById } from "../api/players";
+import { getCachedPlayerById } from "../api/players";
 
 const PlayerName = ({ playerId, asLink = false }) => {
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,7 @@ const PlayerName = ({ playerId, asLink = false }) => {
     setLoading(true);
     const asyncFetchPlayer = async (id: string) => {
       if (id) {
-        const player = await getPlayerById(id);
+        const player = await getCachedPlayerById(id);
         setPlayer(player);
       }
       setLoading(false);
@@ -27,7 +27,7 @@ const PlayerName = ({ playerId, asLink = false }) => {
             </div>
           )}
           {!asLink && <div className="font-bold">{`${player.name}`}</div>}
-          {player.team && <div className="text-xs">{player.team.name}</div>}
+          {player.teamName && <div className="text-xs">{player.teamName}</div>}
         </div>
       )}
     </div>

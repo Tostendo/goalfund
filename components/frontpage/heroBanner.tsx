@@ -12,7 +12,9 @@ export const Hero = ({ content }: { content: IHeroTeaser }) => {
           <h1 className="p-2 md:p-0 text-white text-4xl font-semibold uppercase md:text-5xl">
             {content.headline}
           </h1>
-          <CTA content={content.cta} />
+          <div className="mt-8">
+            <CTA content={content.cta} />
+          </div>
         </div>
       </div>
     </div>

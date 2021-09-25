@@ -1,5 +1,5 @@
 import { db } from "../config/firebase";
-import { getPlayerById } from "../api/players";
+import { getCachedPlayerById } from "../api/players";
 import { Donation } from "../models/donation";
 import moment from "moment";
 import { calculatePledge } from "../helpers/calculate";
@@ -18,7 +18,7 @@ export const getDonation = async (id: string) => {
 };
 
 export const createDonation = async (data: Donation) => {
-  const player = await getPlayerById(data.playerId);
+  const player = await getCachedPlayerById(data.playerId);
   const withGoals = {
     ...data,
     goalsStart: player.goals || 0,
@@ -50,7 +50,7 @@ export const getDonations = async (donorId: string) => {
       !data.deleted ||
       (data.deleted && data.goalsEnd && data.goalsEnd > data.goalsStart)
     ) {
-      const player = await getPlayerById(data.playerId);
+      const player = await getCachedPlayerById(data.playerId);
       const payments = await getSumOfPaymentsByDonation(snapshot.docs[i].id);
 
       donations.push({
@@ -80,7 +80,7 @@ export const getPlayerDonations = async (playerId: string) => {
 
 export const deleteDonation = async (id: string) => {
   const donation = await getDonation(id);
-  const player = await getPlayerById(donation.playerId);
+  const player = await getCachedPlayerById(donation.playerId);
   return await db
     .collection("donations")
     .doc(id)
