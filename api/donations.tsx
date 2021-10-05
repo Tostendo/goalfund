@@ -35,10 +35,10 @@ export const createDonation = async (data: Donation) => {
     });
 };
 
-export const getDonations = async (donorId: string) => {
+export const getDonations = async (donorId: string, idType: string) => {
   const snapshot = await db
     .collection("donations")
-    .where("donorId", "==", donorId)
+    .where(idType, "==", donorId)
     .get();
   if (snapshot.empty) {
     return [];
@@ -63,19 +63,12 @@ export const getDonations = async (donorId: string) => {
   return donations;
 };
 
+export const getUserDonations = async (donorId: string) => {
+  return await getDonations(donorId, "donorId");
+};
+
 export const getPlayerDonations = async (playerId: string) => {
-  const snapshot = await db
-    .collection("donations")
-    .where("playerId", "==", playerId)
-    .get();
-  if (snapshot.empty) {
-    return [];
-  }
-  var donations = [];
-  snapshot.forEach((doc) => {
-    donations.push({ id: doc.id, ...doc.data() });
-  });
-  return donations;
+  return await getDonations(playerId, "playerId");
 };
 
 export const deleteDonation = async (id: string) => {

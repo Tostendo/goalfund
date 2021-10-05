@@ -6,9 +6,16 @@ type EditInputProps = {
   value: string;
   onSave: Function;
   editable: boolean;
+  classes?: string;
 };
 
-const EditInput = ({ type, value, onSave, editable }: EditInputProps) => {
+const EditInput = ({
+  type,
+  value,
+  onSave,
+  editable,
+  classes,
+}: EditInputProps) => {
   const [newValue, setNewValue] = useState(value);
   const [edit, setEdit] = useState(false);
 
@@ -34,7 +41,7 @@ const EditInput = ({ type, value, onSave, editable }: EditInputProps) => {
             type={type}
             value={newValue}
             onKeyDown={handleKeyPress}
-            className="rounded-l-lg m-0 border-t border-b border-l h-10 text-primary border-gray-200 bg-white outline-none focus:border-gray-300"
+            className="rounded-l-lg w-full m-0 border-t border-b border-l h-10 text-primary border-gray-200 bg-white outline-none"
             onChange={(e) => {
               setNewValue(e.target.value);
             }}
@@ -78,10 +85,10 @@ const EditInput = ({ type, value, onSave, editable }: EditInputProps) => {
       {edit && editable && getEditBlock(type)}
       {!edit && (
         <div className="h-10 flex justify-start items-center">
-          <div>{newValue}</div>
+          <div className={classes}>{newValue}</div>
           {editable && (
             <a
-              className="m-2 p-2 text-primary border-primary border-2 bg-white rounded-full cursor-pointer hover:bg-primary hover:text-white"
+              className="m-1 p-1 text-primary border-primary border-2 bg-white rounded-full cursor-pointer"
               onClick={() => setEdit(true)}
             >
               <div className="h-6 w-6">
