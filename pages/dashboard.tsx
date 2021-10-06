@@ -21,13 +21,21 @@ import {
   updatePlayer,
 } from "../api/players";
 import { Player } from "../models/player";
+import { ICharity } from "../models/charity";
+import { GetStaticPropsContext } from "next";
+import { getAllCharities } from "../api/charities";
 
-const Dashboard = () => {
+type DashboardProps = {
+  charities: ICharity[];
+};
+
+const Dashboard = ({ charities }: DashboardProps) => {
   const router = useRouter();
   const auth = useRequireAuth();
   const playerId = auth.user && auth.user.playerId;
   const [tab, setTab] = useState("to");
   const [player, setPlayer] = useState(null);
+  const [charity, setCharity] = useState("");
 
   useEffect(() => {
     const profileTab = router.query.profile_tab as string;
@@ -43,8 +51,9 @@ const Dashboard = () => {
           setPlayer(data);
         })
         .then(() => getPlayerById(playerId))
-        .then((liveData) => {
+        .then((liveData: Player) => {
           setPlayer(liveData);
+          setCharity(liveData.charity?.id);
         });
     }
   }, [auth.user]);
@@ -77,7 +86,7 @@ const Dashboard = () => {
         <div>
           <PlayerName playerId={playerId} />
         </div>
-        <div className="h-4 w-4">
+        <div className="h-3 w-3 mr-1">
           <Icon type="chevronRight" />
         </div>
       </div>
@@ -96,6 +105,39 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+    );
+  };
+
+  const renderCharitySelect = (charities: ICharity[]) => {
+    console.info(player);
+    return (
+      <label className="text-left">
+        <span className="text-xs text-grey100">My charity</span>
+        <select
+          name="charity"
+          value={charity}
+          className="w-full font-bold leading-6 -ml-1 outline-none"
+          onChange={(e) => {
+            const value = e.target.value;
+            updatePlayer(player.id, { charity: value }).then((newPlayer) => {
+              setCharity(value);
+              setPlayer({
+                ...player,
+                ...newPlayer,
+              });
+            });
+          }}
+        >
+          <option data-isdefault="true" value="" disabled>
+            -- select your charity --
+          </option>
+          {charities.map((tmp: ICharity) => (
+            <option key={tmp.id} value={tmp.id}>
+              {tmp.name}
+            </option>
+          ))}
+        </select>
+      </label>
     );
   };
 
@@ -120,12 +162,12 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="py-8">
+    <div className="py-4">
       {auth.user && !auth.user.emailVerified
         ? renderVerificationReminder()
         : null}
       {auth.user ? (
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-12 p-4 md:px-0 m-4">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-12 p-4 md:px-0 mx-4">
           <div className="shadow-lg flex flex-col gap-0 w-full sm:w-96 md:w-64">
             <div className="bg-accent h-32 relative">
               {playerId && player && (
@@ -144,20 +186,25 @@ const Dashboard = () => {
               />
             </div>
             {playerId && (
-              <div className="p-4">
-                <label className="text-xs text-grey100">
-                  My player profile
-                </label>
-                {player ? (
-                  <Link href={`/player/${player.slug}`}>
-                    <div className="cursor-pointer">
-                      {renderPlayerInfo(auth.user.playerId)}
-                    </div>
-                  </Link>
-                ) : (
-                  renderPlayerInfo(auth.user.playerId)
+              <>
+                <div className="p-4">
+                  <label className="text-xs text-grey100">
+                    My player profile
+                  </label>
+                  {player ? (
+                    <Link href={`/player/${player.slug}`}>
+                      <div className="cursor-pointer">
+                        {renderPlayerInfo(auth.user.playerId)}
+                      </div>
+                    </Link>
+                  ) : (
+                    renderPlayerInfo(auth.user.playerId)
+                  )}
+                </div>
+                {charities && (
+                  <div className="p-4">{renderCharitySelect(charities)}</div>
                 )}
-              </div>
+              </>
             )}
           </div>
           <div className="w-full">
@@ -196,13 +243,29 @@ const Dashboard = () => {
   );
 };
 
-const DashboardPage = () => {
+const DashboardPage = ({ charities }) => {
   return (
     <PlayersProvider>
       <Layout>
-        <Dashboard />
+        <Dashboard charities={charities} />
       </Layout>
     </PlayersProvider>
   );
 };
 export default DashboardPage;
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const data = await getAllCharities();
+    return {
+      props: {
+        charities: data,
+      },
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      notFound: true,
+    };
+  }
+}

@@ -144,7 +144,7 @@ const Icon = ({ type }: IconProps) => {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={2}
+            strokeWidth={4}
             d="M9 5l7 7-7 7"
           />
         </svg>
