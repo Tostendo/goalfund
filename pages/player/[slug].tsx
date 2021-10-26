@@ -115,13 +115,20 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
             {update.charity && (
               <div className="p-2">
                 <label className="text-xs">Charity</label>
-                <Link href={"/charities"}>
-                  <img
-                    src={update.charity.images[0].url}
-                    alt="charity logo"
-                    className="h-20 w-auto cursor-pointer"
-                  />
-                </Link>
+                {update.charity.images.length > 0 && (
+                  <Link href={"/charities"}>
+                    <img
+                      src={update.charity.images[0].url}
+                      alt="charity logo"
+                      className="h-20 w-auto cursor-pointer"
+                    />
+                  </Link>
+                )}
+                {update.charity.images.length === 0 && (
+                  <Link href={"/charities"}>
+                    <div>{update.charity.name}</div>
+                  </Link>
+                )}
               </div>
             )}
             <div className="p-2">

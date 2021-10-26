@@ -7,6 +7,7 @@ import Spinner from "../components/spinner";
 import BasicInfo from "../components/basicInfo";
 import FileUpload from "../components/fileUpload";
 import PlayerName from "../components/playerName";
+import StatsOverview from "../components/statsOverview";
 import { PlayersProvider } from "../hooks/usePlayers";
 import Donations from "../components/userPledges";
 import {
@@ -34,6 +35,8 @@ const Dashboard = ({ charities }: DashboardProps) => {
   const auth = useRequireAuth();
   const playerId = auth.user && auth.user.playerId;
   const [tab, setTab] = useState("to");
+  const [menuItem, setMenuItem] = useState(1);
+
   const [player, setPlayer] = useState(null);
   const [charity, setCharity] = useState("");
 
@@ -65,6 +68,10 @@ const Dashboard = ({ charities }: DashboardProps) => {
         profile_tab: tab,
       },
     });
+  };
+
+  const handleMenuSelect = (menuItem: number) => {
+    setMenuItem(menuItem);
   };
 
   const renderTab = (tabName: string, tabValue: string) => {
@@ -205,35 +212,62 @@ const Dashboard = ({ charities }: DashboardProps) => {
                 )}
               </>
             )}
+            <div className="p-4 font-bold">
+              <div
+                className="cursor-pointer py-1 flex justify-between items-end"
+                onClick={() => handleMenuSelect(1)}
+              >
+                <div>Overview</div>
+                <div className="h-3 w-3 mr-1">
+                  <Icon type="chevronRight" />
+                </div>
+              </div>
+              <div
+                className="cursor-pointer py-1 flex justify-between items-end"
+                onClick={() => handleMenuSelect(2)}
+              >
+                <div>My pledges</div>
+                <div className="h-3 w-3 mr-1">
+                  <Icon type="chevronRight" />
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="w-full">
-            <h2 className="text-primary">Pledges</h2>
-            {playerId && (
-              <div className="flex pt-2 w-min-full">
-                {renderTab("From", "from")}
-                {renderTab("To", "to")}
-              </div>
-            )}
-            {tab === "to" && (
-              <div className="py-4">
-                <Donations
-                  fetchId={auth.user.uid}
-                  type="to"
-                  handleFetch={getUserDonations}
-                  handleDelete={deleteDonation}
-                />
-              </div>
-            )}
-            {tab === "from" && (
-              <div className="py-4">
-                <Donations
-                  fetchId={auth.user.playerId}
-                  type="from"
-                  handleFetch={getPlayerDonations}
-                />
-              </div>
-            )}
-          </div>
+          {menuItem === 1 && (
+            <div className="w-full">
+              <StatsOverview donorId={auth.user.uid} playerId={playerId} />
+            </div>
+          )}
+          {menuItem === 2 && (
+            <div className="w-full">
+              <h2 className="text-primary">Pledges</h2>
+              {playerId && (
+                <div className="flex pt-2 w-min-full">
+                  {renderTab("From", "from")}
+                  {renderTab("To", "to")}
+                </div>
+              )}
+              {tab === "to" && (
+                <div className="py-4">
+                  <Donations
+                    fetchId={auth.user.uid}
+                    type="to"
+                    handleFetch={getUserDonations}
+                    handleDelete={deleteDonation}
+                  />
+                </div>
+              )}
+              {tab === "from" && (
+                <div className="py-4">
+                  <Donations
+                    fetchId={auth.user.playerId}
+                    type="from"
+                    handleFetch={getPlayerDonations}
+                  />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       ) : (
         <Spinner />
