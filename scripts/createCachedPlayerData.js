@@ -33,6 +33,7 @@ function writeJson(fname, data) {
       minutesPlayed: p.minutesPlayed,
       image: p.image,
       slug: p.slug,
+      charity: p.charity,
     };
 
     players.push(preparedPlayer);

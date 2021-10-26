@@ -109,7 +109,6 @@ const Dashboard = ({ charities }: DashboardProps) => {
   };
 
   const renderCharitySelect = (charities: ICharity[]) => {
-    console.info(player);
     return (
       <label className="text-left">
         <span className="text-xs text-grey100">My charity</span>

@@ -88,7 +88,7 @@ const EditInput = ({
           <div className={classes}>{newValue}</div>
           {editable && (
             <a
-              className="m-1 p-1 text-primary border-primary border-2 bg-white rounded-full cursor-pointer"
+              className="m-1 p-1 text-primary border-primary hover:bg-primary hover:text-white border-2 bg-white rounded-full cursor-pointer"
               onClick={() => setEdit(true)}
             >
               <div className="h-6 w-6">

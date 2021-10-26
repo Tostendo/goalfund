@@ -18,7 +18,7 @@ const AddPledgePage = () => {
   const [error, setError] = useState(null);
 
   const handleSubmit = async () => {
-    return await createDonation({
+    return createDonation({
       donorId: auth?.user?.uid,
       amountPerGoal: amount,
       playerId: playerId,
@@ -36,35 +36,38 @@ const AddPledgePage = () => {
   };
   return (
     <Layout>
-      <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
+      <div className="shadow-lg max-w-3xl mx-auto bg-white my-8 py-8 px-4 text-center">
         <form onSubmit={handleSubmit}>
+          <div className="font-bold mb-4 text-xl">You pledge for: </div>
           <div className="mb-4">
-            <PlayerName playerId={playerId} />
+            <PlayerName playerId={playerId} withCharity />
           </div>
-          <div>
-            <label>Pledge per goal: </label>
+          <div className="w-full">
+            <div className="w-full text-left">Pledge per goal:</div>
             <div className="mt-1 relative rounded-md">
-              <div className="absolute inset-y-0 left-0 pl-3 pt-1 flex items-center ">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center ">
                 <span className="text-primary font-bold">€</span>
               </div>
               <input
                 type="number"
-                step="0.25"
+                step="1"
                 value={amount}
                 onChange={(e) => setAmount(parseFloat(e.target.value))}
                 name="price"
                 id="price"
-                className="w-full lg:w-1/3 focus:ring-indigo-500 focus:border-indigo-500 block pl-7 pr-12 border-gray-300 rounded-md font-bold"
+                className="w-full block pl-7 pr-12 border-gray-300 rounded-md font-bold"
                 placeholder="0,00"
               />
             </div>
           </div>
           <div className="flex flex-col my-4">
-            <label>Message to the player (optional): </label>
+            <label className="text-left">
+              Message to the player (optional):{" "}
+            </label>
             <textarea
               rows={5}
               value={message}
-              className="w-full lg:w-1/3 p-2 rounded-lg m-0 border text-primary border-gray-200 bg-white outline-none focus:border-gray-300"
+              className="w-full p-2 rounded-lg m-0 border text-primary border-gray-200 bg-white outline-none focus:border-gray-300"
               onChange={(e) => {
                 setMessage(e.target.value);
               }}
