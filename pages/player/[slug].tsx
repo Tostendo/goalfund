@@ -74,7 +74,12 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
               trackPlayerShare(update);
             }}
           >
-            <CustomButton type="accent" icon="share" label="Share" />
+            <div className="px-4 py-3 cursor-pointer flex bg-white text-primary border-primary border-2 hover:bg-primary hover:text-white font-bold rounded-lg">
+              <div className="pr-2">Share</div>
+              <div className="h-6 w-6">
+                <Icon type="share" />
+              </div>
+            </div>
           </RWebShare>
         </div>
         <div className="grid grid-cols-2 gap-8 items-center justify-center">
