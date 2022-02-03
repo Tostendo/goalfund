@@ -16,8 +16,10 @@ export default async function handler(
   switch (endpoint) {
     case "charity-overview-page":
       to = "/charities";
+      break;
     case "about-us-page":
       to = "/about-us";
+      break;
     case "homepage":
     default:
   }
