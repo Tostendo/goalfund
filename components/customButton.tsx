@@ -20,11 +20,13 @@ function clickHandler(
 
 function getButtonStyle(type: string) {
   if (!type) {
-    return "bg-green-400  hover:bg-green-600 text-white";
+    return "bg-accent hover:bg-accent75 border-accent text-white";
   } else if (type == "primary") {
-    return "bg-green-400  hover:bg-green-600 text-white";
+    return "bg-accent  hover:bg-accent75 border-accent text-white";
   } else if (type == "secondary") {
-    return "bg-yellow-400  hover:bg-yellow-600 text-black";
+    return "bg-secondary hover:bg-secondary75 text-white";
+  } else if (type == "accent") {
+    return "bg-white hover:bg-primary hover:text-white border-primary text-primary";
   } else if (type == "error") {
     return "border-none text-red-400 hover:text-red-600";
   }
@@ -33,12 +35,12 @@ function getButtonStyle(type: string) {
 const CustomButton = ({ handleClick, type, label, icon }: ButtonProps) => (
   <button
     onClick={(e) => clickHandler(e, handleClick)}
-    className={`text-md border rounded-lg py-2 px-2 focus:outline-none appearance-none ${getButtonStyle(
+    className={`text-md border rounded-lg py-3 px-6 focus:outline-none appearance-none ${getButtonStyle(
       type
     )}`}
   >
-    <div className="flex gap-1">
-      {label && <span>{label}</span>}
+    <div className="flex items-center gap-1">
+      {label && <span className="font-bold">{label}</span>}
       {icon && (
         <div className="h-6 w-6">
           <Icon type={icon} />

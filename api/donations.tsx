@@ -4,6 +4,17 @@ import { Donation } from "../models/donation";
 import moment from "moment";
 import { calculatePledge } from "../helpers/calculate";
 import { getSumOfPaymentsByDonation } from "./payments";
+import _ from "lodash";
+
+export type PledgeStats = {
+  numberOfPledges: number;
+  donorOpenPledges: number;
+  donorPaidPledges: number;
+  numberOfPledgers?: number;
+  playerOpenPledges?: number;
+  playerPledgePerGoal?: number;
+  playerPaidPledges?: number;
+};
 
 export const getDonation = async (id: string) => {
   return db
@@ -35,10 +46,10 @@ export const createDonation = async (data: Donation) => {
     });
 };
 
-export const getDonations = async (donorId: string) => {
+export const getDonations = async (donorId: string, idType: string) => {
   const snapshot = await db
     .collection("donations")
-    .where("donorId", "==", donorId)
+    .where(idType, "==", donorId)
     .get();
   if (snapshot.empty) {
     return [];
@@ -56,6 +67,7 @@ export const getDonations = async (donorId: string) => {
       donations.push({
         id: snapshot.docs[i].id,
         openAmount: calculatePledge(player.goals, data, payments),
+        totalAmount: calculatePledge(player.goals, data, 0),
         ...data,
       });
     }
@@ -63,25 +75,49 @@ export const getDonations = async (donorId: string) => {
   return donations;
 };
 
+export const getUserDonations = async (donorId: string) => {
+  return getDonations(donorId, "donorId");
+};
+
 export const getPlayerDonations = async (playerId: string) => {
-  const snapshot = await db
-    .collection("donations")
-    .where("playerId", "==", playerId)
-    .get();
-  if (snapshot.empty) {
-    return [];
+  return getDonations(playerId, "playerId");
+};
+
+export const getDonationStatistics = async (
+  donorId: string,
+  playerId: string
+) => {
+  if (!donorId) {
+    return null;
   }
-  var donations = [];
-  snapshot.forEach((doc) => {
-    donations.push({ id: doc.id, ...doc.data() });
-  });
-  return donations;
+  const donorData = await getUserDonations(donorId);
+  const donorStats = {
+    numberOfPledges: donorData.length,
+    donorOpenPledges: _.sumBy(donorData, "totalAmount"),
+    donorPaidPledges:
+      _.sumBy(donorData, "totalAmount") - _.sumBy(donorData, "openAmount"),
+  };
+  if (!playerId) {
+    return donorStats;
+  }
+  const playerData = await getPlayerDonations(playerId);
+  const playerStats = {
+    numberOfPledgers: playerData.length,
+    playerOpenPledges: _.sumBy(playerData, "totalAmount"),
+    playerPledgePerGoal: _.sumBy(playerData, "amountPerGoal"),
+    playerPaidPledges:
+      _.sumBy(playerData, "totalAmount") - _.sumBy(playerData, "openAmount"),
+  };
+  return {
+    ...donorStats,
+    ...playerStats,
+  };
 };
 
 export const deleteDonation = async (id: string) => {
   const donation = await getDonation(id);
   const player = await getCachedPlayerById(donation.playerId);
-  return await db
+  return db
     .collection("donations")
     .doc(id)
     .update({

@@ -20,6 +20,7 @@ import { trackPlayerShare } from "../../api/share";
 import { getMetaDescription } from "../../helpers/seo";
 import ConnectButton from "../../components/connectButton";
 import FileUpload from "../../components/fileUpload";
+import CustomButton from "../../components/customButton";
 
 type PlayerProfileProps = {
   player: Player;
@@ -59,7 +60,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
           key="ogimage"
         />
       </Head>
-      <div className="shadow-lg bg-white my-8 mx-4 py-8 px-4">
+      <div className="shadow-lg max-w-4xl mx-auto bg-white my-8 mx-4 py-8 px-4">
         <div className="flex justify-between md:justify-end gap-x-2">
           <PledgeButton pledgeForId={update.id} />
           <ConnectButton playerId={update.id} />
@@ -73,7 +74,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
               trackPlayerShare(update);
             }}
           >
-            <div className="p-2 cursor-pointer flex bg-primary text-white font-bold rounded-lg">
+            <div className="px-4 py-3 cursor-pointer flex bg-white text-primary border-primary border-2 hover:bg-primary hover:text-white font-bold rounded-lg">
               <div className="pr-2">Share</div>
               <div className="h-6 w-6">
                 <Icon type="share" />
@@ -96,7 +97,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
                   })
                 )
               }
-              imageClassName="h-64 w-auto inline-block rounded-full md:rounded-none"
+              imageClassName="h-96 w-auto inline-block rounded-full md:rounded-none"
             />
           </div>
           <div className="col-span-2 md:col-span-1 flex flex-col">
@@ -116,6 +117,25 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
                 "-"
               )}
             </div>
+            {update.charity && (
+              <div className="p-2">
+                <label className="text-xs">Charity</label>
+                {update.charity.images.length > 0 && (
+                  <Link href={"/charities"}>
+                    <img
+                      src={update.charity.images[0].url}
+                      alt="charity logo"
+                      className="h-20 w-auto cursor-pointer"
+                    />
+                  </Link>
+                )}
+                {update.charity.images.length === 0 && (
+                  <Link href={"/charities"}>
+                    <div>{update.charity.name}</div>
+                  </Link>
+                )}
+              </div>
+            )}
             <div className="p-2">
               <label className="text-xs">Position</label>
               <EditInput
@@ -150,7 +170,7 @@ export default function PlayersProfilPage({ player }: PlayerProfileProps) {
             </div>
           </div>
         </div>
-        <div className="my-8 flex flex-col">
+        <div className="mx-auto text-center  my-8 flex flex-col">
           <h2 className="my-4">My season stats</h2>
           <Stats player={update} />
         </div>

@@ -1,3 +1,4 @@
+import { ICharity } from "./charity";
 import { IStrapiImage } from "./strapi";
 import { ITeam } from "./team";
 
@@ -13,7 +14,7 @@ export type Player = {
   career?: string;
   team?: ITeam;
   teamName?: string;
-  charity?: any;
+  charity?: ICharity;
   stats?: any;
   goals?: number;
   minutesPlayed?: number;
