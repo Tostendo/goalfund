@@ -22,7 +22,6 @@ const PaymentButton = (props: PaymentButtonProps) => {
   };
 
   const onSuccess = (details: any, data: any) => {
-    console.info("details: ", details);
     const amount = getAmount(details);
     return createPayment({
       amount: amount,
@@ -37,7 +36,7 @@ const PaymentButton = (props: PaymentButtonProps) => {
         props.updateDonations();
       })
       .catch((err: any) => {
-        console.info(err);
+        console.error(err);
         setPaypalErrorMessage("Something went wrong.");
       });
   };

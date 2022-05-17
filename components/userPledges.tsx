@@ -77,7 +77,7 @@ const Pledges = ({
 
   const renderAction = (donation: Donation) => {
     if (donation.openAmount) {
-      if (donation.openAmount >= 5) {
+      if (donation.openAmount >= 0) {
         return (
           <PaymentButton
             amount={donation.openAmount}
